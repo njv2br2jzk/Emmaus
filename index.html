@@ -13,7 +13,7 @@
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
 <link rel="apple-touch-icon" href="icon-180.png">
-<style>:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);box-sizing:border-box}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+<style>:root{padding-top:env(safe-area-inset-top,0px);box-sizing:border-box}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
 <title>Emmaus</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -413,7 +413,13 @@ main{flex:1;min-height:0;display:flex;position:relative}
   .panel.side::after{content:none}
   .handle{display:block;width:36px;height:4px;border-radius:2px;background:var(--line2);margin:7px auto 0}
   .phead{padding-top:4px;min-height:50px;cursor:pointer;padding-left:max(20px,env(safe-area-inset-left,0px));padding-right:max(12px,env(safe-area-inset-right,0px))}
-  .view{padding-bottom:calc(76px + env(safe-area-inset-bottom,0px))}
+  /* content runs underneath the floating dock; only the arcs toolbar must stay above it */
+  .view{padding-bottom:0}
+  #v-arcs{padding-bottom:calc(72px + env(safe-area-inset-bottom,0px))}
+  .textpane,.pathview,.findview,.toc{padding-bottom:calc(120px + env(safe-area-inset-bottom,0px))}
+  .mapzoom{bottom:calc(86px + env(safe-area-inset-bottom,0px))}
+  .tabs{transition:transform .28s cubic-bezier(.2,.8,.2,1),opacity .28s}
+  .tabs.away{transform:translate(-50%,calc(100% + 40px));opacity:0}
   #ovBtn{display:inline-flex;order:3}
   .peek:not([hidden]){display:flex}
   .threadcol{width:84px}
@@ -1030,6 +1036,12 @@ function drawThreads(){cancelAnimationFrame(thrRaf);thrRaf=requestAnimationFrame
   ctx.globalAlpha=1;ctx.globalCompositeOperation='source-over';
 })}
 pane.addEventListener('scroll',drawThreads,{passive:true});
+/* reading on a phone: the dock slips away while you scroll down and returns when you scroll up */
+(()=>{let last=0;const dock=$('.tabs');
+  const onScroll=el=>()=>{if(!isSheet())return;const y=el.scrollTop,d=y-last;last=y;
+    if(y<60||el.scrollHeight-el.clientHeight-y<40)dock.classList.remove('away');else if(d>6)dock.classList.add('away');else if(d<-6)dock.classList.remove('away')};
+  [pane,$('#findview'),document.querySelector('.pathview')].forEach(el=>el&&el.addEventListener('scroll',onScroll(el),{passive:true}));
+  document.querySelectorAll('.tabs button').forEach(b=>b.addEventListener('click',()=>dock.classList.remove('away')));})();
 let fontSize=+(ls.get('fs')||0)||(innerWidth<=820?17:19),showThreads=ls.get('threads')!=='0';
 function setFont(n){fontSize=Math.max(13,Math.min(28,n));ls.set('fs',String(fontSize));chapEl.style.setProperty('--rs',fontSize+'px');drawThreads()}
 function applyThreads(){$('.reader').classList.toggle('nothreads',!showThreads);drawThreads()}
@@ -1409,7 +1421,7 @@ function select(s,opt={}){
   if(!s&&innerWidth<=820)panel.classList.add('collapsed');
   renderPanel();
 }
-function setView(v){const prev=view;view=v;
+function setView(v){const prev=view;view=v;const dk=$('.tabs');if(dk)dk.classList.remove('away');
   if(v==='arcs'&&prev==='read'&&(!sel||sel.k==='book'))sel=makeSel({k:'chapter',b:readB,c:readC});['arcs','read','map','path','find'].forEach(k=>{$('#v-'+k).hidden=k!==v;const tb=$('#tab-'+k);if(tb)tb.setAttribute('aria-selected',k===v)});
   if(v==='read')readOpened=true;
   if(v!=='read')closeToc();
