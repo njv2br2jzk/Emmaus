@@ -1,6 +1,6 @@
 /* Emmaus offline support: the app shell loads from the cache first, the Bible files are fetched
    once in the background and then kept, fonts are cached the first time they are used. */
-const VERSION = 'emmaus-2';
+const VERSION = 'emmaus-3';
 const SHELL = ['./', 'index.html', 'manifest.webmanifest', 'icon-180.png', 'icon-192.png', 'icon-512.png',
   'meta.json', 'meta_de.json', 'refs_strong.txt', 'places.json', 'map.json'];
 const LATER = ['bible_de.json', 'bible_en.json', 'refs_weak.txt'];
