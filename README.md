@@ -1,11 +1,15 @@
 # Emmaus
 
-Die Bibel lesen und sehen, wie alles zusammenhängt: Querverweise als leuchtende Bögen, Orte auf der Karte, auf Deutsch und Englisch.
+Read the Bible and see how it all connects: cross-references as glowing arcs, places and archaeological finds on the map, notes for sermons, in six languages.
 
-> „Brannte nicht unser Herz in uns, da er mit uns redete auf dem Weg, als er uns die Schrift öffnete?“ Lukas 24,32
+> “Were not our hearts burning within us as He spoke with us on the road and opened the Scriptures to us?” Luke 24:32
 
-## Quellen und Lizenzen
-- Bibeltext Deutsch: Schlachter-Bibel 1951, © 1951 Genfer Bibelgesellschaft, CC BY 4.0 (über eBible.org). Verszählung für die Querverweise angepasst.
-- Bibeltext Englisch: Berean Standard Bible (gemeinfrei).
-- Querverweise und Orte: OpenBible.info, CC BY 4.0, Querverweise basierend auf dem Treasury of Scripture Knowledge.
-- Küsten, Seen und Flüsse: Natural Earth (gemeinfrei).
+## Sources and licenses
+- English: Berean Standard Bible (public domain).
+- Deutsch: Schlachter-Bibel 1951, © 1951 Genfer Bibelgesellschaft, CC BY 4.0 (via eBible.org). Verse numbering adapted for the cross-references.
+- Español: Reina-Valera 1909 (public domain, via eBible.org).
+- Français: Louis Segond 1910 (public domain, via eBible.org). Verse numbering adapted for the cross-references.
+- Português: Bíblia Livre (BLIVRE), © Diego Santos, Mario Sérgio e Marco Teles, CC BY 4.0 (via eBible.org).
+- Italiano: Riveduta 1927 (public domain, via eBible.org).
+- Cross-references and places: OpenBible.info, CC BY 4.0; cross-references based on the Treasury of Scripture Knowledge.
+- Coasts, lakes and rivers: Natural Earth (public domain).

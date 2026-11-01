@@ -1,9 +1,9 @@
 <!doctype html>
-<html lang="de">
+<html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="description" content="Emmaus: die Bibel lesen und sehen, wie alles zusammenhängt. Querverweise als leuchtende Bögen, Orte auf der Karte, auf Deutsch und Englisch.">
+<meta name="description" content="Emmaus: read the Bible and see how it all connects. Cross-references as glowing arcs, places on the map, in six languages.">
 <meta name="theme-color" content="#0D1220" media="(prefers-color-scheme: dark)">
 <meta name="theme-color" content="#FBF9F5" media="(prefers-color-scheme: light)">
 <meta name="apple-mobile-web-app-capable" content="yes">
@@ -26,15 +26,15 @@ body::before{content:"";position:fixed;z-index:200;left:0;right:0;top:0;height:c
    Night: deep blue with gold for selection. Day: light falling through the window onto warm paper, same glass colours.
    Gloock for display, Newsreader for Scripture, Figtree for controls. Phones: floating tab dock at the bottom. */
 :root{
-  --bg:#FBF9F5; --surface:#FFFFFF; --raise:#F3EFE7; --line:#E7E1D5; --line2:#D6CEBF;
-  --fg:#171D30; --muted:#555B70; --faint:#8A8FA0;
-  --accent:#94640B; --onaccent:#FFFFFF; --hl:rgba(201,146,30,.15); --hover:rgba(23,29,48,.045);
-  --gold:#C9921E; --dock:#171D30; --ondock:#E9E4D8;
-  --sea:#E3EAEC; --land:#FBF9F5; --coast:#8E9DAE; --river:#5E93C2;
-  --shadow:0 1px 0 rgba(23,29,48,.04),0 10px 28px -14px rgba(23,29,48,.28);
+  --bg:#F6F1E6; --surface:#FFFCF5; --raise:#EEE6D6; --line:#E3D8C3; --line2:#D2C3A8;
+  --fg:#1A2135; --muted:#5B5D6A; --faint:#8F8A80;
+  --accent:#96650C; --onaccent:#FFFCF5; --hl:rgba(184,131,24,.17); --hover:rgba(26,33,53,.05);
+  --gold:#B8831A; --dock:#1A2135; --ondock:#EEE6D6;
+  --sea:#D8E3E2; --land:#F6F1E6; --coast:#93A3A8; --river:#4A82B4;
+  --shadow:0 1px 0 rgba(90,70,30,.05),0 12px 30px -14px rgba(60,45,20,.30);
   --blend:multiply;
-  --c0:#C23752; --c1:#C9621F; --c2:#B88A10; --c3:#9C3FB8; --c4:#6E9A2C;
-  --c5:#13917F; --c6:#1E86BE; --c7:#3359C8; --c8:#6B4ACD; --c9:#A04DBB;
+  --c0:#C8384F; --c1:#D2691E; --c2:#C99A12; --c3:#9B3FB5; --c4:#6F9E25;
+  --c5:#0F9480; --c6:#1C88C2; --c7:#3157CC; --c8:#6A47D1; --c9:#A84BB8;
   --f-disp:"Gloock",Georgia,"Times New Roman",serif;
   --f-read:"Newsreader",Georgia,"Times New Roman",serif;
   --f-ui:"Figtree",system-ui,-apple-system,"Segoe UI",sans-serif;
@@ -67,15 +67,15 @@ body::before{content:"";position:fixed;z-index:200;left:0;right:0;top:0;height:c
 }
 /* explicit choice in the page settings wins over system and viewer theme */
 :root[data-look="light"]{
-  --bg:#FBF9F5; --surface:#FFFFFF; --raise:#F3EFE7; --line:#E7E1D5; --line2:#D6CEBF;
-  --fg:#171D30; --muted:#555B70; --faint:#8A8FA0;
-  --accent:#94640B; --onaccent:#FFFFFF; --hl:rgba(201,146,30,.15); --hover:rgba(23,29,48,.045);
-  --gold:#C9921E; --dock:#171D30; --ondock:#E9E4D8;
-  --sea:#E3EAEC; --land:#FBF9F5; --coast:#8E9DAE; --river:#5E93C2;
-  --shadow:0 1px 0 rgba(23,29,48,.04),0 10px 28px -14px rgba(23,29,48,.28);
+  --bg:#F6F1E6; --surface:#FFFCF5; --raise:#EEE6D6; --line:#E3D8C3; --line2:#D2C3A8;
+  --fg:#1A2135; --muted:#5B5D6A; --faint:#8F8A80;
+  --accent:#96650C; --onaccent:#FFFCF5; --hl:rgba(184,131,24,.17); --hover:rgba(26,33,53,.05);
+  --gold:#B8831A; --dock:#1A2135; --ondock:#EEE6D6;
+  --sea:#D8E3E2; --land:#F6F1E6; --coast:#93A3A8; --river:#4A82B4;
+  --shadow:0 1px 0 rgba(90,70,30,.05),0 12px 30px -14px rgba(60,45,20,.30);
   --blend:multiply;
-  --c0:#C23752; --c1:#C9621F; --c2:#B88A10; --c3:#9C3FB8; --c4:#6E9A2C;
-  --c5:#13917F; --c6:#1E86BE; --c7:#3359C8; --c8:#6B4ACD; --c9:#A04DBB;
+  --c0:#C8384F; --c1:#D2691E; --c2:#C99A12; --c3:#9B3FB5; --c4:#6F9E25;
+  --c5:#0F9480; --c6:#1C88C2; --c7:#3157CC; --c8:#6A47D1; --c9:#A84BB8;
   color-scheme:light;
 }
 :root[data-look="dark"]{
@@ -221,6 +221,37 @@ main{flex:1;min-height:0;display:flex;position:relative}
 .tocchap .chgrid button.cur{color:var(--accent);border-color:var(--accent)}
 
 /* path */
+.pathbtn{position:absolute;z-index:5;top:12px;right:max(12px,env(safe-area-inset-right,0px));display:inline-flex;align-items:center;gap:7px;height:36px;padding:0 14px 0 11px;border-radius:999px;border:1px solid var(--line);background:color-mix(in srgb,var(--surface) 88%,transparent);color:var(--fg);font-size:14px;font-weight:600;box-shadow:var(--shadow);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px)}
+.pathbtn svg{color:var(--gold)}
+.pathbtn[aria-pressed="true"]{background:var(--gold);border-color:var(--gold);color:var(--onaccent)}
+.pathbtn[aria-pressed="true"] svg{color:var(--onaccent)}
+.app.focus .pathbtn,.app.focus .pathpop{display:none}
+.pathpop{position:absolute;z-index:6;top:58px;right:max(12px,env(safe-area-inset-right,0px));width:min(440px,calc(100% - 24px));max-height:calc(100% - 140px);overflow:auto;background:var(--surface);border:1px solid color-mix(in srgb,var(--gold) 30%,var(--line));border-radius:16px;box-shadow:var(--shadow);padding:12px 14px 14px;display:grid;grid-template-columns:minmax(0,1fr);gap:10px;box-sizing:border-box}
+.pathpop>*{min-width:0}
+.pathpop.done .pathform,.pathpop.done .presets{display:none}
+.ppedit{font-size:13px;color:var(--muted);text-decoration:underline;text-underline-offset:3px;margin-left:auto}
+.pphead{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.pphead h3{margin:0;font-size:15px;font-weight:600}
+.pathpop .pathform{grid-template-columns:1fr 1fr;gap:8px}
+.pathpop .pathform .primary{grid-column:1/-1;height:40px;padding:0;border-radius:10px}
+.pathpop .pathform input{font-size:16px;padding:8px 10px;border-radius:8px}
+.pathpop .presets{display:flex;flex-wrap:nowrap;gap:6px;overflow-x:auto;font-size:13px;scrollbar-width:none;margin:0 -2px;padding:0 2px}
+.pathpop .presets::-webkit-scrollbar{display:none}
+.pathpop .presets button{flex:none;text-decoration:none;border:1px solid var(--line);border-radius:999px;padding:6px 11px;color:var(--muted);white-space:nowrap}
+.refdrop{border:1px solid var(--line);border-radius:12px;background:var(--bg);padding:10px;max-height:min(46vh,340px);overflow:auto;-webkit-overflow-scrolling:touch}
+.rdhead{margin:0 2px 8px;font-size:12.5px;font-weight:600;letter-spacing:.03em;color:var(--faint)}
+.rdbooks{display:grid;grid-template-columns:repeat(auto-fill,minmax(128px,1fr));gap:6px}
+.rdbooks button{display:flex;align-items:center;gap:8px;text-align:left;padding:9px 10px;border-radius:9px;background:var(--surface);color:var(--fg);font-size:14.5px;min-height:40px}
+.rdbooks i{width:4px;height:16px;border-radius:2px;flex:none}
+.rdgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(44px,1fr));gap:6px}
+.rdgrid button{height:44px;border-radius:9px;background:var(--surface);color:var(--fg);font-size:15px;font-variant-numeric:tabular-nums}
+.rdgrid button.cur{outline:1.5px solid var(--gold)}
+.rdgrid button:active,.rdbooks button:active{background:var(--gold);color:var(--onaccent)}
+.rdwhole{margin-top:8px;width:100%;height:40px;border-radius:9px;border:1px dashed var(--line);color:var(--muted);font-size:14px}
+.ppsum{display:flex;flex-direction:column;align-items:flex-start;gap:3px;width:100%;text-align:left;padding:10px 12px;border-radius:10px;background:var(--hover)}
+.ppsum span{font-weight:600;color:var(--gold);font-size:14.5px}
+.ppsum b{font-weight:500;font-size:13px;color:var(--muted)}
+.ppsteps{margin-top:10px}
 .pathview,.findview{flex:1;min-height:0;overflow-y:auto;padding-block:32px 140px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
 .pathwrap,.findwrap{max-width:680px;margin:0 auto;display:grid;gap:18px}
 .pathwrap h2,.findwrap h2{font-family:var(--f-disp);font-weight:400;font-size:30px;line-height:1.1;margin:0;text-wrap:balance;overflow-wrap:anywhere}
@@ -436,6 +467,7 @@ body.peeking .stagebar{padding-bottom:62px}
   .iconbtn{padding:10px 6px}
   .panel{position:fixed;left:0;right:0;bottom:0;width:auto;max-height:64%;height:64%;border-left:0;border-top:1px solid var(--line);border-radius:14px 14px 0 0;z-index:20;box-shadow:0 -12px 32px -8px rgba(0,0,0,.28);transition:transform .26s cubic-bezier(.2,.8,.2,1)}
   .panel.collapsed{transform:translateY(calc(100% + 24px));box-shadow:none}
+  .panel.low{height:44%;max-height:44%}
   .panel.collapsed .pbody{visibility:hidden}
   .pside{display:none}
   .panel.side{width:auto}
@@ -485,6 +517,93 @@ body.peeking .stagebar{padding-bottom:62px}
   .threadcol{width:110px}
 }
 @media (prefers-reduced-motion:reduce){*{transition:none!important}}
+
+@media (max-width:389px){.tabs button{padding:0 10px!important;font-size:14px!important}}
+/* ---------- notes: highlights, the selection button, the editor, the notes tab ---------- */
+mark.hl{background:color-mix(in srgb,var(--gold) 26%,transparent);color:inherit;border-radius:2px;box-decoration-break:clone;-webkit-box-decoration-break:clone;cursor:pointer}
+mark.hl.hasnote{background:color-mix(in srgb,var(--gold) 30%,transparent);box-shadow:inset 0 -1.5px 0 color-mix(in srgb,var(--gold) 85%,transparent)}
+mark.hl.loose{background:color-mix(in srgb,var(--gold) 14%,transparent)}
+mark.hl mark.hl{background:color-mix(in srgb,var(--gold) 22%,transparent)}
+mark.hl.flash{animation:hlflash 1.6s ease}
+@keyframes hlflash{0%,40%{background:color-mix(in srgb,var(--gold) 60%,transparent)}}
+.flagsvg{display:inline-flex;flex:none;width:24px;height:16px;border-radius:3px;overflow:hidden;box-shadow:0 0 0 1px color-mix(in srgb,var(--fg) 14%,transparent)}
+.flagsvg svg{width:100%;height:100%;display:block}
+.langdd{position:relative;max-width:320px}
+.lddbtn{width:100%;display:flex;align-items:center;justify-content:space-between;gap:10px;height:44px;padding:0 14px;border:1px solid var(--line);border-radius:10px;background:var(--bg);color:var(--fg);font-size:15px;font-weight:500}
+.lddbtn[aria-expanded="true"]{border-color:color-mix(in srgb,var(--gold) 55%,var(--line))}
+.lddbtn[aria-expanded="true"] .chev{transform:rotate(180deg)}
+.lddbtn .chev{color:var(--muted);transition:transform .15s}
+.lddcur{display:flex;align-items:center;gap:10px}
+.lddmenu{position:absolute;z-index:30;left:0;right:0;top:calc(100% + 6px);background:var(--surface);border:1px solid var(--line);border-radius:12px;box-shadow:var(--shadow);padding:6px;max-height:min(60vh,360px);overflow:auto}
+.lddmenu button{width:100%;display:flex;align-items:center;gap:12px;padding:9px 10px;border-radius:8px;text-align:left;color:var(--fg)}
+.lddmenu button:hover{background:var(--hover)}
+.lddmenu button[aria-selected="true"]{background:color-mix(in srgb,var(--gold) 12%,transparent)}
+.lddname{flex:1;display:flex;flex-direction:column;gap:1px}
+.lddname b{font-weight:600;font-size:15px}
+.lddname small{font-size:12.5px;color:var(--faint)}
+.lddmenu .tick{color:var(--gold);visibility:hidden}
+.lddmenu button[aria-selected="true"] .tick{visibility:visible}
+.choice .flagsvg{width:36px;height:24px;border-radius:4px}
+.langflags{display:flex;flex-wrap:wrap;gap:8px}
+.langflags button{display:inline-flex;align-items:center;gap:8px;height:40px;padding:0 14px 0 10px;border-radius:999px;border:1px solid var(--line);color:var(--muted);font-size:14.5px;font-weight:500}
+.langflags button[aria-pressed="true"]{border-color:var(--gold);color:var(--fg);background:color-mix(in srgb,var(--gold) 12%,transparent)}
+.flag{font-size:20px;line-height:1;font-family:"Apple Color Emoji","Segoe UI Emoji","Noto Color Emoji",sans-serif}
+.choice{grid-template-columns:auto 1fr auto!important;align-items:center!important}
+.choice .flag{font-size:32px;text-align:left}
+.choices{grid-template-columns:1fr 1fr;column-gap:14px}
+.choice{padding:14px 4px!important;gap:2px 12px!important;grid-template-columns:auto 1fr!important}
+.choice b{font-size:22px!important}
+.choice small{grid-column:1/-1;text-align:left!important}
+@media (max-width:420px){.choice small{display:none}}
+.choice b{grid-row:auto!important}
+.selbar{position:fixed;z-index:40;left:50%;transform:translateX(-50%);max-width:calc(100% - 20px);display:flex;align-items:center;gap:2px;padding:3px;border-radius:999px;background:var(--fg);box-shadow:var(--shadow)}
+.selbtn{width:36px;height:36px;display:grid;place-items:center;border-radius:999px;color:var(--bg);opacity:.75}
+.selbtn+.selbtn{margin-left:-2px}
+.v.picked{background:var(--hl);box-shadow:inset 0 -1.5px 0 color-mix(in srgb,var(--gold) 70%,transparent)}
+.selnote{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;display:inline-flex;align-items:center;gap:7px;height:36px;padding:0 14px 0 11px;border-radius:999px;background:var(--gold);color:var(--onaccent);font-size:14px;font-weight:600;-webkit-tap-highlight-color:transparent}
+.selnote svg{color:var(--onaccent)}
+.selnote span{overflow:hidden;text-overflow:ellipsis}
+.nq{margin:0;padding:2px 0 2px 12px;border-left:2px solid var(--gold);font-family:var(--f-read);font-style:italic;font-size:16px;line-height:1.5;color:var(--muted)}
+header,.tabs,.threadcol,.chaphead,.plhint,.stagebar,.mapchips,.mapzoom,.archbtn,.peek,.selbar,.panel .phead,canvas{-webkit-user-select:none;user-select:none}
+.ptext sup,.ptext .num,.ptext .omit{-webkit-user-select:none;user-select:none}
+.threadcol,.threadcol *,canvas{-webkit-touch-callout:none}
+.noteed{position:fixed;inset:0;z-index:45;background:color-mix(in srgb,var(--bg) 30%,transparent);display:flex;justify-content:center;align-items:flex-start;padding:max(10px,env(safe-area-inset-top,0px)) 10px 10px}
+.nedcard{width:min(600px,100%);background:var(--surface);border:1px solid color-mix(in srgb,var(--gold) 35%,var(--line));border-radius:16px;box-shadow:var(--shadow);padding:10px 12px 12px;display:flex;flex-direction:column;gap:8px}
+.nedhead{display:flex;align-items:center;gap:4px;min-height:36px}
+.nedrefbox{flex:1;min-width:0}
+.nedref{font-weight:600;font-size:14px;color:var(--gold);letter-spacing:.01em;padding:6px 2px;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;text-align:left}
+.nedref.empty{color:var(--muted);border:1px dashed var(--line);border-radius:999px;padding:5px 12px}
+#nedRefIn{width:100%;height:36px;border:1px solid color-mix(in srgb,var(--gold) 55%,var(--line));border-radius:10px;background:var(--bg);color:var(--fg);font-size:16px;padding:0 11px;box-sizing:border-box}
+#nedRefIn:focus{outline:none}
+.nedicon{width:36px;height:36px;display:grid;place-items:center;border-radius:10px;color:var(--muted)}
+.nedicon.sure{color:#fff;background:#c4473f}
+.neddone{height:34px;padding:0 14px;border-radius:999px;background:var(--gold);color:var(--onaccent);font-weight:600;font-size:14px;margin-left:4px}
+.nedsug button{display:flex;flex-direction:column;gap:3px;width:100%;text-align:left;padding:9px 11px;border-radius:10px;background:var(--hover);color:var(--fg)}
+.nedsug b{color:var(--gold);font-size:14px}
+.nedsug span{font-family:var(--f-read);font-size:14.5px;color:var(--muted);display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.nedsug .none{font-size:13.5px;color:var(--faint);padding:2px 4px}
+.nedcard .nq{font-size:14.5px;-webkit-line-clamp:2;display:-webkit-box;-webkit-box-orient:vertical;overflow:hidden}
+.noteed.writing .nedcard .nq{-webkit-line-clamp:4}
+#nedText{width:100%;min-height:42px;max-height:42vh;resize:none;overflow:auto;border:1px solid var(--line);border-radius:10px;background:var(--bg);color:var(--fg);font-family:var(--f-read);font-size:17px;line-height:1.45;padding:9px 12px;box-sizing:border-box}
+#nedText:focus{outline:none;border-color:color-mix(in srgb,var(--gold) 60%,var(--line))}
+.noteed.writing #nedText{min-height:96px}
+.notesview{flex:1;min-height:0;overflow:auto;-webkit-overflow-scrolling:touch}
+.noteswrap{max-width:720px;margin:0 auto;padding:28px max(18px,env(safe-area-inset-right,0px)) 140px max(18px,env(safe-area-inset-left,0px))}
+.nhead{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.nhead h2{font-family:var(--f-disp);font-weight:400;font-size:34px;margin:0;letter-spacing:-.01em}
+.nnew{display:inline-flex;align-items:center;gap:7px;height:38px;padding:0 15px 0 12px;border-radius:999px;background:var(--gold);color:var(--onaccent);font-weight:600;font-size:14px}
+.nbar{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:14px 0 6px}
+.ngroup{margin-top:22px}
+.ngroup h4{display:flex;align-items:center;gap:8px;margin:0 0 10px;font-size:13px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;color:var(--faint)}
+.ngroup h4 .sw{width:8px;height:8px;border-radius:2px}
+.ncard{display:flex;flex-direction:column;gap:9px;width:100%;text-align:left;padding:15px 16px;margin-bottom:10px;border:1px solid var(--line);border-radius:14px;background:var(--surface);color:var(--fg);transition:border-color .15s}
+.ncard:hover{border-color:color-mix(in srgb,var(--gold) 45%,var(--line))}
+.ncard .nref{display:flex;justify-content:space-between;align-items:baseline;gap:10px;font-weight:600;font-size:14px;color:var(--gold)}
+.ncard .nref time{font-weight:500;font-size:12.5px;color:var(--faint)}
+.ncard .nq{font-size:15.5px;display:-webkit-box;-webkit-line-clamp:4;-webkit-box-orient:vertical;overflow:hidden}
+.ncard .ntxt{font-size:15.5px;line-height:1.55;white-space:pre-wrap}
+.ncard .ntxt.muted{color:var(--faint);font-size:13.5px}
+.nempty{max-width:46ch;margin-top:28px;line-height:1.6}
 </style>
 
 </head>
@@ -496,7 +615,7 @@ body.peeking .stagebar{padding-bottom:62px}
     <button role="tab" id="tab-arcs" aria-selected="true" data-v="arcs" data-t="tabArcs"></button>
     <button role="tab" id="tab-read" aria-selected="false" data-v="read" data-t="tabRead"></button>
     <button role="tab" id="tab-map" aria-selected="false" data-v="map" data-t="tabMap"></button>
-    <button role="tab" id="tab-path" aria-selected="false" data-v="path" data-t="tabPath"></button>
+    <button role="tab" id="tab-notes" aria-selected="false" data-v="notes" data-t="tabNotes"></button>
   </div>
   <button class="iconbtn" id="srchBtn" data-ta="searchAria"><svg width="17" height="17" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="7" cy="7" r="4.5"/><path d="M10.5 10.5 14 14"/></svg></button>
   <button class="iconbtn" id="ovBtn" data-ta="overview"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5V5a2 2 0 0 1 2-2h13v16H6a2 2 0 0 0-2 2z"/><path d="M8 7h7"/></svg></button>
@@ -510,8 +629,8 @@ body.peeking .stagebar{padding-bottom:62px}
   <div class="settings" id="settings" hidden>
     <div class="row"><span class="lab" data-t="appearance"></span>
       <div class="seg" id="lookSeg"><button data-look="system" data-t="lookSystem"></button><button data-look="light" data-t="lookLight"></button><button data-look="dark" data-t="lookDark"></button></div></div>
-    <div class="row"><span class="lab">Sprache / Language</span>
-      <div class="seg" id="langSeg"><button data-lang="de">Deutsch, Schlachter 1951</button><button data-lang="en">English, BSB</button></div></div>
+    <div class="row"><span class="lab">Language · Sprache · Idioma · Langue · Lingua</span>
+      <div class="langdd" id="langSeg"><button type="button" class="lddbtn" id="langBtn" aria-haspopup="listbox" aria-expanded="false"><span class="lddcur"></span><svg class="chev" width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6l4 4 4-4"/></svg></button><div class="lddmenu" id="langMenu" role="listbox" hidden><button type="button" role="option" data-lang="en"><span class="flagsvg" aria-hidden="true"><svg viewBox="0 0 24 16"><rect width="24" height="16" fill="#fff"/><rect y="0.000" width="24" height="1.231" fill="#B22234"/><rect y="2.462" width="24" height="1.231" fill="#B22234"/><rect y="4.923" width="24" height="1.231" fill="#B22234"/><rect y="7.385" width="24" height="1.231" fill="#B22234"/><rect y="9.846" width="24" height="1.231" fill="#B22234"/><rect y="12.308" width="24" height="1.231" fill="#B22234"/><rect y="14.769" width="24" height="1.231" fill="#B22234"/><rect width="10.2" height="8.62" fill="#3C3B6E"/><circle cx="0.95" cy="0.85" r=".38" fill="#fff"/><circle cx="2.65" cy="0.85" r=".38" fill="#fff"/><circle cx="4.35" cy="0.85" r=".38" fill="#fff"/><circle cx="6.05" cy="0.85" r=".38" fill="#fff"/><circle cx="7.75" cy="0.85" r=".38" fill="#fff"/><circle cx="9.45" cy="0.85" r=".38" fill="#fff"/><circle cx="1.80" cy="2.25" r=".38" fill="#fff"/><circle cx="3.50" cy="2.25" r=".38" fill="#fff"/><circle cx="5.20" cy="2.25" r=".38" fill="#fff"/><circle cx="6.90" cy="2.25" r=".38" fill="#fff"/><circle cx="8.60" cy="2.25" r=".38" fill="#fff"/><circle cx="0.95" cy="3.65" r=".38" fill="#fff"/><circle cx="2.65" cy="3.65" r=".38" fill="#fff"/><circle cx="4.35" cy="3.65" r=".38" fill="#fff"/><circle cx="6.05" cy="3.65" r=".38" fill="#fff"/><circle cx="7.75" cy="3.65" r=".38" fill="#fff"/><circle cx="9.45" cy="3.65" r=".38" fill="#fff"/><circle cx="1.80" cy="5.05" r=".38" fill="#fff"/><circle cx="3.50" cy="5.05" r=".38" fill="#fff"/><circle cx="5.20" cy="5.05" r=".38" fill="#fff"/><circle cx="6.90" cy="5.05" r=".38" fill="#fff"/><circle cx="8.60" cy="5.05" r=".38" fill="#fff"/><circle cx="0.95" cy="6.45" r=".38" fill="#fff"/><circle cx="2.65" cy="6.45" r=".38" fill="#fff"/><circle cx="4.35" cy="6.45" r=".38" fill="#fff"/><circle cx="6.05" cy="6.45" r=".38" fill="#fff"/><circle cx="7.75" cy="6.45" r=".38" fill="#fff"/><circle cx="9.45" cy="6.45" r=".38" fill="#fff"/><circle cx="1.80" cy="7.85" r=".38" fill="#fff"/><circle cx="3.50" cy="7.85" r=".38" fill="#fff"/><circle cx="5.20" cy="7.85" r=".38" fill="#fff"/><circle cx="6.90" cy="7.85" r=".38" fill="#fff"/><circle cx="8.60" cy="7.85" r=".38" fill="#fff"/></svg></span><span class="lddname"><b>English</b><small>Berean Standard Bible</small></span><svg class="tick" width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3.5 8.5l3 3 6-7"/></svg></button><button type="button" role="option" data-lang="de"><span class="flagsvg" aria-hidden="true"><svg viewBox="0 0 24 16"><rect width="24" height="5.34" fill="#000"/><rect y="5.33" width="24" height="5.34" fill="#DD0000"/><rect y="10.66" width="24" height="5.34" fill="#FFCE00"/></svg></span><span class="lddname"><b>Deutsch</b><small>Schlachter 1951</small></span><svg class="tick" width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3.5 8.5l3 3 6-7"/></svg></button><button type="button" role="option" data-lang="es"><span class="flagsvg" aria-hidden="true"><svg viewBox="0 0 24 16"><rect width="24" height="16" fill="#AA151B"/><rect y="4" width="24" height="8" fill="#F1BF00"/></svg></span><span class="lddname"><b>Español</b><small>Reina-Valera 1909</small></span><svg class="tick" width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3.5 8.5l3 3 6-7"/></svg></button><button type="button" role="option" data-lang="fr"><span class="flagsvg" aria-hidden="true"><svg viewBox="0 0 24 16"><rect width="8" height="16" fill="#002395"/><rect x="8" width="8" height="16" fill="#fff"/><rect x="16" width="8" height="16" fill="#ED2939"/></svg></span><span class="lddname"><b>Français</b><small>Louis Segond 1910</small></span><svg class="tick" width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3.5 8.5l3 3 6-7"/></svg></button><button type="button" role="option" data-lang="pt"><span class="flagsvg" aria-hidden="true"><svg viewBox="0 0 24 16"><rect width="24" height="16" fill="#009C3B"/><path d="M12 2 22 8 12 14 2 8z" fill="#FFDF00"/><circle cx="12" cy="8" r="3.6" fill="#002776"/><path d="M8.6 7.2c2.2-.5 4.8-.2 6.8 1.3" stroke="#fff" stroke-width=".6" fill="none"/></svg></span><span class="lddname"><b>Português</b><small>Bíblia Livre</small></span><svg class="tick" width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3.5 8.5l3 3 6-7"/></svg></button><button type="button" role="option" data-lang="it"><span class="flagsvg" aria-hidden="true"><svg viewBox="0 0 24 16"><rect width="8" height="16" fill="#009246"/><rect x="8" width="8" height="16" fill="#fff"/><rect x="16" width="8" height="16" fill="#CE2B37"/></svg></span><span class="lddname"><b>Italiano</b><small>Riveduta 1927</small></span><svg class="tick" width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3.5 8.5l3 3 6-7"/></svg></button></div></div></div>
     <div class="row"><span class="lab" data-t="textSize"></span>
       <div class="fsrow"><button id="sFsDown" data-ta="fontSmaller">A−</button><output id="sFsOut"></output><button id="sFsUp" data-ta="fontBigger">A+</button></div></div>
     <div class="row"><span class="lab" data-t="threadsReading"></span>
@@ -540,6 +659,18 @@ body.peeking .stagebar{padding-bottom:62px}
       <div class="tip" id="tip" hidden></div>
       <div class="loading" id="loading" data-t="loading"></div>
       <button class="focusExit" id="focusExit" data-t="focusExit"></button>
+    </div>
+    <button class="pathbtn" id="pathBtn"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="5" cy="18" r="2.2"/><circle cx="19" cy="18" r="2.2"/><path d="M5 15.8C5 10 8 7 12 7s7 3 7 8.8"/></svg><span data-t="pathShort"></span></button>
+    <div class="pathpop" id="pathPop" hidden>
+      <div class="pphead"><h3 data-t="pathTitle"></h3><button class="ppedit" id="pathEdit" data-t="editPath" hidden></button><button class="x" id="pathClose" data-ta="close">×</button></div>
+      <form class="pathform" id="pathForm">
+        <label><span data-t="from"></span><input id="pFrom" autocomplete="off"></label>
+        <label><span data-t="to"></span><input id="pTo" autocomplete="off"></label>
+        <button class="primary" type="submit" data-t="findPath"></button>
+      </form>
+      <div class="refdrop" id="pathDrop" hidden></div>
+      <div class="presets" id="presets"></div>
+      <div id="pathOut"></div>
     </div>
     <div class="stagebar">
       <div class="navi" id="navi"><canvas id="cNav"></canvas><div class="nwin" id="nwin"><i class="nh" data-h="l"></i><i class="nh" data-h="r"></i></div><button class="navmark" id="navMark" hidden><svg width="10" height="13" viewBox="0 0 10 13" aria-hidden="true"><path d="M0 0h10v13L5 9.4 0 13z" fill="currentColor"/></svg></button></div>
@@ -591,19 +722,18 @@ body.peeking .stagebar{padding-bottom:62px}
     </div>
   </section>
 
-  <section class="view" id="v-path" hidden>
-    <div class="pathview"><div class="pathwrap">
-      <h2 data-t="pathTitle"></h2>
-      <p class="lede" data-t="pathLede"></p>
-      <form class="pathform" id="pathForm">
-        <label><span data-t="from"></span><input id="pFrom"></label>
-        <label><span data-t="to"></span><input id="pTo"></label>
-        <button class="primary" type="submit" data-t="findPath"></button>
-      </form>
-      <div class="presets" id="presets"></div>
-      <div id="pathOut"></div>
+  <section class="view" id="v-notes" hidden>
+    <div class="notesview" id="notesView"><div class="noteswrap">
+      <div class="nhead">
+        <h2 data-t="tabNotes"></h2>
+        <button class="nnew" id="noteNew"><svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M8 3v10M3 8h10"/></svg><span data-t="newNote"></span></button>
+      </div>
+      <div class="nbar"><span class="statline" id="notesStat"></span><div class="seg" id="noteSort"><button data-s="new" data-t="sortNew"></button><button data-s="bible" data-t="sortBible"></button></div></div>
+      <div id="notesList"></div>
     </div></div>
   </section>
+
+  <section class="view" id="v-path" hidden></section>
 
   <button class="peek" id="peek" hidden><svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 10l4-4 4 4"/></svg><span id="peekTxt"></span></button>
   <aside class="panel collapsed" id="panel">
@@ -619,17 +749,36 @@ body.peeking .stagebar{padding-bottom:62px}
   <button class="aboutLink" id="aboutRead" data-t="aboutRead"></button>
 </div>
 
+<div class="selbar" id="selBar" hidden><button class="selnote" id="selNote"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z"/></svg><span data-t="noteAdd"></span></button><button class="selbtn" id="selConn" data-ta="selConn"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" aria-hidden="true"><path d="M3 19c0-7 4-12 9-12s9 5 9 12"/><path d="M7 19c0-4 2-7 5-7s5 3 5 7"/></svg></button><button class="selbtn" id="selClear" data-ta="close"><svg width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" aria-hidden="true"><path d="M4 4l8 8M12 4l-8 8"/></svg></button></div>
+<div class="noteed" id="noteEd" hidden>
+  <div class="nedcard" role="dialog" aria-modal="true">
+    <div class="nedhead">
+      <div class="nedrefbox"><button class="nedref" id="nedRef"></button><input id="nedRefIn" autocomplete="off" autocapitalize="off" spellcheck="false" hidden></div>
+      <button class="nedicon" id="nedGo" data-ta="noteToPlace"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+      <button class="nedicon" id="nedDel" data-ta="del"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3"/></svg></button>
+      <button class="neddone" id="nedDone" data-t="done"></button>
+    </div>
+    <div class="refdrop" id="nedDrop" hidden></div>
+    <div class="nedsug" id="nedSug" hidden></div>
+    <blockquote class="nq" id="nedQuote"></blockquote>
+    <textarea id="nedText" rows="1"></textarea>
+  </div>
+</div>
 <div class="chooser" id="chooser" hidden>
   <div class="chooserIn">
     <p class="chooserKicker">Emmaus<em>.</em></p>
-    <p class="chooserVerse">„Brannte nicht unser Herz in uns, da er mit uns redete auf dem Weg, als er uns die Schrift öffnete?“<span>Lukas 24,32</span></p>
-    <p class="chooserVerse en">“Were not our hearts burning within us as He spoke with us on the road and opened the Scriptures to us?”<span>Luke 24:32</span></p>
-    <h1>In welcher Sprache möchtest du lesen?<span>Which language would you like to read in?</span></h1>
+    <p class="chooserVerse">“Were not our hearts burning within us as He spoke with us on the road and opened the Scriptures to us?”<span>Luke 24:32</span></p>
+    <p class="chooserVerse en">„Brannte nicht unser Herz in uns, da er mit uns redete auf dem Weg, als er uns die Schrift öffnete?“<span>Lukas 24,32</span></p>
+    <h1>Which language would you like to read in?<span>In welcher Sprache möchtest du lesen?</span></h1>
     <div class="choices">
-      <button class="choice" data-lang="de"><b>Deutsch</b><span>Schlachter-Bibel 1951</span><small>Oberfläche und Bibeltext auf Deutsch</small></button>
-      <button class="choice" data-lang="en"><b>English</b><span>Berean Standard Bible</span><small>English interface and Bible text</small></button>
+      <button class="choice" data-lang="en"><span class="flagsvg" aria-hidden="true"><svg viewBox="0 0 24 16"><rect width="24" height="16" fill="#fff"/><rect y="0.000" width="24" height="1.231" fill="#B22234"/><rect y="2.462" width="24" height="1.231" fill="#B22234"/><rect y="4.923" width="24" height="1.231" fill="#B22234"/><rect y="7.385" width="24" height="1.231" fill="#B22234"/><rect y="9.846" width="24" height="1.231" fill="#B22234"/><rect y="12.308" width="24" height="1.231" fill="#B22234"/><rect y="14.769" width="24" height="1.231" fill="#B22234"/><rect width="10.2" height="8.62" fill="#3C3B6E"/><circle cx="0.95" cy="0.85" r=".38" fill="#fff"/><circle cx="2.65" cy="0.85" r=".38" fill="#fff"/><circle cx="4.35" cy="0.85" r=".38" fill="#fff"/><circle cx="6.05" cy="0.85" r=".38" fill="#fff"/><circle cx="7.75" cy="0.85" r=".38" fill="#fff"/><circle cx="9.45" cy="0.85" r=".38" fill="#fff"/><circle cx="1.80" cy="2.25" r=".38" fill="#fff"/><circle cx="3.50" cy="2.25" r=".38" fill="#fff"/><circle cx="5.20" cy="2.25" r=".38" fill="#fff"/><circle cx="6.90" cy="2.25" r=".38" fill="#fff"/><circle cx="8.60" cy="2.25" r=".38" fill="#fff"/><circle cx="0.95" cy="3.65" r=".38" fill="#fff"/><circle cx="2.65" cy="3.65" r=".38" fill="#fff"/><circle cx="4.35" cy="3.65" r=".38" fill="#fff"/><circle cx="6.05" cy="3.65" r=".38" fill="#fff"/><circle cx="7.75" cy="3.65" r=".38" fill="#fff"/><circle cx="9.45" cy="3.65" r=".38" fill="#fff"/><circle cx="1.80" cy="5.05" r=".38" fill="#fff"/><circle cx="3.50" cy="5.05" r=".38" fill="#fff"/><circle cx="5.20" cy="5.05" r=".38" fill="#fff"/><circle cx="6.90" cy="5.05" r=".38" fill="#fff"/><circle cx="8.60" cy="5.05" r=".38" fill="#fff"/><circle cx="0.95" cy="6.45" r=".38" fill="#fff"/><circle cx="2.65" cy="6.45" r=".38" fill="#fff"/><circle cx="4.35" cy="6.45" r=".38" fill="#fff"/><circle cx="6.05" cy="6.45" r=".38" fill="#fff"/><circle cx="7.75" cy="6.45" r=".38" fill="#fff"/><circle cx="9.45" cy="6.45" r=".38" fill="#fff"/><circle cx="1.80" cy="7.85" r=".38" fill="#fff"/><circle cx="3.50" cy="7.85" r=".38" fill="#fff"/><circle cx="5.20" cy="7.85" r=".38" fill="#fff"/><circle cx="6.90" cy="7.85" r=".38" fill="#fff"/><circle cx="8.60" cy="7.85" r=".38" fill="#fff"/></svg></span><b>English</b><small>English interface and Bible text</small></button>
+      <button class="choice" data-lang="de"><span class="flagsvg" aria-hidden="true"><svg viewBox="0 0 24 16"><rect width="24" height="5.34" fill="#000"/><rect y="5.33" width="24" height="5.34" fill="#DD0000"/><rect y="10.66" width="24" height="5.34" fill="#FFCE00"/></svg></span><b>Deutsch</b><small>Oberfläche und Bibeltext auf Deutsch</small></button>
+      <button class="choice" data-lang="es"><span class="flagsvg" aria-hidden="true"><svg viewBox="0 0 24 16"><rect width="24" height="16" fill="#AA151B"/><rect y="4" width="24" height="8" fill="#F1BF00"/></svg></span><b>Español</b><small>Interfaz y texto bíblico en español</small></button>
+      <button class="choice" data-lang="fr"><span class="flagsvg" aria-hidden="true"><svg viewBox="0 0 24 16"><rect width="8" height="16" fill="#002395"/><rect x="8" width="8" height="16" fill="#fff"/><rect x="16" width="8" height="16" fill="#ED2939"/></svg></span><b>Français</b><small>Interface et texte biblique en français</small></button>
+      <button class="choice" data-lang="pt"><span class="flagsvg" aria-hidden="true"><svg viewBox="0 0 24 16"><rect width="24" height="16" fill="#009C3B"/><path d="M12 2 22 8 12 14 2 8z" fill="#FFDF00"/><circle cx="12" cy="8" r="3.6" fill="#002776"/><path d="M8.6 7.2c2.2-.5 4.8-.2 6.8 1.3" stroke="#fff" stroke-width=".6" fill="none"/></svg></span><b>Português</b><small>Interface e texto bíblico em português</small></button>
+      <button class="choice" data-lang="it"><span class="flagsvg" aria-hidden="true"><svg viewBox="0 0 24 16"><rect width="8" height="16" fill="#009246"/><rect x="8" width="8" height="16" fill="#fff"/><rect x="16" width="8" height="16" fill="#CE2B37"/></svg></span><b>Italiano</b><small>Interfaccia e testo biblico in italiano</small></button>
     </div>
-    <p class="chooserFoot">Später jederzeit über das Zahnrad oben änderbar.<br>You can change it anytime with the gear button.</p>
+    <p class="chooserFoot">You can change it anytime with the gear button.<br>Später jederzeit über das Zahnrad oben änderbar.</p>
   </div>
 </div>
 
@@ -639,7 +788,7 @@ const $=s=>document.querySelector(s);
 
 /* ---------- language ---------- */
 const STR={
-de:{brandSub:'Schlachter 1951 mit Querverweisen',tabArcs:'Bögen',tabRead:'Lesen',tabPath:'Pfad',filter:'Filter',langAria:'Sprache wechseln',
+de:{brandSub:'Schlachter 1951 mit Querverweisen',until:'bis',tabArcs:'Bögen',tabRead:'Lesen',tabPath:'Pfad',pathShort:'Pfad',showSteps:n=>n===1?'Direkte Verbindung anzeigen':`${n} Schritte anzeigen`,editPath:'Ändern',pickBook:'Buch wählen',pickCh:b=>`${b} · Kapitel wählen`,pickV:(b,c)=>`${b} ${c} · Vers wählen`,wholeCh:'Ganzes Kapitel',hideSteps:'Schritte ausblenden',examples:'Beispiele',filter:'Filter',langAria:'Sprache wechseln',
  searchPh:'Stelle oder Wort, z. B. Joh 3,16 oder Gnade',searchAria:'Bibelstelle suchen',minVotes:'Mindest-Stimmen pro Verbindung',direction:'Richtung',
  mAll:'Alle',mCross:'AT ↔ NT',mOtnt:'NT zitiert AT',mSame:'Innerhalb Testament',
  votesExplain:'Stimmen = wie viele Nutzer von OpenBible.info eine Verbindung als passend bewertet haben. Höher heißt stärker.',
@@ -665,7 +814,7 @@ de:{brandSub:'Schlachter 1951 mit Querverweisen',tabArcs:'Bögen',tabRead:'Lesen
  notRecognized:'Stelle nicht erkannt. Beispiel: Joh 3,16 oder Römer 8',
  twoVerses:'Bitte zwei einzelne Verse angeben, z. B. „1. Mose 22,8“ und „Johannes 1,29“.',sameVerse:'Start und Ziel sind derselbe Vers.',
  noPath:n=>`Mit dem aktuellen Filter (mind. ${n} Stimmen) gibt es keine Verbindung. Senke den Filter und versuche es erneut.`,
- steps:n=>`${n} Schritte`,notesBtn:'Notizen',notesCount:n=>`${n} ${n===1?'Notiz':'Notizen'}`,notesEmpty:'Noch keine Notizen. Tippe beim Lesen einen Vers an und schreib unter „Meine Notiz“. Hier findest du dann alle wieder, sortiert nach Bibelstelle.',
+ steps:n=>n===1?'Direkte Verbindung':`${n} Schritte`,notesBtn:'Notizen',tabNotes:'Notizen',newNote:'Neue Notiz',noteAdd:'Notiz',sortNew:'Neueste',sortBible:'Bibel',noteToPlace:'Zur Stelle',del:'Löschen',delSure:'Wirklich löschen?',done:'Fertig',noRef:'Ohne Bibelstelle',refAdd:'+ Bibelstelle',selConn:'Verbindungen zeigen',refPh:'Bibelstelle, z. B. Joh 3,16–18',refNone:'Keine passende Stelle gefunden',noteFor:r=>`Notiz · ${r}`,noteOpen:r=>`Deine Notiz · ${r}`,yourNotes:'Deine Notizen',today:'Heute',yesterday:'Gestern',older:'Ältere Notizen',notePh2:'Was nimmst du mit?',marked:'Markierung',notesNone:'Noch keine Notizen. Markiere beim Lesen eine Stelle, wie in jeder anderen App, und tippe auf „Notiz“. Oder starte hier mit „Neue Notiz“, zum Beispiel im Gottesdienst.',notesCount:n=>`${n} ${n===1?'Notiz':'Notizen'}`,notesEmpty:'Noch keine Notizen. Tippe beim Lesen einen Vers an und schreib unter „Meine Notiz“. Hier findest du dann alle wieder, sortiert nach Bibelstelle.',
  archBtn:'Funde',archBible:'In der Bibel',lastRead:'Zuletzt gelesen',archWhy:'Warum das wichtig ist',archSeen:'Heute zu sehen',archNear:'Weitere Funde in der Nähe',archNote:'Die Kurztexte fassen den Stand der Forschung zusammen. Wo Fachleute uneins sind, steht es dabei.',tabMap:'Orte',pHoly:'Heiliges Land',pPaul:'Reisen des Paulus',pEast:'Babylon und Persien',pAll:'Ganze Karte',
  mentions:n=>`${n} ${n===1?'Erwähnung':'Erwähnungen'}`,approx:'Lage nicht genau bekannt',region:'Gebiet',alsoHere:'Ebenfalls an dieser Stelle',
  chapterPlaces:n=>`${n} ${n===1?'Ort':'Orte'} in diesem Kapitel`,showAllPlaces:'Alle Orte zeigen',noPlaces:'In diesem Kapitel kommen keine Orte vor.',
@@ -673,7 +822,7 @@ de:{brandSub:'Schlachter 1951 mit Querverweisen',tabArcs:'Bögen',tabRead:'Lesen
  mapHint:'Tippe einen Ort an, um alle Bibelstellen zu sehen, in denen er vorkommt. Ziehen verschiebt die Karte, zwei Finger oder Doppeltippen zoomen.',
  mapLegend:'Die Farbe zeigt, in welchem Teil der Bibel ein Ort am häufigsten vorkommt. Je größer der Punkt, desto öfter wird er erwähnt. Ein gestrichelter Ring heißt: Die Lage ist nicht sicher.',
  mapAttrib:'Orte: OpenBible.info (CC BY). Küsten, Seen und Flüsse: Natural Earth (gemeinfrei), heutiger Verlauf.',aboutAria:'Warum heißt die App Emmaus?',aboutRead:'Ganze Geschichte lesen',aboutShort:'Auf dem Weg nach Emmaus erklärte Jesus zwei Jüngern die ganze Schrift. Genau das zeigt diese App.',nextChapter:'Weiterlesen',prevChapter:'Zurück zu',gMorning:'Guten Morgen',gDay:'Guten Tag',gEvening:'Guten Abend',focus:'Vollbild',focusExit:'Vollbild beenden',connection:'Verbindung',connVotes:n=>`${n} Stimmen für diese Verbindung`,allFromHere:'Alle Verbindungen dieses Verses',navAria:'Bibel-Übersicht: Fenster ziehen zum Verschieben, Ränder ziehen zum Zoomen',sideCollapse:'Seitenleiste einklappen',sideExpand:'Seitenleiste ausklappen',settings:'Einstellungen',appearance:'Darstellung',lookSystem:'Wie Gerät',lookLight:'Hell',lookDark:'Dunkel',textSize:'Schriftgröße beim Lesen',threadsReading:'Fäden beim Lesen',on:'An',off:'Aus',fontSmaller:'Schrift kleiner',fontBigger:'Schrift größer',threads:'Fäden',swipeHint:'Wischen wechselt das Kapitel',copy:'Kopieren',copied:'Kopiert',copyFail:'Nicht kopiert – Text markieren',continueReading:'Weiterlesen',myNotes:'Meine Notizen',notesSynced:'Auf all deinen Geräten gespeichert.',searching:'Durchsuche die Bibel …',hits:(n,b)=>`${n} Treffer in ${b} Büchern`,noHits:'Keine Treffer. Prüfe die Schreibweise oder suche ein kürzeres Wort.',allBooksChip:b=>`Nur ${b}. Alle Bücher zeigen`,showMore:n=>`${n} weitere zeigen`,findTitle:q=>`Suche: „${q}“`,tooShort:'Bitte mindestens 2 Buchstaben eingeben.',transl:'Schlachter 1951',loadWeak:'Schwächere Verbindungen laden (unter 5 Stimmen)',loadingWeak:'Lade schwächere Verbindungen …',viaVotes:n=>`${n} Stimmen für diese Verbindung`},
-en:{brandSub:'Berean Standard Bible with cross-references',tabArcs:'Arcs',tabRead:'Read',tabPath:'Path',filter:'Filter',langAria:'Change language',
+en:{brandSub:'Berean Standard Bible with cross-references',until:'to',tabArcs:'Arcs',tabRead:'Read',tabPath:'Path',pathShort:'Path',showSteps:n=>n===1?'Show the direct link':`Show ${n} steps`,editPath:'Change',pickBook:'Choose a book',pickCh:b=>`${b} · choose a chapter`,pickV:(b,c)=>`${b} ${c} · choose a verse`,wholeCh:'Whole chapter',hideSteps:'Hide steps',examples:'Examples',filter:'Filter',langAria:'Change language',
  searchPh:'Passage or word, e.g. John 3:16 or grace',searchAria:'Search a passage',minVotes:'Minimum votes per link',direction:'Direction',
  mAll:'All',mCross:'OT ↔ NT',mOtnt:'NT quotes OT',mSame:'Within testament',
  votesExplain:'Votes = how many OpenBible.info users rated a link as helpful. Higher means stronger.',
@@ -687,7 +836,7 @@ en:{brandSub:'Berean Standard Bible with cross-references',tabArcs:'Arcs',tabRea
  prevCh:'Previous chapter',nextCh:'Next chapter',omit:'Verse omitted in the BSB (not in the earliest manuscripts).',
  overview:'Overview',chapterN:c=>`Chapter ${c}`,verseN:v=>`Verse ${v}`,links:n=>`${n} links`,
  dayVerse:'Verse of the day',seeLinks:'See its connections',groups:'Book groups',
- help:'Each arc connects two passages of Scripture. Tap the arcs to pick a book, then a chapter, then a verse. In <b>Read</b> you read a whole chapter and see on the right where each verse leads. In <b>Path</b> you find the chain between two passages.',
+ help:'Each arc connects two passages of Scripture. Tap the arcs to pick a book, then a chapter, then a verse. In <b>Read</b> you read a whole chapter and see on the right where each verse leads. With <b>Path</b>, top right in the arcs, you find the chain between two passages.',
  totals:(v,r)=>`${v} verses and 341,294 cross-references`,
  attrib:'Bible text: Berean Standard Bible (public domain). Cross-references: OpenBible.info, CC BY, based on the Treasury of Scripture Knowledge.',
  bookStat:(c,v,l)=>`${c} chapters, ${v} verses, ${l} links`,bookPoints:'Where this book points',pickChapter:'Pick a chapter',readCh1:'Read chapter 1',
@@ -699,21 +848,170 @@ en:{brandSub:'Berean Standard Bible with cross-references',tabArcs:'Arcs',tabRea
  notRecognized:'Passage not recognized. Example: John 3:16 or Romans 8',
  twoVerses:'Please enter two single verses, e.g. "Genesis 22:8" and "John 1:29".',sameVerse:'Start and end are the same verse.',
  noPath:n=>`No connection with the current filter (at least ${n} votes). Lower the filter and try again.`,
- steps:n=>`${n} steps`,notesBtn:'Notes',notesCount:n=>`${n} ${n===1?'note':'notes'}`,notesEmpty:'No notes yet. While reading, tap a verse and write under “My note”. You will find all of them here, in Bible order.',
+ steps:n=>n===1?'Direct link':`${n} steps`,notesBtn:'Notes',tabNotes:'Notes',newNote:'New note',noteAdd:'Note',sortNew:'Newest',sortBible:'Bible',noteToPlace:'Go to passage',del:'Delete',delSure:'Really delete?',done:'Done',noRef:'No passage',refAdd:'+ Passage',selConn:'Show connections',refPh:'Passage, e.g. John 3:16–18',refNone:'No matching passage',noteFor:r=>`Note · ${r}`,noteOpen:r=>`Your note · ${r}`,yourNotes:'Your notes',today:'Today',yesterday:'Yesterday',older:'Older notes',notePh2:'What are you taking away?',marked:'Highlight',notesNone:'No notes yet. While reading, select a passage like in any other app and tap “Note”. Or start here with “New note”, for example during a service.',notesCount:n=>`${n} ${n===1?'note':'notes'}`,notesEmpty:'No notes yet. While reading, tap a verse and write under “My note”. You will find all of them here, in Bible order.',
  archBtn:'Finds',archBible:'In the Bible',lastRead:'Last read',archWhy:'Why it matters',archSeen:'Where to see it',archNear:'Other finds nearby',archNote:'The short texts summarise current research. Where scholars disagree, it says so.',tabMap:'Places',pHoly:'Holy Land',pPaul:'Paul’s journeys',pEast:'Babylon and Persia',pAll:'Whole map',
  mentions:n=>`${n} ${n===1?'mention':'mentions'}`,approx:'location uncertain',region:'region',alsoHere:'Also at this spot',
  chapterPlaces:n=>`${n} ${n===1?'place':'places'} in this chapter`,showAllPlaces:'Show all places',noPlaces:'No places are mentioned in this chapter.',
  placesHint:(n,names)=>`<b>${n} ${n===1?'place':'places'}</b> in this chapter: ${names}`,placesInVerse:'Places in this verse',
  mapHint:'Tap a place to see every passage that mentions it. Drag to move the map, pinch or double-tap to zoom.',
  mapLegend:'The colour shows which part of the Bible mentions a place most. The bigger the dot, the more often it is mentioned. A dashed ring means the location is uncertain.',
- mapAttrib:'Places: OpenBible.info (CC BY). Coasts, lakes and rivers: Natural Earth (public domain), present-day courses.',aboutAria:'Why is the app called Emmaus?',aboutRead:'Read the whole story',aboutShort:'On the road to Emmaus, Jesus explained all of Scripture to two disciples. That is what this app shows.',nextChapter:'Continue reading',prevChapter:'Back to',gMorning:'Good morning',gDay:'Good afternoon',gEvening:'Good evening',focus:'Full screen',focusExit:'Exit full screen',connection:'Connection',connVotes:n=>`${n} votes for this link`,allFromHere:'All links of this verse',navAria:'Bible overview: drag the window to move, drag its edges to zoom',sideCollapse:'Collapse sidebar',sideExpand:'Expand sidebar',settings:'Settings',appearance:'Appearance',lookSystem:'Match device',lookLight:'Light',lookDark:'Dark',textSize:'Reading text size',threadsReading:'Threads while reading',on:'On',off:'Off',fontSmaller:'Smaller text',fontBigger:'Larger text',threads:'Threads',swipeHint:'Swipe to change chapter',copy:'Copy',copied:'Copied',copyFail:'Not copied – select the text',continueReading:'Continue reading',myNotes:'My notes',notesSynced:'Saved across all your devices.',searching:'Searching the Bible …',hits:(n,b)=>`${n} matches in ${b} books`,noHits:'No matches. Check the spelling or try a shorter word.',allBooksChip:b=>`Only ${b}. Show all books`,showMore:n=>`Show ${n} more`,findTitle:q=>`Search: “${q}”`,tooShort:'Please type at least 2 letters.',transl:'BSB',loadWeak:'Load weaker links (under 5 votes)',loadingWeak:'Loading weaker links …',viaVotes:n=>`${n} votes for this link`}
+ mapAttrib:'Places: OpenBible.info (CC BY). Coasts, lakes and rivers: Natural Earth (public domain), present-day courses.',aboutAria:'Why is the app called Emmaus?',aboutRead:'Read the whole story',aboutShort:'On the road to Emmaus, Jesus explained all of Scripture to two disciples. That is what this app shows.',nextChapter:'Continue reading',prevChapter:'Back to',gMorning:'Good morning',gDay:'Good afternoon',gEvening:'Good evening',focus:'Full screen',focusExit:'Exit full screen',connection:'Connection',connVotes:n=>`${n} votes for this link`,allFromHere:'All links of this verse',navAria:'Bible overview: drag the window to move, drag its edges to zoom',sideCollapse:'Collapse sidebar',sideExpand:'Expand sidebar',settings:'Settings',appearance:'Appearance',lookSystem:'Match device',lookLight:'Light',lookDark:'Dark',textSize:'Reading text size',threadsReading:'Threads while reading',on:'On',off:'Off',fontSmaller:'Smaller text',fontBigger:'Larger text',threads:'Threads',swipeHint:'Swipe to change chapter',copy:'Copy',copied:'Copied',copyFail:'Not copied – select the text',continueReading:'Continue reading',myNotes:'My notes',notesSynced:'Saved across all your devices.',searching:'Searching the Bible …',hits:(n,b)=>`${n} matches in ${b} books`,noHits:'No matches. Check the spelling or try a shorter word.',allBooksChip:b=>`Only ${b}. Show all books`,showMore:n=>`Show ${n} more`,findTitle:q=>`Search: “${q}”`,tooShort:'Please type at least 2 letters.',transl:'BSB',loadWeak:'Load weaker links (under 5 votes)',loadingWeak:'Loading weaker links …',viaVotes:n=>`${n} votes for this link`},
+es:{brandSub:'Reina-Valera 1909 con referencias cruzadas',tabArcs:'Arcos',tabRead:'Leer',tabPath:'Camino',pathShort:'Camino',showSteps:n=>n===1?'Ver la conexión directa':`Ver ${n} pasos`,editPath:'Cambiar',pickBook:'Elige un libro',pickCh:b=>`${b} · elige un capítulo`,pickV:(b,c)=>`${b} ${c} · elige un versículo`,wholeCh:'Capítulo completo',hideSteps:'Ocultar pasos',examples:'Ejemplos',filter:'Filtro',langAria:'Cambiar idioma',until:'a',
+ searchPh:'Pasaje o palabra, p. ej. Juan 3:16 o gracia',searchAria:'Buscar un pasaje',minVotes:'Votos mínimos por conexión',direction:'Dirección',
+ mAll:'Todas',mCross:'AT ↔ NT',mOtnt:'El NT cita el AT',mSame:'Dentro del testamento',
+ votesExplain:'Votos = cuántos usuarios de OpenBible.info valoraron una conexión como útil. Más votos, conexión más fuerte.',
+ loading:'Cargando referencias cruzadas …',loadErr:'No se pudieron cargar los datos. Vuelve a cargar la página.',
+ gesture:'Toca un arco para ver la conexión, o el eje para libro, capítulo y versículo. Doble toque para ampliar.',zoomOut:'Alejar',zoomIn:'Acercar',all:'Todo',
+ tocPh:'Filtrar libros … p. ej. Salmos, Romanos',close:'Cerrar',contents:'Índice',ot:'Antiguo Testamento',nt:'Nuevo Testamento',noBook:'No se encontró ningún libro.',allBooks:'Todos los libros',
+ pathTitle:'Camino entre dos versículos',pathLede:'Encuentra la cadena más corta de referencias cruzadas que une dos pasajes.',
+ from:'Desde',to:'Hasta',findPath:'Buscar camino',clearSel:'Quitar selección',
+ cats:['Ley','Historia','Poesía y sabiduría','Profetas mayores','Profetas menores','Evangelios','Hechos','Cartas de Pablo','Cartas generales','Apocalipsis'],
+ visible:(a,b)=>`${a} de ${b} conexiones visibles`,arcStat:(v,a,b)=>`${a} de ${b} conexiones`,
+ prevCh:'Capítulo anterior',nextCh:'Capítulo siguiente',omit:'Este versículo falta en esta traducción.',
+ overview:'Resumen',chapterN:c=>`Capítulo ${c}`,verseN:v=>`Versículo ${v}`,links:n=>`${n} conexiones`,
+ dayVerse:'Versículo del día',seeLinks:'Ver sus conexiones',groups:'Grupos de libros',
+ help:'Cada arco une dos pasajes de la Escritura. Toca los arcos para elegir un libro, luego un capítulo y después un versículo. En <b>Leer</b> lees un capítulo entero y ves a la derecha adónde lleva cada versículo. Con <b>Camino</b>, arriba a la derecha en los arcos, encuentras la cadena entre dos pasajes.',
+ totals:(v,r)=>`${v} versículos y 341.294 referencias cruzadas`,
+ attrib:'Texto bíblico: Reina-Valera 1909 (dominio público). Referencias cruzadas: OpenBible.info, CC BY, basadas en el Treasury of Scripture Knowledge.',
+ bookStat:(c,v,l)=>`${c} capítulos, ${v} versículos, ${l} conexiones`,bookPoints:'Adónde apunta este libro',pickChapter:'Elige un capítulo',readCh1:'Leer el capítulo 1',
+ chStat:(v,l)=>`${v} versículos, ${l} conexiones`,chPoints:'Adónde apunta este capítulo',readCh:'Leer el capítulo',versesTap:'Versículos',
+ omitted:'Versículo omitido en esta traducción.',inContext:'Leer en contexto',inArcs:'Ver en los arcos',asPath:'Usar como inicio del camino',connectsTo:'Conecta con',
+ none:'No hay conexiones por encima del filtro.',onlyAbove:'Mostrar solo las conexiones sobre el filtro',showWeak:n=>`Mostrar ${n} conexiones más débiles`,
+ hideIn:'Ocultar entrantes',showIn:n=>`Pasajes que apuntan aquí (${n})`,myNote:'Mi nota',notePh:r=>`Pensamientos sobre ${r} …`,noteSaved:'Guardado solo en este navegador.',
+ votes:'Votos',distTitle:'Por grupo de libros',
+ notRecognized:'Pasaje no reconocido. Ejemplo: Juan 3:16 o Romanos 8',
+ twoVerses:'Indica dos versículos sueltos, p. ej. «Génesis 22:8» y «Juan 1:29».',sameVerse:'El inicio y el final son el mismo versículo.',
+ noPath:n=>`No hay conexión con el filtro actual (al menos ${n} votos). Baja el filtro e inténtalo de nuevo.`,
+ steps:n=>n===1?'Conexión directa':`${n} pasos`,notesBtn:'Notas',tabNotes:'Notas',newNote:'Nueva nota',noteAdd:'Nota',sortNew:'Recientes',sortBible:'Biblia',noteToPlace:'Ir al pasaje',del:'Eliminar',delSure:'¿Eliminar de verdad?',done:'Listo',noRef:'Sin pasaje',refAdd:'+ Pasaje',selConn:'Ver conexiones',refPh:'Pasaje, p. ej. Juan 3:16–18',refNone:'Ningún pasaje coincide',noteFor:r=>`Nota · ${r}`,noteOpen:r=>`Tu nota · ${r}`,yourNotes:'Tus notas',today:'Hoy',yesterday:'Ayer',older:'Notas anteriores',notePh2:'¿Qué te llevas?',marked:'Resaltado',notesNone:'Aún no hay notas. Al leer, toca un versículo o selecciona un pasaje y pulsa «Nota». O empieza aquí con «Nueva nota», por ejemplo durante el culto.',notesCount:n=>`${n} ${n===1?'nota':'notas'}`,notesEmpty:'Aún no hay notas.',
+ archBtn:'Hallazgos',archBible:'En la Biblia',lastRead:'Última lectura',archWhy:'Por qué importa',archSeen:'Dónde verlo',archNear:'Otros hallazgos cercanos',archNote:'Los textos breves resumen la investigación actual. Donde los expertos discrepan, se indica.',tabMap:'Lugares',pHoly:'Tierra Santa',pPaul:'Viajes de Pablo',pEast:'Babilonia y Persia',pAll:'Mapa completo',
+ mentions:n=>`${n} ${n===1?'mención':'menciones'}`,approx:'ubicación incierta',region:'región',alsoHere:'También en este lugar',
+ chapterPlaces:n=>`${n} ${n===1?'lugar':'lugares'} en este capítulo`,showAllPlaces:'Mostrar todos los lugares',noPlaces:'En este capítulo no se menciona ningún lugar.',
+ placesHint:(n,names)=>`<b>${n} ${n===1?'lugar':'lugares'}</b> en este capítulo: ${names}`,placesInVerse:'Lugares en este versículo',
+ mapHint:'Toca un lugar para ver todos los pasajes que lo mencionan. Arrastra para mover el mapa, pellizca o toca dos veces para ampliar.',
+ mapLegend:'El color indica qué parte de la Biblia menciona más un lugar. Cuanto mayor el punto, más veces aparece. Un anillo discontinuo indica ubicación incierta.',
+ mapAttrib:'Lugares: OpenBible.info (CC BY). Costas, lagos y ríos: Natural Earth (dominio público), trazado actual.',aboutAria:'¿Por qué se llama Emaús la app?',aboutRead:'Leer toda la historia',aboutShort:'En el camino a Emaús, Jesús explicó a dos discípulos todas las Escrituras. Eso es lo que muestra esta app.',nextChapter:'Seguir leyendo',prevChapter:'Volver a',gMorning:'Buenos días',gDay:'Buenas tardes',gEvening:'Buenas noches',focus:'Pantalla completa',focusExit:'Salir de pantalla completa',connection:'Conexión',connVotes:n=>`${n} votos para esta conexión`,allFromHere:'Todas las conexiones de este versículo',navAria:'Vista general de la Biblia: arrastra la ventana para moverte, sus bordes para ampliar',sideCollapse:'Contraer panel',sideExpand:'Expandir panel',settings:'Ajustes',appearance:'Apariencia',lookSystem:'Como el dispositivo',lookLight:'Claro',lookDark:'Oscuro',textSize:'Tamaño del texto',threadsReading:'Hilos al leer',on:'Sí',off:'No',fontSmaller:'Texto más pequeño',fontBigger:'Texto más grande',threads:'Hilos',swipeHint:'Desliza para cambiar de capítulo',copy:'Copiar',copied:'Copiado',copyFail:'No copiado: selecciona el texto',continueReading:'Seguir leyendo',myNotes:'Mis notas',notesSynced:'Guardado en todos tus dispositivos.',searching:'Buscando en la Biblia …',hits:(n,b)=>`${n} resultados en ${b} libros`,noHits:'Sin resultados. Revisa la ortografía o prueba una palabra más corta.',allBooksChip:b=>`Solo ${b}. Mostrar todos los libros`,showMore:n=>`Mostrar ${n} más`,findTitle:q=>`Búsqueda: «${q}»`,tooShort:'Escribe al menos 2 letras.',transl:'RV1909',loadWeak:'Cargar conexiones más débiles (menos de 5 votos)',loadingWeak:'Cargando conexiones más débiles …',viaVotes:n=>`${n} votos para esta conexión`},
+fr:{brandSub:'Louis Segond 1910 avec références croisées',tabArcs:'Arcs',tabRead:'Lire',tabPath:'Chemin',pathShort:'Chemin',showSteps:n=>n===1?'Voir le lien direct':`Voir les ${n} étapes`,editPath:'Modifier',pickBook:'Choisir un livre',pickCh:b=>`${b} · choisir un chapitre`,pickV:(b,c)=>`${b} ${c} · choisir un verset`,wholeCh:'Chapitre entier',hideSteps:'Masquer les étapes',examples:'Exemples',filter:'Filtre',langAria:'Changer de langue',until:'à',
+ searchPh:'Passage ou mot, p. ex. Jean 3:16 ou grâce',searchAria:'Rechercher un passage',minVotes:'Votes minimum par lien',direction:'Direction',
+ mAll:'Tous',mCross:'AT ↔ NT',mOtnt:'Le NT cite l’AT',mSame:'Dans le même Testament',
+ votesExplain:'Votes = nombre d’utilisateurs d’OpenBible.info ayant jugé un lien utile. Plus il y en a, plus le lien est fort.',
+ loading:'Chargement des références croisées …',loadErr:'Impossible de charger les données. Rechargez la page.',
+ gesture:'Touchez un arc pour voir le lien, ou l’axe pour livre, chapitre et verset. Touchez deux fois pour zoomer.',zoomOut:'Dézoomer',zoomIn:'Zoomer',all:'Tout',
+ tocPh:'Filtrer les livres … p. ex. Psaumes, Romains',close:'Fermer',contents:'Sommaire',ot:'Ancien Testament',nt:'Nouveau Testament',noBook:'Aucun livre trouvé.',allBooks:'Tous les livres',
+ pathTitle:'Chemin entre deux versets',pathLede:'Trouve la plus courte chaîne de références croisées qui relie deux passages.',
+ from:'De',to:'À',findPath:'Trouver le chemin',clearSel:'Effacer la sélection',
+ cats:['Loi','Histoire','Poésie et sagesse','Grands prophètes','Petits prophètes','Évangiles','Actes','Épîtres de Paul','Épîtres générales','Apocalypse'],
+ visible:(a,b)=>`${a} liens sur ${b} affichés`,arcStat:(v,a,b)=>`${a} liens sur ${b}`,
+ prevCh:'Chapitre précédent',nextCh:'Chapitre suivant',omit:'Ce verset manque dans cette traduction.',
+ overview:'Aperçu',chapterN:c=>`Chapitre ${c}`,verseN:v=>`Verset ${v}`,links:n=>`${n} liens`,
+ dayVerse:'Verset du jour',seeLinks:'Voir ses liens',groups:'Groupes de livres',
+ help:'Chaque arc relie deux passages de l’Écriture. Touchez les arcs pour choisir un livre, puis un chapitre, puis un verset. Dans <b>Lire</b>, vous lisez un chapitre entier et voyez à droite où mène chaque verset. Avec <b>Chemin</b>, en haut à droite des arcs, vous trouvez la chaîne entre deux passages.',
+ totals:(v,r)=>`${v} versets et 341 294 références croisées`,
+ attrib:'Texte biblique : Louis Segond 1910 (domaine public). Références croisées : OpenBible.info, CC BY, d’après le Treasury of Scripture Knowledge.',
+ bookStat:(c,v,l)=>`${c} chapitres, ${v} versets, ${l} liens`,bookPoints:'Où mène ce livre',pickChapter:'Choisir un chapitre',readCh1:'Lire le chapitre 1',
+ chStat:(v,l)=>`${v} versets, ${l} liens`,chPoints:'Où mène ce chapitre',readCh:'Lire le chapitre',versesTap:'Versets',
+ omitted:'Verset absent de cette traduction.',inContext:'Lire dans le contexte',inArcs:'Voir dans les arcs',asPath:'Départ du chemin',connectsTo:'Relié à',
+ none:'Aucun lien au-dessus du filtre.',onlyAbove:'Seulement les liens au-dessus du filtre',showWeak:n=>`Afficher ${n} liens plus faibles`,
+ hideIn:'Masquer les liens entrants',showIn:n=>`Passages qui renvoient ici (${n})`,myNote:'Ma note',notePh:r=>`Réflexions sur ${r} …`,noteSaved:'Enregistré dans ce navigateur uniquement.',
+ votes:'Votes',distTitle:'Par groupe de livres',
+ notRecognized:'Passage non reconnu. Exemple : Jean 3:16 ou Romains 8',
+ twoVerses:'Indiquez deux versets, p. ex. « Genèse 22:8 » et « Jean 1:29 ».',sameVerse:'Le départ et l’arrivée sont le même verset.',
+ noPath:n=>`Aucun lien avec le filtre actuel (au moins ${n} votes). Baissez le filtre et réessayez.`,
+ steps:n=>n===1?'Lien direct':`${n} étapes`,notesBtn:'Notes',tabNotes:'Notes',newNote:'Nouvelle note',noteAdd:'Note',sortNew:'Récentes',sortBible:'Bible',noteToPlace:'Aller au passage',del:'Supprimer',delSure:'Vraiment supprimer ?',done:'OK',noRef:'Sans passage',refAdd:'+ Passage',selConn:'Voir les liens',refPh:'Passage, p. ex. Jean 3:16–18',refNone:'Aucun passage correspondant',noteFor:r=>`Note · ${r}`,noteOpen:r=>`Ta note · ${r}`,yourNotes:'Tes notes',today:'Aujourd’hui',yesterday:'Hier',older:'Notes plus anciennes',notePh2:'Qu’est-ce que tu retiens ?',marked:'Surlignage',notesNone:'Pas encore de notes. En lisant, touche un verset ou sélectionne un passage et appuie sur « Note ». Ou commence ici avec « Nouvelle note », par exemple pendant le culte.',notesCount:n=>`${n} ${n===1?'note':'notes'}`,notesEmpty:'Pas encore de notes.',
+ archBtn:'Découvertes',archBible:'Dans la Bible',lastRead:'Dernière lecture',archWhy:'Pourquoi c’est important',archSeen:'Où le voir',archNear:'Autres découvertes à proximité',archNote:'Les textes résument l’état actuel de la recherche. Là où les spécialistes divergent, c’est indiqué.',tabMap:'Lieux',pHoly:'Terre sainte',pPaul:'Voyages de Paul',pEast:'Babylone et Perse',pAll:'Carte entière',
+ mentions:n=>`${n} ${n===1?'mention':'mentions'}`,approx:'emplacement incertain',region:'région',alsoHere:'Aussi à cet endroit',
+ chapterPlaces:n=>`${n} ${n===1?'lieu':'lieux'} dans ce chapitre`,showAllPlaces:'Afficher tous les lieux',noPlaces:'Aucun lieu n’est mentionné dans ce chapitre.',
+ placesHint:(n,names)=>`<b>${n} ${n===1?'lieu':'lieux'}</b> dans ce chapitre : ${names}`,placesInVerse:'Lieux dans ce verset',
+ mapHint:'Touchez un lieu pour voir tous les passages qui le mentionnent. Glissez pour déplacer la carte, pincez ou touchez deux fois pour zoomer.',
+ mapLegend:'La couleur indique quelle partie de la Bible mentionne le plus un lieu. Plus le point est grand, plus il est cité. Un anneau en pointillé signale un emplacement incertain.',
+ mapAttrib:'Lieux : OpenBible.info (CC BY). Côtes, lacs et fleuves : Natural Earth (domaine public), tracé actuel.',aboutAria:'Pourquoi l’app s’appelle-t-elle Emmaüs ?',aboutRead:'Lire tout le récit',aboutShort:'Sur le chemin d’Emmaüs, Jésus a expliqué toute l’Écriture à deux disciples. C’est ce que montre cette app.',nextChapter:'Continuer la lecture',prevChapter:'Retour à',gMorning:'Bonjour',gDay:'Bon après-midi',gEvening:'Bonsoir',focus:'Plein écran',focusExit:'Quitter le plein écran',connection:'Lien',connVotes:n=>`${n} votes pour ce lien`,allFromHere:'Tous les liens de ce verset',navAria:'Vue d’ensemble de la Bible : glissez la fenêtre pour vous déplacer, ses bords pour zoomer',sideCollapse:'Replier le panneau',sideExpand:'Déplier le panneau',settings:'Réglages',appearance:'Apparence',lookSystem:'Comme l’appareil',lookLight:'Clair',lookDark:'Sombre',textSize:'Taille du texte',threadsReading:'Fils pendant la lecture',on:'Oui',off:'Non',fontSmaller:'Texte plus petit',fontBigger:'Texte plus grand',threads:'Fils',swipeHint:'Balayez pour changer de chapitre',copy:'Copier',copied:'Copié',copyFail:'Non copié – sélectionnez le texte',continueReading:'Continuer la lecture',myNotes:'Mes notes',notesSynced:'Enregistré sur tous vos appareils.',searching:'Recherche dans la Bible …',hits:(n,b)=>`${n} résultats dans ${b} livres`,noHits:'Aucun résultat. Vérifiez l’orthographe ou essayez un mot plus court.',allBooksChip:b=>`Seulement ${b}. Afficher tous les livres`,showMore:n=>`Afficher ${n} de plus`,findTitle:q=>`Recherche : « ${q} »`,tooShort:'Tapez au moins 2 lettres.',transl:'LSG',loadWeak:'Charger les liens plus faibles (moins de 5 votes)',loadingWeak:'Chargement des liens plus faibles …',viaVotes:n=>`${n} votes pour ce lien`},
+pt:{brandSub:'Bíblia Livre com referências cruzadas',tabArcs:'Arcos',tabRead:'Ler',tabPath:'Caminho',pathShort:'Caminho',showSteps:n=>n===1?'Ver a ligação direta':`Ver ${n} passos`,editPath:'Alterar',pickBook:'Escolha um livro',pickCh:b=>`${b} · escolha um capítulo`,pickV:(b,c)=>`${b} ${c} · escolha um versículo`,wholeCh:'Capítulo inteiro',hideSteps:'Ocultar passos',examples:'Exemplos',filter:'Filtro',langAria:'Mudar idioma',until:'até',
+ searchPh:'Passagem ou palavra, ex. João 3:16 ou graça',searchAria:'Buscar uma passagem',minVotes:'Votos mínimos por ligação',direction:'Direção',
+ mAll:'Todas',mCross:'AT ↔ NT',mOtnt:'O NT cita o AT',mSame:'No mesmo testamento',
+ votesExplain:'Votos = quantos usuários do OpenBible.info consideraram uma ligação útil. Quanto mais votos, mais forte.',
+ loading:'Carregando referências cruzadas …',loadErr:'Não foi possível carregar os dados. Recarregue a página.',
+ gesture:'Toque num arco para ver a ligação, ou no eixo para livro, capítulo e versículo. Toque duas vezes para ampliar.',zoomOut:'Afastar',zoomIn:'Aproximar',all:'Tudo',
+ tocPh:'Filtrar livros … ex. Salmos, Romanos',close:'Fechar',contents:'Índice',ot:'Antigo Testamento',nt:'Novo Testamento',noBook:'Nenhum livro encontrado.',allBooks:'Todos os livros',
+ pathTitle:'Caminho entre dois versículos',pathLede:'Encontra a cadeia mais curta de referências cruzadas que liga duas passagens.',
+ from:'De',to:'Até',findPath:'Encontrar caminho',clearSel:'Limpar seleção',
+ cats:['Lei','História','Poesia e sabedoria','Profetas maiores','Profetas menores','Evangelhos','Atos','Cartas de Paulo','Cartas gerais','Apocalipse'],
+ visible:(a,b)=>`${a} de ${b} ligações visíveis`,arcStat:(v,a,b)=>`${a} de ${b} ligações`,
+ prevCh:'Capítulo anterior',nextCh:'Próximo capítulo',omit:'Este versículo não consta nesta tradução.',
+ overview:'Visão geral',chapterN:c=>`Capítulo ${c}`,verseN:v=>`Versículo ${v}`,links:n=>`${n} ligações`,
+ dayVerse:'Versículo do dia',seeLinks:'Ver suas ligações',groups:'Grupos de livros',
+ help:'Cada arco liga duas passagens das Escrituras. Toque nos arcos para escolher um livro, depois um capítulo e um versículo. Em <b>Ler</b> você lê um capítulo inteiro e vê à direita para onde leva cada versículo. Com <b>Caminho</b>, no canto superior direito dos arcos, você encontra a cadeia entre duas passagens.',
+ totals:(v,r)=>`${v} versículos e 341.294 referências cruzadas`,
+ attrib:'Texto bíblico: Bíblia Livre (BLIVRE), © Diego Santos, Mario Sérgio e Marco Teles, CC BY 4.0, via eBible.org. Referências cruzadas: OpenBible.info, CC BY, com base no Treasury of Scripture Knowledge.',
+ bookStat:(c,v,l)=>`${c} capítulos, ${v} versículos, ${l} ligações`,bookPoints:'Para onde aponta este livro',pickChapter:'Escolha um capítulo',readCh1:'Ler o capítulo 1',
+ chStat:(v,l)=>`${v} versículos, ${l} ligações`,chPoints:'Para onde aponta este capítulo',readCh:'Ler o capítulo',versesTap:'Versículos',
+ omitted:'Versículo omitido nesta tradução.',inContext:'Ler no contexto',inArcs:'Ver nos arcos',asPath:'Usar como início do caminho',connectsTo:'Liga-se a',
+ none:'Nenhuma ligação acima do filtro.',onlyAbove:'Mostrar só ligações acima do filtro',showWeak:n=>`Mostrar ${n} ligações mais fracas`,
+ hideIn:'Ocultar recebidas',showIn:n=>`Passagens que apontam para cá (${n})`,myNote:'Minha anotação',notePh:r=>`Pensamentos sobre ${r} …`,noteSaved:'Salvo só neste navegador.',
+ votes:'Votos',distTitle:'Por grupo de livros',
+ notRecognized:'Passagem não reconhecida. Exemplo: João 3:16 ou Romanos 8',
+ twoVerses:'Informe dois versículos, ex. “Gênesis 22:8” e “João 1:29”.',sameVerse:'Início e fim são o mesmo versículo.',
+ noPath:n=>`Sem ligação com o filtro atual (pelo menos ${n} votos). Diminua o filtro e tente de novo.`,
+ steps:n=>n===1?'Ligação direta':`${n} passos`,notesBtn:'Anotações',tabNotes:'Anotações',newNote:'Nova anotação',noteAdd:'Anotar',sortNew:'Recentes',sortBible:'Bíblia',noteToPlace:'Ir à passagem',del:'Excluir',delSure:'Excluir mesmo?',done:'Pronto',noRef:'Sem passagem',refAdd:'+ Passagem',selConn:'Ver ligações',refPh:'Passagem, ex. João 3:16–18',refNone:'Nenhuma passagem encontrada',noteFor:r=>`Anotar · ${r}`,noteOpen:r=>`Sua anotação · ${r}`,yourNotes:'Suas anotações',today:'Hoje',yesterday:'Ontem',older:'Anotações antigas',notePh2:'O que você leva disso?',marked:'Destaque',notesNone:'Ainda não há anotações. Ao ler, toque num versículo ou selecione uma passagem e toque em “Anotar”. Ou comece aqui com “Nova anotação”, por exemplo durante o culto.',notesCount:n=>`${n} ${n===1?'anotação':'anotações'}`,notesEmpty:'Ainda não há anotações.',
+ archBtn:'Achados',archBible:'Na Bíblia',lastRead:'Última leitura',archWhy:'Por que importa',archSeen:'Onde ver',archNear:'Outros achados próximos',archNote:'Os textos resumem a pesquisa atual. Onde os estudiosos discordam, isso é indicado.',tabMap:'Lugares',pHoly:'Terra Santa',pPaul:'Viagens de Paulo',pEast:'Babilônia e Pérsia',pAll:'Mapa inteiro',
+ mentions:n=>`${n} ${n===1?'menção':'menções'}`,approx:'localização incerta',region:'região',alsoHere:'Também neste local',
+ chapterPlaces:n=>`${n} ${n===1?'lugar':'lugares'} neste capítulo`,showAllPlaces:'Mostrar todos os lugares',noPlaces:'Nenhum lugar é mencionado neste capítulo.',
+ placesHint:(n,names)=>`<b>${n} ${n===1?'lugar':'lugares'}</b> neste capítulo: ${names}`,placesInVerse:'Lugares neste versículo',
+ mapHint:'Toque num lugar para ver todas as passagens que o mencionam. Arraste para mover o mapa, faça pinça ou toque duas vezes para ampliar.',
+ mapLegend:'A cor mostra qual parte da Bíblia mais menciona um lugar. Quanto maior o ponto, mais vezes ele aparece. Um anel tracejado indica localização incerta.',
+ mapAttrib:'Lugares: OpenBible.info (CC BY). Costas, lagos e rios: Natural Earth (domínio público), traçado atual.',aboutAria:'Por que o app se chama Emaús?',aboutRead:'Ler a história toda',aboutShort:'No caminho de Emaús, Jesus explicou a dois discípulos todas as Escrituras. É isso que este app mostra.',nextChapter:'Continuar lendo',prevChapter:'Voltar a',gMorning:'Bom dia',gDay:'Boa tarde',gEvening:'Boa noite',focus:'Tela cheia',focusExit:'Sair da tela cheia',connection:'Ligação',connVotes:n=>`${n} votos para esta ligação`,allFromHere:'Todas as ligações deste versículo',navAria:'Visão geral da Bíblia: arraste a janela para mover, as bordas para ampliar',sideCollapse:'Recolher painel',sideExpand:'Expandir painel',settings:'Ajustes',appearance:'Aparência',lookSystem:'Como o aparelho',lookLight:'Claro',lookDark:'Escuro',textSize:'Tamanho do texto',threadsReading:'Fios durante a leitura',on:'Sim',off:'Não',fontSmaller:'Texto menor',fontBigger:'Texto maior',threads:'Fios',swipeHint:'Deslize para mudar de capítulo',copy:'Copiar',copied:'Copiado',copyFail:'Não copiado – selecione o texto',continueReading:'Continuar lendo',myNotes:'Minhas anotações',notesSynced:'Salvo em todos os seus aparelhos.',searching:'Buscando na Bíblia …',hits:(n,b)=>`${n} resultados em ${b} livros`,noHits:'Nenhum resultado. Confira a ortografia ou tente uma palavra mais curta.',allBooksChip:b=>`Só ${b}. Mostrar todos os livros`,showMore:n=>`Mostrar mais ${n}`,findTitle:q=>`Busca: “${q}”`,tooShort:'Digite pelo menos 2 letras.',transl:'BLIVRE',loadWeak:'Carregar ligações mais fracas (menos de 5 votos)',loadingWeak:'Carregando ligações mais fracas …',viaVotes:n=>`${n} votos para esta ligação`},
+it:{brandSub:'Riveduta 1927 con riferimenti incrociati',tabArcs:'Archi',tabRead:'Leggi',tabPath:'Percorso',pathShort:'Percorso',showSteps:n=>n===1?'Vedi il collegamento diretto':`Vedi ${n} passaggi`,editPath:'Modifica',pickBook:'Scegli un libro',pickCh:b=>`${b} · scegli un capitolo`,pickV:(b,c)=>`${b} ${c} · scegli un versetto`,wholeCh:'Capitolo intero',hideSteps:'Nascondi passaggi',examples:'Esempi',filter:'Filtro',langAria:'Cambia lingua',until:'a',
+ searchPh:'Passo o parola, es. Giovanni 3,16 o grazia',searchAria:'Cerca un passo',minVotes:'Voti minimi per collegamento',direction:'Direzione',
+ mAll:'Tutti',mCross:'AT ↔ NT',mOtnt:'Il NT cita l’AT',mSame:'Nello stesso Testamento',
+ votesExplain:'Voti = quanti utenti di OpenBible.info hanno giudicato utile un collegamento. Più voti, collegamento più forte.',
+ loading:'Caricamento dei riferimenti incrociati …',loadErr:'Impossibile caricare i dati. Ricarica la pagina.',
+ gesture:'Tocca un arco per vedere il collegamento, o l’asse per libro, capitolo e versetto. Doppio tocco per ingrandire.',zoomOut:'Riduci',zoomIn:'Ingrandisci',all:'Tutto',
+ tocPh:'Filtra i libri … es. Salmi, Romani',close:'Chiudi',contents:'Indice',ot:'Antico Testamento',nt:'Nuovo Testamento',noBook:'Nessun libro trovato.',allBooks:'Tutti i libri',
+ pathTitle:'Percorso tra due versetti',pathLede:'Trova la catena più breve di riferimenti incrociati che collega due passi.',
+ from:'Da',to:'A',findPath:'Trova percorso',clearSel:'Annulla selezione',
+ cats:['Legge','Storia','Poesia e sapienza','Profeti maggiori','Profeti minori','Vangeli','Atti','Lettere di Paolo','Lettere generali','Apocalisse'],
+ visible:(a,b)=>`${a} di ${b} collegamenti visibili`,arcStat:(v,a,b)=>`${a} di ${b} collegamenti`,
+ prevCh:'Capitolo precedente',nextCh:'Capitolo successivo',omit:'Questo versetto manca in questa traduzione.',
+ overview:'Panoramica',chapterN:c=>`Capitolo ${c}`,verseN:v=>`Versetto ${v}`,links:n=>`${n} collegamenti`,
+ dayVerse:'Versetto del giorno',seeLinks:'Vedi i suoi collegamenti',groups:'Gruppi di libri',
+ help:'Ogni arco collega due passi della Scrittura. Tocca gli archi per scegliere un libro, poi un capitolo e un versetto. In <b>Leggi</b> leggi un capitolo intero e vedi a destra dove porta ogni versetto. Con <b>Percorso</b>, in alto a destra negli archi, trovi la catena tra due passi.',
+ totals:(v,r)=>`${v} versetti e 341.294 riferimenti incrociati`,
+ attrib:'Testo biblico: Riveduta 1927 (pubblico dominio). Riferimenti incrociati: OpenBible.info, CC BY, basati sul Treasury of Scripture Knowledge.',
+ bookStat:(c,v,l)=>`${c} capitoli, ${v} versetti, ${l} collegamenti`,bookPoints:'Dove porta questo libro',pickChapter:'Scegli un capitolo',readCh1:'Leggi il capitolo 1',
+ chStat:(v,l)=>`${v} versetti, ${l} collegamenti`,chPoints:'Dove porta questo capitolo',readCh:'Leggi il capitolo',versesTap:'Versetti',
+ omitted:'Versetto omesso in questa traduzione.',inContext:'Leggi nel contesto',inArcs:'Vedi negli archi',asPath:'Usa come inizio del percorso',connectsTo:'Collegato a',
+ none:'Nessun collegamento sopra il filtro.',onlyAbove:'Solo collegamenti sopra il filtro',showWeak:n=>`Mostra ${n} collegamenti più deboli`,
+ hideIn:'Nascondi quelli in entrata',showIn:n=>`Passi che rimandano qui (${n})`,myNote:'La mia nota',notePh:r=>`Riflessioni su ${r} …`,noteSaved:'Salvato solo in questo browser.',
+ votes:'Voti',distTitle:'Per gruppo di libri',
+ notRecognized:'Passo non riconosciuto. Esempio: Giovanni 3,16 o Romani 8',
+ twoVerses:'Inserisci due versetti, es. «Genesi 22,8» e «Giovanni 1,29».',sameVerse:'Inizio e fine sono lo stesso versetto.',
+ noPath:n=>`Nessun collegamento con il filtro attuale (almeno ${n} voti). Abbassa il filtro e riprova.`,
+ steps:n=>n===1?'Collegamento diretto':`${n} passaggi`,notesBtn:'Note',tabNotes:'Note',newNote:'Nuova nota',noteAdd:'Nota',sortNew:'Recenti',sortBible:'Bibbia',noteToPlace:'Vai al passo',del:'Elimina',delSure:'Eliminare davvero?',done:'Fatto',noRef:'Senza passo',refAdd:'+ Passo',selConn:'Vedi collegamenti',refPh:'Passo, es. Giovanni 3,16–18',refNone:'Nessun passo corrispondente',noteFor:r=>`Nota · ${r}`,noteOpen:r=>`La tua nota · ${r}`,yourNotes:'Le tue note',today:'Oggi',yesterday:'Ieri',older:'Note precedenti',notePh2:'Che cosa porti con te?',marked:'Evidenziazione',notesNone:'Ancora nessuna nota. Mentre leggi, tocca un versetto o seleziona un passo e premi «Nota». Oppure inizia qui con «Nuova nota», per esempio durante il culto.',notesCount:n=>`${n} ${n===1?'nota':'note'}`,notesEmpty:'Ancora nessuna nota.',
+ archBtn:'Reperti',archBible:'Nella Bibbia',lastRead:'Ultima lettura',archWhy:'Perché è importante',archSeen:'Dove vederlo',archNear:'Altri reperti vicini',archNote:'I testi riassumono lo stato attuale della ricerca. Dove gli studiosi non sono d’accordo, è indicato.',tabMap:'Luoghi',pHoly:'Terra Santa',pPaul:'Viaggi di Paolo',pEast:'Babilonia e Persia',pAll:'Mappa intera',
+ mentions:n=>`${n} ${n===1?'menzione':'menzioni'}`,approx:'posizione incerta',region:'regione',alsoHere:'Anche in questo luogo',
+ chapterPlaces:n=>`${n} ${n===1?'luogo':'luoghi'} in questo capitolo`,showAllPlaces:'Mostra tutti i luoghi',noPlaces:'In questo capitolo non è menzionato alcun luogo.',
+ placesHint:(n,names)=>`<b>${n} ${n===1?'luogo':'luoghi'}</b> in questo capitolo: ${names}`,placesInVerse:'Luoghi in questo versetto',
+ mapHint:'Tocca un luogo per vedere tutti i passi che lo citano. Trascina per spostare la mappa, pizzica o tocca due volte per ingrandire.',
+ mapLegend:'Il colore indica quale parte della Bibbia cita di più un luogo. Più grande il punto, più spesso è citato. Un anello tratteggiato indica una posizione incerta.',
+ mapAttrib:'Luoghi: OpenBible.info (CC BY). Coste, laghi e fiumi: Natural Earth (pubblico dominio), tracciato attuale.',aboutAria:'Perché l’app si chiama Emmaus?',aboutRead:'Leggi tutta la storia',aboutShort:'Sulla via di Emmaus, Gesù spiegò a due discepoli tutte le Scritture. È ciò che mostra questa app.',nextChapter:'Continua a leggere',prevChapter:'Torna a',gMorning:'Buongiorno',gDay:'Buon pomeriggio',gEvening:'Buonasera',focus:'Schermo intero',focusExit:'Esci da schermo intero',connection:'Collegamento',connVotes:n=>`${n} voti per questo collegamento`,allFromHere:'Tutti i collegamenti di questo versetto',navAria:'Panoramica della Bibbia: trascina la finestra per spostarti, i bordi per ingrandire',sideCollapse:'Comprimi pannello',sideExpand:'Espandi pannello',settings:'Impostazioni',appearance:'Aspetto',lookSystem:'Come il dispositivo',lookLight:'Chiaro',lookDark:'Scuro',textSize:'Dimensione del testo',threadsReading:'Fili durante la lettura',on:'Sì',off:'No',fontSmaller:'Testo più piccolo',fontBigger:'Testo più grande',threads:'Fili',swipeHint:'Scorri per cambiare capitolo',copy:'Copia',copied:'Copiato',copyFail:'Non copiato – seleziona il testo',continueReading:'Continua a leggere',myNotes:'Le mie note',notesSynced:'Salvato su tutti i tuoi dispositivi.',searching:'Ricerca nella Bibbia …',hits:(n,b)=>`${n} risultati in ${b} libri`,noHits:'Nessun risultato. Controlla l’ortografia o prova una parola più corta.',allBooksChip:b=>`Solo ${b}. Mostra tutti i libri`,showMore:n=>`Mostra altri ${n}`,findTitle:q=>`Ricerca: «${q}»`,tooShort:'Scrivi almeno 2 lettere.',transl:'Riveduta',loadWeak:'Carica collegamenti più deboli (meno di 5 voti)',loadingWeak:'Caricamento dei collegamenti più deboli …',viaVotes:n=>`${n} voti per questo collegamento`}
 };
 let LANG=null;
-const t=(k,...a)=>{const s=STR[LANG||'de'][k];return typeof s==='function'?s(...a):s};
+const t=(k,...a)=>{const L=STR[LANG]||STR.en;const s=k in L?L[k]:STR.en[k];return typeof s==='function'?s(...a):s};
 const DEN=['1. Mose','2. Mose','3. Mose','4. Mose','5. Mose','Josua','Richter','Rut','1. Samuel','2. Samuel','1. Könige','2. Könige','1. Chronik','2. Chronik','Esra','Nehemia','Ester','Hiob','Psalm','Sprüche','Prediger','Hohelied','Jesaja','Jeremia','Klagelieder','Hesekiel','Daniel','Hosea','Joel','Amos','Obadja','Jona','Micha','Nahum','Habakuk','Zefanja','Haggai','Sacharja','Maleachi','Matthäus','Markus','Lukas','Johannes','Apostelgeschichte','Römer','1. Korinther','2. Korinther','Galater','Epheser','Philipper','Kolosser','1. Thessalonicher','2. Thessalonicher','1. Timotheus','2. Timotheus','Titus','Philemon','Hebräer','Jakobus','1. Petrus','2. Petrus','1. Johannes','2. Johannes','3. Johannes','Judas','Offenbarung'];
 const DEA=['1Mo','2Mo','3Mo','4Mo','5Mo','Jos','Ri','Rut','1Sam','2Sam','1Kön','2Kön','1Chr','2Chr','Esr','Neh','Est','Hiob','Ps','Spr','Pred','Hld','Jes','Jer','Klgl','Hes','Dan','Hos','Joel','Am','Obd','Jona','Mi','Nah','Hab','Zef','Hag','Sach','Mal','Mt','Mk','Lk','Joh','Apg','Röm','1Kor','2Kor','Gal','Eph','Phil','Kol','1Thess','2Thess','1Tim','2Tim','Tit','Phlm','Hebr','Jak','1Petr','2Petr','1Joh','2Joh','3Joh','Jud','Offb'];
-const bn=b=>LANG==='de'?DEN[b]:B[b].n;
-const ba=b=>LANG==='de'?DEA[b]:B[b].a;
+const LANGS=['en','de','es','fr','pt','it'];
+const LOC={en:'en-US',de:'de-DE',es:'es-ES',fr:'fr-FR',pt:'pt-BR',it:'it-IT'};
+const QUOTE={en:['“','”'],de:['„','“'],es:['«','»'],fr:['« ',' »'],pt:['“','”'],it:['«','»']};
+const NAMES={
+ es:['Génesis','Éxodo','Levítico','Números','Deuteronomio','Josué','Jueces','Rut','1 Samuel','2 Samuel','1 Reyes','2 Reyes','1 Crónicas','2 Crónicas','Esdras','Nehemías','Ester','Job','Salmos','Proverbios','Eclesiastés','Cantares','Isaías','Jeremías','Lamentaciones','Ezequiel','Daniel','Oseas','Joel','Amós','Abdías','Jonás','Miqueas','Nahúm','Habacuc','Sofonías','Hageo','Zacarías','Malaquías','Mateo','Marcos','Lucas','Juan','Hechos','Romanos','1 Corintios','2 Corintios','Gálatas','Efesios','Filipenses','Colosenses','1 Tesalonicenses','2 Tesalonicenses','1 Timoteo','2 Timoteo','Tito','Filemón','Hebreos','Santiago','1 Pedro','2 Pedro','1 Juan','2 Juan','3 Juan','Judas','Apocalipsis'],
+ fr:['Genèse','Exode','Lévitique','Nombres','Deutéronome','Josué','Juges','Ruth','1 Samuel','2 Samuel','1 Rois','2 Rois','1 Chroniques','2 Chroniques','Esdras','Néhémie','Esther','Job','Psaumes','Proverbes','Ecclésiaste','Cantique des cantiques','Ésaïe','Jérémie','Lamentations','Ézéchiel','Daniel','Osée','Joël','Amos','Abdias','Jonas','Michée','Nahum','Habacuc','Sophonie','Aggée','Zacharie','Malachie','Matthieu','Marc','Luc','Jean','Actes','Romains','1 Corinthiens','2 Corinthiens','Galates','Éphésiens','Philippiens','Colossiens','1 Thessaloniciens','2 Thessaloniciens','1 Timothée','2 Timothée','Tite','Philémon','Hébreux','Jacques','1 Pierre','2 Pierre','1 Jean','2 Jean','3 Jean','Jude','Apocalypse'],
+ pt:['Gênesis','Êxodo','Levítico','Números','Deuteronômio','Josué','Juízes','Rute','1 Samuel','2 Samuel','1 Reis','2 Reis','1 Crônicas','2 Crônicas','Esdras','Neemias','Ester','Jó','Salmos','Provérbios','Eclesiastes','Cânticos','Isaías','Jeremias','Lamentações','Ezequiel','Daniel','Oseias','Joel','Amós','Obadias','Jonas','Miqueias','Naum','Habacuque','Sofonias','Ageu','Zacarias','Malaquias','Mateus','Marcos','Lucas','João','Atos','Romanos','1 Coríntios','2 Coríntios','Gálatas','Efésios','Filipenses','Colossenses','1 Tessalonicenses','2 Tessalonicenses','1 Timóteo','2 Timóteo','Tito','Filemom','Hebreus','Tiago','1 Pedro','2 Pedro','1 João','2 João','3 João','Judas','Apocalipse'],
+ it:['Genesi','Esodo','Levitico','Numeri','Deuteronomio','Giosuè','Giudici','Rut','1 Samuele','2 Samuele','1 Re','2 Re','1 Cronache','2 Cronache','Esdra','Neemia','Ester','Giobbe','Salmi','Proverbi','Ecclesiaste','Cantico dei Cantici','Isaia','Geremia','Lamentazioni','Ezechiele','Daniele','Osea','Gioele','Amos','Abdia','Giona','Michea','Naum','Abacuc','Sofonia','Aggeo','Zaccaria','Malachia','Matteo','Marco','Luca','Giovanni','Atti','Romani','1 Corinzi','2 Corinzi','Galati','Efesini','Filippesi','Colossesi','1 Tessalonicesi','2 Tessalonicesi','1 Timoteo','2 Timoteo','Tito','Filemone','Ebrei','Giacomo','1 Pietro','2 Pietro','1 Giovanni','2 Giovanni','3 Giovanni','Giuda','Apocalisse']};
+const ABBR={
+ es:'Gn Éx Lv Nm Dt Jos Jue Rt 1S 2S 1R 2R 1Cr 2Cr Esd Neh Est Job Sal Pr Ec Cnt Is Jer Lm Ez Dn Os Jl Am Abd Jon Mi Nah Hab Sof Hag Zac Mal Mt Mr Lc Jn Hch Ro 1Co 2Co Gá Ef Fil Col 1Ts 2Ts 1Ti 2Ti Tit Flm He Stg 1P 2P 1Jn 2Jn 3Jn Jud Ap'.split(' '),
+ fr:'Gn Ex Lv Nb Dt Jos Jg Rt 1S 2S 1R 2R 1Ch 2Ch Esd Né Est Jb Ps Pr Ec Ct Es Jr Lm Ez Dn Os Jl Am Ab Jon Mi Na Ha So Ag Za Ml Mt Mc Lc Jn Ac Rm 1Co 2Co Ga Ep Ph Col 1Th 2Th 1Tm 2Tm Tt Phm Hé Jc 1P 2P 1Jn 2Jn 3Jn Jude Ap'.split(' '),
+ pt:'Gn Êx Lv Nm Dt Js Jz Rt 1Sm 2Sm 1Rs 2Rs 1Cr 2Cr Ed Ne Et Jó Sl Pv Ec Ct Is Jr Lm Ez Dn Os Jl Am Ob Jn Mq Na Hc Sf Ag Zc Ml Mt Mc Lc Jo At Rm 1Co 2Co Gl Ef Fp Cl 1Ts 2Ts 1Tm 2Tm Tt Fm Hb Tg 1Pe 2Pe 1Jo 2Jo 3Jo Jd Ap'.split(' '),
+ it:'Gn Es Lv Nm Dt Gs Gdc Rt 1Sam 2Sam 1Re 2Re 1Cr 2Cr Esd Ne Est Gb Sal Pr Qo Ct Is Ger Lam Ez Dn Os Gl Am Abd Gio Mi Na Ab Sof Ag Zc Ml Mt Mc Lc Gv At Rm 1Cor 2Cor Gal Ef Fil Col 1Ts 2Ts 1Tm 2Tm Tt Fm Eb Gc 1Pt 2Pt 1Gv 2Gv 3Gv Gd Ap'.split(' ')};
+const bn=b=>LANG==='de'?DEN[b]:NAMES[LANG]?NAMES[LANG][b]:B[b].n;
+const ba=b=>LANG==='de'?DEA[b]:ABBR[LANG]?ABBR[LANG][b]:B[b].a;
 function applyStatic(){
   document.documentElement.lang=LANG;
   document.querySelectorAll('[data-t]').forEach(e=>e.innerHTML=t(e.dataset.t));
@@ -743,10 +1041,10 @@ function readColors(){const cs=getComputedStyle(document.documentElement);catCol
 readColors();
 const css=n=>getComputedStyle(document.documentElement).getPropertyValue(n).trim();
 const ls={get(k){try{return localStorage.getItem(k)}catch(e){return null}},set(k,v){try{v?localStorage.setItem(k,v):localStorage.removeItem(k)}catch(e){}}};
-const fmt=n=>n.toLocaleString(LANG==='en'?'en-US':'de-DE');
+const fmt=n=>n.toLocaleString(LOC[LANG]||'en-US');
 const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 
-let d2e=new Int32Array(0),isHead=new Uint8Array(0),BASE,F0,T0,V0,S0,N0,e2d=null;const deMeta={};
+let d2e=new Int32Array(0),isHead=new Uint8Array(0),BASE,F0,T0,V0,S0,N0,e2d=null;const langMeta={},MAPPED={de:1,fr:1};
 async function fetchRefs(name){
   const b64=(await fetch(name).then(r=>{if(!r.ok)throw new Error(name);return r.text()})).trim();
   const bin=atob(b64);const u=new Uint8Array(bin.length);for(let i=0;i<bin.length;i++)u[i]=bin.charCodeAt(i);
@@ -775,7 +1073,7 @@ function loadWeak(){
 let builtLang=null;
 async function buildLang(){
   builtLang=LANG;const E=BASE.total;let counts,map=null;
-  if(LANG==='de'){if(!deMeta.d)deMeta.d=await fetch('meta_de.json').then(r=>r.json());counts=deMeta.d.c;map=deMeta.d.map}
+  if(MAPPED[LANG]){if(!langMeta[LANG])langMeta[LANG]=await fetch(`meta_${LANG}.json`).then(r=>r.json());counts=langMeta[LANG].c;map=langMeta[LANG].map}
   else counts=BASE.books.map(b=>b.c);
   let acc=0;B=BASE.books.map((b,bi)=>{const o={n:b.n,a:b.a,c:counts[bi],s:acc};acc+=counts[bi].reduce((x,y)=>x+y,0);return o});
   TOT=acc;
@@ -816,13 +1114,16 @@ function recompute(){
   $('#filterStat').textContent=t('visible',fmt(active.length),fmt(N));
 }
 function bookChVerse(i){return {b:vBook[i],c:vChap[i],v:vNum[i]}}
-const SEP=()=>LANG==='de'?',':':';
+const SEP=()=>LANG==='de'||LANG==='it'?',':':';
 function label(i,span){let s=`${bn(vBook[i])} ${vChap[i]}${SEP()}${vNum[i]}`;if(span){const j=Math.min(i+span,TOT-1);s+=(vChap[j]===vChap[i]?`–${vNum[j]}`:`–${vChap[j]}${SEP()}${vNum[j]}`)}return s}
 
 /* text: one file per book and language */
 /* text: chunks of ten chapters per book and language */
 const textCache=new Map(),loaded=new Map();
 const ck=i=>`${LANG}:${vBook[i]}:${(vChap[i]-1)/10|0}`;
+/* newer languages come as one file per Bible here (the test page has a file limit) */
+const WHOLE={es:1,fr:1,pt:1,it:1},wholeCache=new Map();
+function wholeFile(L){if(!wholeCache.has(L))wholeCache.set(L,fetch(`bible_${L}.json`).then(r=>{if(!r.ok)throw new Error(L);return r.json()}).catch(e=>{wholeCache.delete(L);throw e}));return wholeCache.get(L)}
 const bibleCache=new Map();
 function bibleFile(L){if(!bibleCache.has(L))bibleCache.set(L,fetch(`bible_${L}.json`).then(r=>{if(!r.ok)throw new Error(L);return r.json()}).catch(e=>{bibleCache.delete(L);throw e}));return bibleCache.get(L)}
 function chunkText(key){if(!textCache.has(key)){const [L,b,k]=key.split(':');
@@ -831,15 +1132,17 @@ async function ensureV(idxs){const keys=new Set();for(const i of idxs)if(i>=0&&i
 function txt(i,span=0){let out=[];for(let j=i;j<=Math.min(i+span,TOT-1);j++){const tb=loaded.get(ck(j));if(tb)out.push(tb[(vChap[j]-1)%10][vNum[j]-1])}return out.filter(Boolean).join(' ')}
 
 /* ---------- reference parsing ---------- */
-const norm=s=>s.toLowerCase().replace(/\./g,' ').replace(/\s+/g,' ').trim();
+const norm=s=>s.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/\./g,' ').replace(/\s+/g,' ').trim();
 function findBook(name){
   let n=norm(name).replace(/^(\d)\s*/,'$1 ');
-  if(n in DE)return DE[n];
+  if(!findBook.de){findBook.de={};for(const k in DE)findBook.de[norm(k)]=DE[k]}
+  if(n in findBook.de)return findBook.de[n];
   const cands=[];
+  if(NAMES[LANG])NAMES[LANG].forEach((nm,i)=>{cands.push([norm(nm),i]);cands.push([norm(ABBR[LANG][i]).replace(/^(\d)/,'$1 '),i])});
   const first=LANG==='de'?['de','en']:['en','de'];
   for(const L of first){
     if(L==='en')B.forEach((b,i)=>{cands.push([norm(b.n),i]);cands.push([norm(b.a).replace(/^(\d)/,'$1 '),i])});
-    else{DEN.forEach((nm,i)=>{cands.push([norm(nm),i]);cands.push([norm(DEA[i]).replace(/^(\d)/,'$1 '),i])});Object.entries(DE).forEach(([k,i])=>cands.push([k,i]))}
+    else{DEN.forEach((nm,i)=>{cands.push([norm(nm),i]);cands.push([norm(DEA[i]).replace(/^(\d)/,'$1 '),i])});Object.entries(findBook.de).forEach(([k,i])=>cands.push([k,i]))}
   }
   cands.push(['psalms',18],['song of songs',21],['revelations',65],['jn',42],['mt',39],['mk',40],['lk',41]);
   let hit=cands.find(c=>c[0]===n);if(hit)return hit[1];
@@ -907,7 +1210,7 @@ function drawBase(){
   const vis=r=>{const a=F[r]+.5,b=T[r]+S[r]/2+.5;return !((a<v0&&b<v0)||(a>v1&&b>v1))};
   let nVis=0;for(let k=0;k<byVotes.length;k++)if(vis(byVotes[k]))nVis++;
   const budget=Math.round(W*(W<820?28:60));const n=Math.min(nVis,budget);
-  const alpha=Math.max(light?0.05:0.028,Math.min(0.4,(light?10:6)/Math.sqrt(n||1)*Math.pow(W/1000,0.6)));
+  const alpha=Math.max(light?0.04:0.028,Math.min(0.4,(light?7:6)/Math.sqrt(n||1)*Math.pow(W/1000,0.6)));
   let k=0,drawn=0;const CH=W<820?4000:15000;const rec=new Uint32Array(n);
   const step=()=>{
     if(gen!==drawGen)return;
@@ -915,7 +1218,7 @@ function drawBase(){
     for(;k<byVotes.length&&drawn<n&&c<CH;k++){const r=byVotes[k];if(!vis(r))continue;const cat=catOfBook[vBook[F[r]]];
       arcPath(Math.abs(T[r]-F[r])>span*0.42?longP[cat]:paths[cat],F[r]+.5,T[r]+S[r]/2+.5);rec[drawn]=r;drawn++;c++}
     drawnArcs=rec.subarray(0,drawn);
-    ctx.setTransform(dprB,0,0,dprB,0,0);ctx.globalCompositeOperation=light?'multiply':'lighter';ctx.globalAlpha=alpha;ctx.lineWidth=W<820?0.8:0.7;
+    ctx.setTransform(dprB,0,0,dprB,0,0);ctx.globalCompositeOperation=light?'source-over':'lighter';ctx.globalAlpha=alpha;ctx.lineWidth=W<820?0.8:0.7;
     paths.forEach((p,i)=>{ctx.strokeStyle=catColor[i];ctx.stroke(p)});
     ctx.globalAlpha=Math.min(0.5,alpha*2.4);longP.forEach((p,i)=>{ctx.strokeStyle=catColor[i];ctx.stroke(p)});
     ctx.globalCompositeOperation='source-over';ctx.globalAlpha=1;
@@ -944,6 +1247,12 @@ function drawAxis(ctx){
 function drawHi(){
   if(!W)return;const ctx=cHi.getContext('2d');ctx.setTransform(dpr,0,0,dpr,0,0);ctx.clearRect(0,0,W,H);
   if(active)drawAxis(ctx); // lettering lives on the sharp layer, never on the reduced-resolution arcs layer
+  if(pathChain&&active){cBase.style.opacity=css('--blend')==='multiply'?0.3:0.22;const y=plotH()+4,gold=css('--gold');
+    ctx.lineCap='round';
+    for(let k=0;k<pathChain.length-1;k++){const a=pathChain[k],b=pathChain[k+1],p=new Path2D();arcPath(p,Math.min(a,b)+.5,Math.max(a,b)+.5);
+      ctx.strokeStyle=gold;ctx.globalAlpha=.25;ctx.lineWidth=7;ctx.stroke(p);ctx.globalAlpha=1;ctx.lineWidth=2.2;ctx.stroke(p)}
+    pathChain.forEach((i,k)=>{const x=X(i+.5);ctx.beginPath();ctx.arc(x,y,k===0||k===pathChain.length-1?5.5:4,0,7);ctx.fillStyle=k===0||k===pathChain.length-1?gold:catColor[catOfBook[vBook[i]]];ctx.fill();ctx.lineWidth=1.5;ctx.strokeStyle=css('--bg');ctx.stroke()});
+    return}
   cBase.style.opacity=sel?(css('--blend')==='multiply'?0.35:0.3):1;
   if(conn>=0&&active){cBase.style.opacity=css('--blend')==='multiply'?0.3:0.25;
     const p=new Path2D();arcPath(p,F[conn]+.5,T[conn]+S[conn]/2+.5);ctx.lineWidth=2.4;ctx.strokeStyle=css('--accent');ctx.stroke(p);
@@ -1046,18 +1355,17 @@ $('#zIn').onclick=()=>{zoomAt(0.5,W/2);schedule()};$('#zOut').onclick=()=>{zoomA
 
 /* ---------- reader / threads ---------- */
 const pane=$('#textpane'),chapEl=$('#chap'),tcol=$('#threadcol'),cT=$('#cThread');
-let readB=42,readC=1,rows=[];
+let readB=42,readC=1,rows=[];let vsel=null,pathChain=null;
 async function openChapter(b,c,focusV){
   readB=b;readC=c;const c0=chStart[b][c-1];await ensureV([c0]);const tx=loaded.get(ck(c0))[(c-1)%10];const cs=chStart[b][c-1];
   const prev=c>1?[b,c-1]:b>0?[b-1,B[b-1].c.length]:null,next=c<B[b].c.length?[b,c+1]:b<65?[b+1,1]:null;
-  chapEl.innerHTML=`<div class="chaphead"><button id="tocBtn" class="tocbtn"><svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M2 3.5h12M2 8h12M2 12.5h8"/></svg>${t('contents')}</button><button id="notesBtn" class="tocbtn"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z"/></svg>${t('notesBtn')}</button><button id="prevCh" ${prev?'':'disabled'} aria-label="${t('prevCh')}">‹</button><h2>${bn(b)}</h2><button id="nextCh" ${next?'':'disabled'} aria-label="${t('nextCh')}">›</button></div><div class="readbar"><button id="fsDown" aria-label="${t('fontSmaller')}">A−</button><button id="fsUp" aria-label="${t('fontBigger')}">A+</button><button id="thrBtn" aria-pressed="${showThreads}">${t('threads')}</button><span class="sp"></span><span class="hintsw">${'ontouchstart' in window?t('swipeHint'):''}</span></div><div id="plHintBox"></div>`+
+  chapEl.innerHTML=`<div class="chaphead"><button id="tocBtn" class="tocbtn"><svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M2 3.5h12M2 8h12M2 12.5h8"/></svg>${t('contents')}</button><button id="prevCh" ${prev?'':'disabled'} aria-label="${t('prevCh')}">‹</button><h2>${bn(b)}</h2><button id="nextCh" ${next?'':'disabled'} aria-label="${t('nextCh')}">›</button></div><div class="readbar"><button id="fsDown" aria-label="${t('fontSmaller')}">A−</button><button id="fsUp" aria-label="${t('fontBigger')}">A+</button><button id="thrBtn" aria-pressed="${showThreads}">${t('threads')}</button><span class="sp"></span><span class="hintsw">${'ontouchstart' in window?t('swipeHint'):''}</span></div><div id="plHintBox"></div>`+
    `<p class="ptext" lang="${LANG}"><span class="num" aria-hidden="true">${c}</span>`+tx.map((s,k)=>{const i=cs+k;
      return `<span class="v${isHead[i]?' hd':''}${k===0?' first':''}" data-i="${i}" tabindex="0"><sup>${k+1}</sup>${s?esc(s):`<span class="omit">${t('omit')}</span>`}</span> `}).join('')+'</p>'+
    `<div class="chapend">${next?`<button class="nextch" id="nextBig"><span>${t('nextChapter')}</span><b>${bn(next[0])} ${next[1]}</b></button>`:''}${prev?`<button class="prevch" id="prevBig">${t('prevChapter')}: ${bn(prev[0])} ${prev[1]}</button>`:''}</div>`;
   if(prev)$('#prevCh').onclick=()=>select(makeSel({k:'chapter',b:prev[0],c:prev[1]}));
   if(next)$('#nextCh').onclick=()=>select(makeSel({k:'chapter',b:next[0],c:next[1]}));
   $('#tocBtn').onclick=()=>openToc();
-  $('#notesBtn').onclick=()=>openNotes();
   loadPlaces().then(()=>{if(readB!==b||readC!==c)return;const box=$('#plHintBox');if(!box)return;const pts=placesInRange(cs,cs+tx.length-1);if(!pts.length){box.innerHTML='';return}
     box.innerHTML=`<button class="plhint" id="plHint"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg><span>${t('placesHint',pts.length,pts.slice(0,4).map(k=>esc(pName(PL[k]))).join(', ')+(pts.length>4?' …':''))}</span></button>`;
     $('#plHint').onclick=()=>openMap({chapter:[b,c]})}).catch(()=>{});
@@ -1066,17 +1374,19 @@ async function openChapter(b,c,focusV){
   $('#thrBtn').onclick=()=>{showThreads=!showThreads;ls.set('threads',showThreads?'1':'0');$('#thrBtn').setAttribute('aria-pressed',showThreads);applyThreads()};
   savePos();
   rows=[...chapEl.querySelectorAll('.v')];
-  rows.forEach(r=>{r.onclick=()=>{const i=+r.dataset.i;if(sel&&sel.k==='verse'&&sel.s===i)select(makeSel({k:'chapter',b,c}));else select(selVerse(i))};r.onkeydown=e=>{if(e.key==='Enter')r.click()}});
+  if(vsel&&(vBook[vsel.a]!==b||vChap[vsel.a]!==c)){vsel=null;selBar.hidden=true}
+  applyMarks();
+  rows.forEach(r=>{r.onclick=()=>{{const s=getSelection();if(s&&!s.isCollapsed&&s.toString().trim())return}pickVerse(+r.dataset.i)};r.onkeydown=e=>{if(e.key==='Enter')r.click()}});
   markRows();
   if(focusV){const r=rows[focusV-1];if(r)r.scrollIntoView({block:'center'})}else pane.scrollTop=0;
   drawThreads();
 }
-function markRows(){rows.forEach(r=>r.classList.toggle('on',!!sel&&sel.k==='verse'&&+r.dataset.i===sel.s))}
+function markRows(){rows.forEach(r=>{const i=+r.dataset.i;r.classList.toggle('on',!vsel&&!!sel&&sel.k==='verse'&&i===sel.s);r.classList.toggle('picked',!!vsel&&i>=vsel.a&&i<=vsel.b)})}
 function sizeThreads(){const r=tcol.getBoundingClientRect();cT.width=Math.round(r.width*dpr);cT.height=Math.round(r.height*dpr)}
 let thrRaf=0;
 function drawThreads(){cancelAnimationFrame(thrRaf);thrRaf=requestAnimationFrame(()=>{
   if(view!=='read'||!active)return;const r=tcol.getBoundingClientRect();if(!r.width)return;
-  dpr=Math.min(2,window.devicePixelRatio||1);
+  dpr=Math.min(3,window.devicePixelRatio||1);
   if(cT.width!==Math.round(r.width*dpr)||cT.height!==Math.round(r.height*dpr))sizeThreads();
   const ctx=cT.getContext('2d');ctx.setTransform(dpr,0,0,dpr,0,0);ctx.clearRect(0,0,r.width,r.height);
   const top=12,h=r.height-24,ax=r.width-(r.width>120?44:34);
@@ -1128,7 +1438,8 @@ function openToc(){toc.hidden=false;tocFilter.value='';renderBooks();toc.scrollT
 function closeToc(){toc.hidden=true;const n=$('#notesOv');if(n)n.hidden=true}
 /* all notes in one place, in Bible order, each with its verse */
 const notesOv=$('#notesOv');
-async function openNotes(){const list=allNotes();notesOv.hidden=false;notesOv.scrollTop=0;if(isSheet())panel.classList.add('collapsed');
+function openNotes(){setView('notes')}
+async function openNotesOld(){const list=allNotes();notesOv.hidden=false;notesOv.scrollTop=0;if(isSheet())panel.classList.add('collapsed');
   const body=$('#notesBody');
   if(!list.length){body.innerHTML=`<p class="hint" style="max-width:46ch">${t('notesEmpty')}</p>`;return}
   await ensureV(list.map(x=>x[0]));
@@ -1179,14 +1490,166 @@ setTimeout(async()=>{try{
   store=db.collection('data/users/'+id);
   store.onSnapshot(q=>{let changed=false;for(const d of q.docs){const data=d.data()||{};
       if(d.id.startsWith('n_')){const k=d.id.slice(2),v=typeof data.t==='string'?data.t:'';if(notes.get(k)!==v){notes.set(k,v);ls.set('note2:'+k,v);changed=true}}
+      else if(d.id.startsWith('m_')){if(syncMark(d.id.slice(2),data))changed=true}
       else if(d.id==='pos'&&!posFromStore){posFromStore=true;if(!readOpened&&data.b!=null)adoptPos(data)}}
-    if(changed&&active&&!sel)renderPanel();},()=>{});
+    if(changed&&active){if(!sel)renderPanel();if(view==='notes')renderNotes();if(view==='read')refreshMarks()}},()=>{});
+  pushLocalMarks();
 }catch(e){}},1200);
 let readOpened=false;
 function allNotes(){const out=[];const seen=new Set();
   for(const [k,v] of notes){if(v){seen.add(k);out.push([k,v])}}
   try{for(let n=0;n<localStorage.length;n++){const key=localStorage.key(n);if(key&&key.startsWith('note2:')){const k=key.slice(6);if(!seen.has(k)){const v=localStorage.getItem(key);if(v)out.push([k,v])}}}}catch(e){}
   return out.map(([k,v])=>[keyToIdx(k),v]).filter(x=>x[0]>=0).sort((a,b)=>a[0]-b[0]);}
+
+/* ---------- marked passages with notes ----------
+   A mark is a stretch of text you selected, possibly across verses, with an optional note.
+   Verses are stored language-independently (noteKey); character offsets only count in the language
+   it was marked in, elsewhere the whole verses are tinted. Free notes have no passage at all. */
+const marks=new Map();
+function loadMarks(){try{for(let n=0;n<localStorage.length;n++){const key=localStorage.key(n);if(key&&key.startsWith('mark:')){const m=JSON.parse(localStorage.getItem(key)||'null');if(m&&m.id&&!m.x)marks.set(m.id,m)}}}catch(e){}}
+loadMarks();
+const markTimers=new Map();
+function saveMark(m){m.u=Date.now();marks.set(m.id,m);ls.set('mark:'+m.id,JSON.stringify(m));queueMarkWrite(m.id)}
+function dropMark(id){marks.delete(id);ls.set('mark:'+id,JSON.stringify({id,x:1,u:Date.now()}));queueMarkWrite(id)}
+function queueMarkWrite(id){if(!store)return;clearTimeout(markTimers.get(id));markTimers.set(id,setTimeout(async()=>{
+  try{const m=marks.get(id);const ref=store.doc('m_'+id);if(m)await ref.set({...m});else{await ref.delete();ls.set('mark:'+id,'')}}catch(e){}},700))}
+function syncMark(id,data){const cur=marks.get(id);if(!data||!data.id)return false;if(cur&&cur.u>=data.u)return false;
+  let tomb=null;try{tomb=JSON.parse(ls.get('mark:'+id)||'null')}catch(e){}if(tomb&&tomb.x&&tomb.u>=data.u)return false;
+  marks.set(id,data);ls.set('mark:'+id,JSON.stringify(data));return true}
+function pushLocalMarks(){for(const m of marks.values())queueMarkWrite(m.id)
+  try{for(let n=0;n<localStorage.length;n++){const key=localStorage.key(n);if(key&&key.startsWith('mark:')){const m=JSON.parse(localStorage.getItem(key)||'null');if(m&&m.x)queueMarkWrite(m.id)}}}catch(e){}}
+const newId=()=>Date.now().toString(36)+Math.random().toString(36).slice(2,7);
+function markRange(m){if(!m.a)return null;const a=keyToIdx(m.a),b=keyToIdx(m.b);return a<0||b<0?null:[a,b]}
+function markLabel(m){const r=markRange(m);if(!r)return t('noRef');const [a,b]=r;if(a===b)return label(a);
+  if(vBook[a]===vBook[b]&&vChap[a]===vChap[b])return `${label(a)}–${vNum[b]}`;
+  if(vBook[a]===vBook[b])return `${label(a)}–${vChap[b]}${SEP()}${vNum[b]}`;return `${label(a)} – ${label(b)}`}
+
+/* reading offsets out of a selection: counted in the verse text, the verse number does not count */
+function verseOf(node){const el=node.nodeType===1?node:node.parentElement;return el?el.closest('.v'):null}
+function boundary(node,off,start){let v=verseOf(node);
+  if(!v){const host=node.nodeType===1?node:node.parentElement;if(!host)return null;
+    let c=node.nodeType===1?(start?node.childNodes[off]:node.childNodes[off-1]):null;
+    while(c&&!(c.classList&&c.classList.contains('v')))c=start?c.nextSibling:c.previousSibling;
+    if(!c)return null;v=c;const len=verseText(v).length;return {v,i:+v.dataset.i,o:start?0:len}}
+  const r=document.createRange();r.setStart(v,0);try{r.setEnd(node,off)}catch(e){return null}
+  const sup=v.querySelector('sup'),st=sup?sup.textContent:'',s=r.toString();
+  return {v,i:+v.dataset.i,o:Math.max(0,s.startsWith(st)?s.length-st.length:0)}}
+function textNodes(v){const out=[];const w=document.createTreeWalker(v,NodeFilter.SHOW_TEXT);let n;while((n=w.nextNode())){if(n.parentElement.closest('sup'))continue;out.push(n)}return out}
+function verseText(v){return textNodes(v).map(n=>n.data).join('')}
+function readSelection(){const s=getSelection();if(!s||s.isCollapsed||!s.rangeCount||view!=='read')return null;
+  const r=s.getRangeAt(0);if(!chapEl.contains(r.commonAncestorContainer))return null;
+  const a=boundary(r.startContainer,r.startOffset,true),b=boundary(r.endContainer,r.endOffset,false);
+  if(!a||!b||a.i>b.i||(a.i===b.i&&a.o>=b.o))return null;
+  // snap to whole words, like a highlighter would
+  {const W=/[\p{L}\p{N}]/u,ta=verseText(a.v),tb=verseText(b.v);while(a.o>0&&W.test(ta[a.o-1]))a.o--;while(b.o<tb.length&&W.test(tb[b.o]))b.o++}
+  // the quote is rebuilt from the verse texts, so verse numbers never end up in it
+  let q='';for(const row of rows){const i=+row.dataset.i;if(i<a.i||i>b.i)continue;const tx=verseText(row);q+=' '+tx.slice(i===a.i?a.o:0,i===b.i?b.o:tx.length)}
+  q=q.replace(/\s+/g,' ').trim();if(!q)return null;return {a,b,q,rect:r.getBoundingClientRect()}}
+
+/* picking verses by tapping (reliable everywhere), or selecting text with the finger (exact) */
+const selBar=$('#selBar'),selBtn=$('#selNote');let selNow=null,selT=0;
+function pickVerse(i){if(vsel&&vsel.a===i&&vsel.b===i){vsel=null;select(makeSel({k:'chapter',b:readB,c:readC}),{quiet:true});paintBar();return}
+  if(vsel&&vChap[i]===vChap[vsel.a]&&vBook[i]===vBook[vsel.a]){if(i<vsel.a)vsel={a:i,b:vsel.b};else if(i>vsel.b)vsel={a:vsel.a,b:i};else if(i===vsel.a)vsel={a:vsel.a+1,b:vsel.b};else if(i===vsel.b)vsel={a:vsel.a,b:vsel.b-1};else vsel={a:vsel.a,b:i}}
+  else vsel={a:i,b:i};
+  // one verse: the familiar view with its connections opens; several: only the new picking look
+  if(vsel.a===vsel.b){select(selVerse(vsel.a),{quiet:true});if(isSheet()){panel.classList.add('low');panel.classList.remove('collapsed');
+    const r=rows.find(x=>+x.dataset.i===vsel.a);if(r){const top=r.getBoundingClientRect().top-pane.getBoundingClientRect().top+pane.scrollTop-64;pane.scrollTo({top:Math.max(0,top),behavior:'smooth'})}}}else{select(selVerse(vsel.a),{quiet:true});if(isSheet())panel.classList.add('collapsed')}
+  markRows();paintBar()}
+function hideSelBtn(){selNow=null;vsel=null;selBar.hidden=true;if(rows.length)markRows();setTimeout(updatePeek,0)}
+function paintBar(){setTimeout(updatePeek,0);const x=selNow;if(!x&&!vsel){selBar.hidden=true;return}
+  const a=x?x.a.i:vsel.a,b=x?x.b.i:vsel.b;const ex=!x&&a===b?marksAt(a)[0]:null;selBar.dataset.open=ex?ex.id:'';
+  $('#selNote span').textContent=ex?t('noteOpen',markLabel(ex)):t('noteFor',rangeLabel(a,b));selBar.hidden=false;$('#selConn').hidden=!x&&vsel&&vsel.a===vsel.b;
+  const hb=document.querySelector('header').getBoundingClientRect();selBar.style.top=Math.max(8,hb.bottom+10)+'px'}
+document.addEventListener('selectionchange',()=>{clearTimeout(selT);selT=setTimeout(()=>{if(view!=='read')return;const x=readSelection();selNow=x;if(x&&vsel){vsel=null;markRows()}paintBar()},120)});
+function rangeLabel(a,b){return markLabel({a:noteKey(a),b:noteKey(b)})}
+selBar.addEventListener('pointerdown',e=>e.preventDefault());
+['touchend','pointerup','mouseup'].forEach(ev=>chapEl.addEventListener(ev,()=>setTimeout(()=>document.dispatchEvent(new Event('selectionchange')),350)));
+selBtn.onclick=()=>{let m;if(selBar.dataset.open){const id=selBar.dataset.open;hideSelBtn();select(makeSel({k:'chapter',b:readB,c:readC}),{quiet:true});openEditor(id);return}
+  if(selNow){const x=selNow;m={id:newId(),a:noteKey(x.a.i),ao:x.a.o,b:noteKey(x.b.i),bo:x.b.o,l:LANG,q:x.q,t:'',c:Date.now()}}
+  else if(vsel){let q='';for(let i=vsel.a;i<=vsel.b;i++)q+=txt(i)+' ';m={id:newId(),a:noteKey(vsel.a),ao:0,b:noteKey(vsel.b),bo:null,l:LANG,q:q.trim(),t:'',c:Date.now()}}
+  if(!m)return;saveMark(m);try{getSelection().removeAllRanges()}catch(e){}hideSelBtn();select(makeSel({k:'chapter',b:readB,c:readC}),{quiet:true});refreshMarks();openEditor(m.id,true)};
+$('#selConn').onclick=()=>{const i=selNow?selNow.a.i:vsel?vsel.a:null;try{getSelection().removeAllRanges()}catch(e){}hideSelBtn();if(i==null)return;select(selVerse(i));if(isSheet())panel.classList.remove('collapsed')};
+$('#selClear').onclick=()=>{try{getSelection().removeAllRanges()}catch(e){}hideSelBtn();select(makeSel({k:'chapter',b:readB,c:readC}),{quiet:true})};
+
+/* drawing the highlights into the chapter */
+function wrapIn(v,from,to,id,cls){let acc=0;const parts=[];for(const n of textNodes(v)){const L=n.data.length,s=Math.max(from,acc),e=Math.min(to,acc+L);if(e>s)parts.push([n,s-acc,e-acc]);acc+=L}
+  parts.forEach(([n,s,e])=>{let mid=n;if(s>0)mid=n.splitText(s);if(e-s<mid.data.length)mid.splitText(e-s);const mk=document.createElement('mark');mk.className=cls;mk.dataset.m=id;mid.parentNode.insertBefore(mk,mid);mk.appendChild(mid)})}
+function applyMarks(){if(!rows.length)return;const first=+rows[0].dataset.i,last=+rows[rows.length-1].dataset.i;
+  for(const m of marks.values()){const r=markRange(m);if(!r||r[1]<first||r[0]>last)continue;const exact=m.l===LANG,cls='hl'+(m.t?' hasnote':'')+(exact?'':' loose');
+    for(const row of rows){const i=+row.dataset.i;if(i<r[0]||i>r[1])continue;const len=verseText(row).length;
+      const from=exact&&i===r[0]?Math.min(m.ao||0,len):0,to=exact&&i===r[1]?Math.min(m.bo==null?len:m.bo,len):len;if(to>from)wrapIn(row,from,to,m.id,cls)}}}
+function refreshMarks(){if(view!=='read'||!rows.length)return;chapEl.querySelectorAll('mark.hl').forEach(mk=>{const p=mk.parentNode;while(mk.firstChild)p.insertBefore(mk.firstChild,mk);p.removeChild(mk);p.normalize()});applyMarks()}
+function marksAt(i){const out=[];for(const m of marks.values()){const r=markRange(m);if(r&&i>=r[0]&&i<=r[1])out.push(m)}return out.sort((x,y)=>(y.c||0)-(x.c||0))}
+
+/* the editor */
+const ned=$('#noteEd'),nedText=$('#nedText');let nedId=null,nedTimer=0;
+function fitText(){nedText.style.height='auto';nedText.style.height=Math.min(nedText.scrollHeight+2,innerHeight*.42)+'px'}
+function paintRef(m){const has=!!markRange(m),btn=$('#nedRef');btn.textContent=has?markLabel(m):t('refAdd');btn.classList.toggle('empty',!has);
+  $('#nedGo').hidden=!has||view==='read';const q=$('#nedQuote');q.textContent=m.q||'';q.hidden=!m.q}
+function openEditor(id,fresh){const m=marks.get(id);if(!m)return;nedId=id;ned.hidden=false;ned.classList.toggle('writing',!!(m.t||'').trim());
+  paintRef(m);$('#nedRefIn').hidden=true;$('#nedRef').hidden=false;$('#nedSug').hidden=true;
+  nedText.value=m.t||'';nedText.placeholder=t('notePh2');fitText();
+  const del=$('#nedDel');del.classList.remove('sure');del.setAttribute('aria-label',t('del'));
+  if(!m.a&&fresh)setTimeout(openRefSearch,60);else setTimeout(()=>nedText.focus(),fresh?60:200)}
+/* attaching or changing the passage: type a reference, pick it */
+function parseRange(q){q=q.replace(/[–—]/g,'-').trim();let end=null,endC=null;
+  const m2=q.match(/^(.*?\d)\s*-\s*(\d+)(?:\s*[:,.]\s*(\d+))?$/);if(m2){q=m2[1];if(m2[3]){endC=+m2[2];end=+m2[3]}else end=+m2[2]}
+  const o=parseRef(q);if(!o||o.k==='book')return null;const bk=B[o.b];
+  if(o.k==='chapter'){const cs=chStart[o.b][o.c-1];let ce=o.c;if(end&&!endC&&end>o.c&&end<=bk.c.length)ce=end;return [cs,chStart[o.b][ce-1]+bk.c[ce-1]-1]}
+  const a=chStart[o.b][o.c-1]+o.v-1;let b=a;
+  if(endC&&endC>=o.c&&endC<=bk.c.length)b=chStart[o.b][endC-1]+Math.min(end,bk.c[endC-1])-1;else if(end&&end>o.v)b=chStart[o.b][o.c-1]+Math.min(end,bk.c[o.c-1])-1;
+  return b>=a?[a,b]:null}
+const refIn=$('#nedRefIn'),sug=$('#nedSug');let sugR=null;let nedPick=null;
+function openRefSearch(){if(!nedPick)nedPick=attachRefPicker(refIn,$('#nedDrop'),{chapter:true,done:()=>{sugR=parseRange(refIn.value);if(sugR)pickRef()}});$('#nedRef').hidden=true;refIn.hidden=false;refIn.placeholder=t('refPh');refIn.value='';sug.hidden=true;refIn.focus();nedPick.render()}
+$('#nedRef').onclick=openRefSearch;
+refIn.oninput=async()=>{const r=parseRange(refIn.value);sugR=r;if(!refIn.value.trim()){sug.hidden=true;return}
+  if(!r){sug.hidden=false;sug.innerHTML=`<span class="none">${t('refNone')}</span>`;return}
+  await ensureV([r[0]]);if(sugR!==r)return;sug.hidden=false;
+  sug.innerHTML=`<button id="sugPick"><b>${esc(rangeLabel(r[0],r[1]))}</b><span>${esc(txt(r[0]))}</span></button>`;$('#sugPick').onclick=pickRef};
+refIn.onkeydown=e=>{if(e.key==='Enter'){e.preventDefault();if(sugR)pickRef()}if(e.key==='Escape'){e.stopPropagation();closeRefSearch()}};
+function closeRefSearch(){refIn.hidden=true;$('#nedRef').hidden=false;sug.hidden=true;$('#nedDrop').hidden=true}
+async function pickRef(){const m=marks.get(nedId);if(!m||!sugR)return;const [a,b]=sugR;await ensureV(Array.from({length:Math.min(b-a+1,6)},(_,k)=>a+k));
+  m.a=noteKey(a);m.b=noteKey(b);m.ao=0;m.bo=null;m.l=LANG;let q='';for(let i=a;i<=Math.min(b,a+5);i++)q+=txt(i)+' ';m.q=q.trim();
+  saveMark(m);closeRefSearch();paintRef(m);nedText.focus()}
+function closeEditor(){if(!nedId)return;const m=marks.get(nedId);clearTimeout(nedTimer);
+  if(m){m.t=nedText.value.replace(/\s+$/,'');if(!m.a&&!m.t.trim())dropMark(m.id);else saveMark(m)}closeRefSearch();
+  nedId=null;ned.hidden=true;nedText.blur();if(view==='read')refreshMarks();if(view==='notes')renderNotes()}
+nedText.oninput=()=>{fitText();ned.classList.add('writing');const m=marks.get(nedId);if(!m)return;clearTimeout(nedTimer);nedTimer=setTimeout(()=>{m.t=nedText.value;saveMark(m)},600)};
+$('#nedDone').onclick=closeEditor;nedText.addEventListener('pointerdown',()=>ned.classList.add('writing'));
+ned.addEventListener('click',e=>{if(e.target===ned)closeEditor()});
+ned.addEventListener('keydown',e=>{if(e.key==='Escape')closeEditor()});
+$('#nedDel').onclick=()=>{const del=$('#nedDel');if(!del.classList.contains('sure')){del.classList.add('sure');del.setAttribute('aria-label',t('delSure'));setTimeout(()=>del.classList.remove('sure'),3000);return}
+  const id=nedId;nedId=null;ned.hidden=true;dropMark(id);if(view==='read')refreshMarks();if(view==='notes')renderNotes()};
+$('#nedGo').onclick=()=>{const m=marks.get(nedId);closeEditor();if(m)goToMark(m)};
+function goToMark(m){const r=markRange(m);if(!r)return;const i=r[0];sel=selVerse(i);setView('read');
+  setTimeout(()=>{const mk=chapEl.querySelector(`mark[data-m="${m.id}"]`)||rows.find(x=>+x.dataset.i===i);if(mk){mk.scrollIntoView({block:'center',behavior:'smooth'});mk.classList.add('flash');setTimeout(()=>mk.classList.remove('flash'),1600)}},250)}
+$('#noteNew').onclick=()=>{const m={id:newId(),a:null,b:null,l:LANG,q:'',t:'',c:Date.now()};marks.set(m.id,m);openEditor(m.id,true)};
+
+/* the notes tab */
+let noteSort=ls.get('noteSort')||'new';
+const noteSortSeg=$('#noteSort');
+function paintSort(){noteSortSeg.querySelectorAll('button').forEach(b=>b.setAttribute('aria-pressed',b.dataset.s===noteSort))}
+noteSortSeg.querySelectorAll('button').forEach(b=>b.onclick=()=>{noteSort=b.dataset.s;ls.set('noteSort',noteSort);paintSort();renderNotes()});paintSort();
+function dayLabel(ts){const d=new Date(ts),n=new Date();const day=x=>new Date(x.getFullYear(),x.getMonth(),x.getDate()).getTime();const diff=Math.round((day(n)-day(d))/864e5);
+  if(diff===0)return t('today');if(diff===1)return t('yesterday');
+  return d.toLocaleDateString(LOC[LANG]||'en-US',{weekday:'long',day:'numeric',month:'long',year:d.getFullYear()===n.getFullYear()?undefined:'numeric'})}
+async function renderNotes(){const list=[...marks.values()].filter(m=>m.a||(m.t||'').trim());
+  // older notes written straight under a verse join in, without a date
+  for(const [i,v] of allNotes())list.push({id:'v'+i,legacy:i,a:noteKey(i),b:noteKey(i),ao:0,bo:null,l:LANG,q:'',t:v,c:0,u:0});
+  const out=$('#notesList');$('#notesStat').textContent=list.length?t('notesCount',list.length):'';
+  if(!list.length){out.innerHTML=`<p class="hint nempty">${t('notesNone')}</p>`;return}
+  const need=[];list.forEach(m=>{const r=markRange(m);if(r)for(let i=r[0];i<=Math.min(r[1],r[0]+3);i++)need.push(i)});await ensureV(need);
+  list.forEach(m=>{if(!m.q){const r=markRange(m);if(r){let q='';for(let i=r[0];i<=Math.min(r[1],r[0]+3);i++)q+=txt(i)+' ';m.qShow=q.trim()}}else m.qShow=m.q});
+  const card=m=>`<button class="ncard${m.t?'':' bare'}" data-id="${m.id}"><div class="nref"><span>${m.a?esc(markLabel(m)):''}</span>${m.c?`<time>${new Date(m.c).toLocaleTimeString(LOC[LANG]||'en-US',{hour:'2-digit',minute:'2-digit'})}</time>`:''}</div>
+    ${m.qShow?`<blockquote class="nq">${esc(m.qShow.length>260?m.qShow.slice(0,257)+'…':m.qShow)}</blockquote>`:''}${m.t?`<div class="ntxt">${esc(m.t)}</div>`:`<div class="ntxt muted">${t('marked')}</div>`}</button>`;
+  let html='';
+  if(noteSort==='new'){list.sort((x,y)=>(y.c||0)-(x.c||0));let cur=null;
+    list.forEach(m=>{const g=m.c?dayLabel(m.c):t('older');if(g!==cur){if(cur!==null)html+='</div>';html+=`<div class="ngroup"><h4>${esc(g)}</h4>`;cur=g}html+=card(m)});html+='</div>'}
+  else{const pos=m=>{const r=markRange(m);return r?r[0]*1e4+(m.ao||0):1e12};list.sort((x,y)=>pos(x)-pos(y));let cur=null;
+    list.forEach(m=>{const r=markRange(m),g=r?bn(vBook[r[0]]):t('noRef'),col=r?catColor[catOfBook[vBook[r[0]]]]:'transparent';if(g!==cur){if(cur!==null)html+='</div>';html+=`<div class="ngroup"><h4><span class="sw" style="background:${col}"></span>${esc(g)}</h4>`;cur=g}html+=card(m)});html+='</div>'}
+  out.innerHTML=html;
+  out.querySelectorAll('.ncard').forEach(b=>b.onclick=()=>{const m=list.find(x=>x.id===b.dataset.id);if(!m)return;
+    if(m.legacy!=null){sel=selVerse(m.legacy);setView('read');if(isSheet())panel.classList.remove('collapsed');renderPanel();return}openEditor(m.id)})}
 
 /* Archaeological finds that touch biblical people and places. Short, sober texts; where scholars disagree, it says so. */
 const ARCH=[
@@ -1522,7 +1985,7 @@ function dayVerse(){const d=new Date();const seed=d.getFullYear()*372+d.getMonth
   if(!dayVerse.pool){const sc=[];for(let i=0;i<TOT;i++){let s=0;for(let r=outStart[i];r<outStart[i+1];r++)s+=V[r]>=20?1:0;if(s>=6)sc.push(i)}dayVerse.pool=sc}
   const p=dayVerse.pool;return p[(seed*2654435761%4294967296)%p.length]}
 async function copyVerse(i,btn){
-  const text=`„${txt(i)}“ – ${label(i)} (${t('transl')})`.replace(/^„/,LANG==='de'?'„':'“').replace(/“ – /,LANG==='de'?'“ – ':'” – ');
+  const q=QUOTE[LANG]||QUOTE.en;const text=`${q[0]}${txt(i)}${q[1]} – ${label(i)} (${t('transl')})`;
   const old=btn.textContent;
   try{await navigator.clipboard.writeText(text);btn.textContent=t('copied');btn.classList.add('copied')}
   catch(e){btn.textContent=t('copyFail');const p=pbody.querySelector('.vtext');if(p){const r=document.createRange();r.selectNodeContents(p);const s=getSelection();s.removeAllRanges();s.addRange(r)}}
@@ -1580,6 +2043,7 @@ async function renderPanel(){
   const note=getNote(i);
   pbody.innerHTML=`<div><h3 class="vtitle">${label(i)}</h3><p class="vtext">${esc(txt(i))||`<i>${t('omitted')}</i>`}</p></div>
     <div class="actions"><button class="ghost" id="ctx">${t('inContext')}</button>${view==='arcs'?'':`<button class="ghost" id="inArcs">${t('inArcs')}</button>`}<button class="ghost" id="asPath">${t('asPath')}</button><button class="ghost" id="copyV">${t('copy')}</button></div>
+    ${(()=>{const ms=marksAt(i);return ms.length?`<div><p class="eyebrow">${t('yourNotes')}</p>${ms.map(m=>`<button class="ncard pnote" data-mk="${m.id}"><div class="nref"><span>${esc(markLabel(m))}</span></div>${m.t?`<div class="ntxt">${esc(m.t)}</div>`:`<div class="ntxt muted">${t('marked')}</div>`}</button>`).join('')}</div>`:''})()}
     ${PL&&PL.byE.get(d2e[i])?`<div><p class="eyebrow">${t('placesInVerse')}</p><div class="vplaces">${PL.byE.get(d2e[i]).map(k=>{const ni=PL[k].names.findIndex(n=>n[3].includes(d2e[i]));return `<button data-pl="${k}" data-ni="${ni}"><i style="background:${catColor[PL[k].cat]}"></i>${esc(pName(PL[k],ni))}</button>`}).join('')}</div></div>`:''}
     <div><p class="eyebrow">${t('connectsTo')} <span class="ct">${shown.length}</span></p>${distBar(shown)}</div>
     <div>${order.length?order.map(b=>`<div class="grp"><h4><span class="sw" style="background:${catColor[catOfBook[b]]}"></span>${bn(b)}<span class="ct">${groups.get(b).length}</span></h4>${groups.get(b).map(r=>refBtn(T[r],S[r],V[r])).join('')}</div>`).join(''):`<p class="hint">${t('none')}</p>`}
@@ -1588,10 +2052,11 @@ async function renderPanel(){
       ${showIncoming?`<div class="grp" style="margin-top:8px">${inc.map(r=>refBtn(F[r],0,V[r])).join('')}</div>`:''}</div>
     <div class="note"><p class="eyebrow">${t('myNote')}</p><textarea id="noteTa" placeholder="${esc(t('notePh',label(i)))}">${esc(note)}</textarea><small>${store?t('notesSynced'):t('noteSaved')}</small></div>`;
   pbody.querySelectorAll('.ref[data-i]').forEach(b=>b.onclick=()=>select(selVerse(+b.dataset.i),{fit:view==='arcs'}));
+  pbody.querySelectorAll('[data-mk]').forEach(b=>b.onclick=()=>openEditor(b.dataset.mk));
   $('#ctx').onclick=()=>setView('read');
   pbody.querySelectorAll('[data-pl]').forEach(b=>b.onclick=()=>{renderMapPanel.keep=true;openMap({place:+b.dataset.pl,name:+b.dataset.ni}).then(()=>setTimeout(()=>renderMapPanel.keep=false,300))});
   const ia=$('#inArcs');if(ia)ia.onclick=()=>setView('arcs');
-  $('#asPath').onclick=()=>{$('#pFrom').value=label(i);setView('path');$('#pTo').focus()};
+  $('#asPath').onclick=()=>{$('#pFrom').value=label(i);$('#pTo').value='';$('#pathOut').innerHTML='';setView('path');setTimeout(()=>$('#pTo').focus(),50)};
   const ta=$('#toggleAll');if(ta)ta.onclick=async()=>{if(!weakLoaded){ta.disabled=true;ta.textContent=t('loadingWeak');try{await loadWeak()}catch(e){ta.textContent=t('loadErr');return}showAllRefs=true;if(view==='arcs')renderArcs()}else showAllRefs=!showAllRefs;renderPanel()};
   $('#toggleIn').onclick=()=>{showIncoming=!showIncoming;renderPanel()};
   $('#noteTa').oninput=e=>setNote(i,e.target.value);
@@ -1614,7 +2079,7 @@ $('#phead').onclick=e=>{if(sheetDragged){sheetDragged=false;return}if(isSheet()&
   panel.addEventListener('touchend',end);panel.addEventListener('touchcancel',end);
 })();
 const peek=$('#peek');
-function updatePeek(){const show=isSheet()&&panel.classList.contains('collapsed')&&(conn>=0||!!sel);peek.hidden=!show;document.body.classList.toggle('peeking',show);if(!show)return;
+function updatePeek(){const show=isSheet()&&panel.classList.contains('collapsed')&&(conn>=0||!!sel)&&!(view==='read'&&sel&&sel.k!=='verse')&&$('#selBar').hidden;peek.hidden=!show;document.body.classList.toggle('peeking',show);if(!show)return;
   $('#peekTxt').textContent=conn>=0?`${label(F[conn])} / ${label(T[conn])}`:sel.k==='verse'?label(sel.s):sel.k==='chapter'?`${bn(sel.b)} ${sel.c}`:bn(sel.b)}
 new MutationObserver(updatePeek).observe(panel,{attributes:true,attributeFilter:['class']});
 peek.onclick=()=>panel.classList.remove('collapsed');
@@ -1629,22 +2094,25 @@ $('#pside').onclick=e=>{e.stopPropagation();sideFolded=!sideFolded;ls.set('side'
 panel.addEventListener('click',e=>{if(sideFolded&&!isSheet()&&!e.target.closest('#pside')){sideFolded=false;ls.set('side','');applySide()}});
 
 /* ---------- selection + views ---------- */
-function select(s,opt={}){
+function select(s,opt={}){if(!s)vsel=null;if(pathChain&&!opt.keep)pathChain=null;
   sel=s;conn=-1;showAllRefs=false;showIncoming=false;
   try{history.replaceState(null,'',s?'#'+(s.k==='book'?B[s.b].a:s.k==='chapter'?`${B[s.b].a}.${s.c}`:`${B[s.b].a}.${s.c}.${s.v}`):location.pathname+location.search)}catch(e){}
   if(view==='arcs'){if(opt.fit)fitSel();opt.fit?renderArcs():drawHi()}
   if(view==='read'&&s&&(s.b!==readB||s.c!==readC))openChapter(s.b,s.c,s.v);else if(view==='read'){markRows();drawThreads()}
-  if(s&&isSheet()&&(s.k==='verse'||view==='arcs'))panel.classList.remove('collapsed');
+  if(s&&isSheet()&&(s.k==='verse'||view==='arcs')&&!(opt.quiet&&view==='read'))panel.classList.remove('collapsed');
   if(!s&&innerWidth<=820)panel.classList.add('collapsed');
   renderPanel();
 }
-function setView(v){const prev=view;view=v;const dk=$('.tabs');if(dk)dk.classList.remove('away');
-  if(v==='arcs'&&prev==='read'&&(!sel||sel.k==='book'))sel=makeSel({k:'chapter',b:readB,c:readC});['arcs','read','map','path','find'].forEach(k=>{$('#v-'+k).hidden=k!==v;const tb=$('#tab-'+k);if(tb)tb.setAttribute('aria-selected',k===v)});
+function setView(v){if(v==='path'){setView('arcs');openPath();return}const prev=view;view=v;panel.classList.remove('low');const dk=$('.tabs');if(dk)dk.classList.remove('away');
+  if(v==='arcs'&&prev==='read'&&(!sel||sel.k==='book'))sel=makeSel({k:'chapter',b:readB,c:readC});['arcs','read','map','path','find','notes'].forEach(k=>{$('#v-'+k).hidden=k!==v;const tb=$('#tab-'+k);if(tb)tb.setAttribute('aria-selected',k===v)});
   if(v==='read')readOpened=true;
   if(v!=='read')closeToc();
   if(v==='arcs'){requestAnimationFrame(()=>{sizeStage();fitSel();renderArcs()})}
   if(v==='read'){const b=sel?sel.b:readB,c=sel&&sel.c?sel.c:(sel?1:readC);openChapter(b,c,sel&&sel.v);if(isSheet()&&(!sel||sel.k!=='verse'))panel.classList.add('collapsed')}
-  if((v==='path'||v==='find')&&isSheet())panel.classList.add('collapsed');
+  if((v==='path'||v==='find'||v==='notes')&&isSheet())panel.classList.add('collapsed');
+  if(v==='notes')renderNotes();
+  if(v!=='read')hideSelBtn();
+  if(v!=='arcs'&&!$('#pathPop').hidden)closePath();
   if(v==='map'){if(prev!=='map')openMap();if(isSheet()&&mapPt<0&&!mapChap)panel.classList.add('collapsed')}
   renderPanel();
 }
@@ -1710,11 +2178,17 @@ const PRESETS=[[[0,3,15],[65,12,9]],[[0,22,8],[42,1,29]],[[22,53,5],[59,2,24]],[
 const engIdx=(b,c,v)=>{let i=BASE.books[b].s;for(let k=0;k<c-1;k++)i+=BASE.books[b].c[k];return i+v-1};
 const pl=([b,c,v])=>label(e2d[engIdx(b,c,v)]);
 function renderPresets(){
-  $('#presets').innerHTML=PRESETS.map((p,k)=>`<button data-k="${k}">${pl(p[0])} ${LANG==='de'?'bis':'to'} ${pl(p[1])}</button>`).join('');
+  $('#presets').innerHTML=PRESETS.map((p,k)=>`<button data-k="${k}">${pl(p[0])} ${t('until')} ${pl(p[1])}</button>`).join('');
   $('#pFrom').value=pl(PRESETS[0][0]);$('#pTo').value=pl(PRESETS[0][1]);$('#pathOut').innerHTML='';
 }
 $('#presets').onclick=e=>{const b=e.target.closest('button');if(!b)return;const p=PRESETS[+b.dataset.k];$('#pFrom').value=pl(p[0]);$('#pTo').value=pl(p[1]);findPath()};
-$('#pathForm').onsubmit=e=>{e.preventDefault();findPath()};
+$('#pathForm').onsubmit=e=>{e.preventDefault();$('#pFrom').blur();$('#pTo').blur();findPath()};
+const pathPop=$('#pathPop');
+function openPath(){pathPop.hidden=false;if(!pathChain){pathPop.classList.remove('done');$('#pathEdit').hidden=true}$('#pathBtn').setAttribute('aria-pressed','true');if(isSheet())panel.classList.add('collapsed');if(!$('#pFrom').value)renderPresets()}
+function closePath(){pathPop.hidden=true;$('#pathBtn').setAttribute('aria-pressed','false');if(pathChain){pathChain=null;drawHi()}}
+$('#pathBtn').onclick=()=>pathPop.hidden?openPath():closePath();
+$('#pathClose').onclick=closePath;
+$('#pathEdit').onclick=()=>{pathPop.classList.remove('done');$('#pathEdit').hidden=true;$('#pFrom').focus()};
 async function findPath(){
   if(!active)return;
   const out=$('#pathOut');const a=parseRef($('#pFrom').value),b=parseRef($('#pTo').value);
@@ -1730,9 +2204,45 @@ async function findPath(){
   const chain=[];for(let x=tg;x!==-1;x=prev[x])chain.unshift(x);
   await ensureV(chain);
   out.innerHTML=`<p class="eyebrow">${t('steps',chain.length-1)}</p><div class="chain">${chain.map((i,k)=>`<div class="step"><div class="rail"><span class="dot" style="background:${catColor[catOfBook[vBook[i]]]}"></span>${k<chain.length-1?'<span class="stem"></span>':''}</div><div class="body"><button class="ref" data-i="${i}" style="padding:0">${label(i)}</button><div class="txt">${esc(txt(i))}</div>${k>0?`<div class="via">${t('viaVotes',V[via[i]])}</div>`:''}</div></div>`).join('')}</div>`;
-  out.querySelectorAll('.ref').forEach(b=>b.onclick=()=>select(selVerse(+b.dataset.i)));
-  if(!isSheet())select(selVerse(s));
+  out.innerHTML=`<button class="ppsum" id="ppSum"><span>${label(chain[0])} → ${label(chain[chain.length-1])}</span><b>${t('showSteps',chain.length-1)}</b></button><div class="ppsteps" hidden>${out.innerHTML}</div>`;
+  $('#ppSum').onclick=()=>{const st=out.querySelector('.ppsteps');st.hidden=!st.hidden;$('#ppSum b').textContent=st.hidden?t('showSteps',chain.length-1):t('hideSteps')};
+  out.querySelectorAll('.ref').forEach(b=>b.onclick=()=>select(selVerse(+b.dataset.i),{keep:true}));
+  $('#pathDrop').hidden=true;pathPop.classList.add('done');$('#pathEdit').hidden=false;sel=null;conn=-1;pathChain=chain;const lo=Math.min(...chain),hi=Math.max(...chain),pad=Math.max(40,(hi-lo)*.08);setRange(lo-pad,hi+pad+1);schedule();drawHi();
 }
+
+
+/* ---------- passage picker: book, then chapter, then verse, like a dropdown ---------- */
+function attachRefPicker(input,drop,opt={}){
+  const show=html=>{drop.innerHTML=html;drop.hidden=false;drop.dataset.owner=input.id};
+  const hide=()=>{drop.hidden=true};
+  const state=()=>{const v=input.value.trim();const m=v.match(/^(.*?)\s*(\d+)?\s*(?:[:,.]\s*(\d*))?$/);
+    // a finished verse needs nothing more
+    if(/[:,.]\s*$/.test(v)){const oc=parseRef(v.replace(/[:,.]\s*$/,''));if(oc&&oc.k==='chapter')return {b:oc.b,c:oc.c}}
+    const o=parseRef(v);if(o&&o.k==='verse')return {done:true};
+    if(o&&o.k==='chapter')return {b:o.b,c:o.c,maybe:true};
+    if(o&&o.k==='book'&&[bn(o.b),ba(o.b),B[o.b].n,DEN[o.b]].map(norm).includes(norm(v)))return {b:o.b};
+    return {q:norm(m?m[1]:v)}};
+  const books=q=>{const out=[];for(let b=0;b<66;b++){const names=[bn(b),ba(b),B[b].n,DEN[b]].map(norm);if(!q||names.some(n=>n.startsWith(q)||n.includes(' '+q)||n.replace(/ /g,'').startsWith(q.replace(/ /g,''))))out.push(b)}return out};
+  function render(){const st=state();
+    if(st.done){hide();return}
+    if(st.b!=null&&st.c!=null&&!st.maybe){const n=B[st.b].c[st.c-1];
+      show(`<p class="rdhead">${esc(t('pickV',bn(st.b),st.c))}</p><div class="rdgrid">${Array.from({length:n},(_,k)=>`<button data-v="${k+1}">${k+1}</button>`).join('')}</div>`+(opt.chapter?`<button class="rdwhole" data-whole="1">${t('wholeCh')}</button>`:''));return}
+    if(st.b!=null){const n=B[st.b].c.length;
+      show(`<p class="rdhead">${esc(t('pickCh',bn(st.b)))}</p><div class="rdgrid">${Array.from({length:n},(_,k)=>`<button data-c="${k+1}" class="${st.c===k+1?'cur':''}">${k+1}</button>`).join('')}</div>`);return}
+    const list=books(st.q);if(!list.length){hide();return}
+    show(`<p class="rdhead">${t('pickBook')}</p><div class="rdbooks">${list.map(b=>`<button data-b="${b}"><i style="background:${catColor[catOfBook[b]]}"></i>${esc(bn(b))}</button>`).join('')}</div>`)}
+  drop.addEventListener('pointerdown',e=>e.preventDefault());
+  drop.addEventListener('click',e=>{if(drop.dataset.owner!==input.id)return;const x=e.target.closest('button');if(!x)return;const st=state();
+    if(x.dataset.b!=null){const b=+x.dataset.b;input.value=B[b].c.length===1?`${bn(b)} 1${SEP()}`:bn(b)+' ';input.blur();render();return}
+    if(x.dataset.c!=null){input.value=`${bn(st.b)} ${x.dataset.c}${SEP()}`;input.blur();render();return}
+    if(x.dataset.whole){input.value=`${bn(st.b)} ${st.c}`;hide();input.dispatchEvent(new Event('input'));if(opt.done)opt.done();return}
+    if(x.dataset.v!=null){input.value=`${bn(st.b)} ${st.c}${SEP()}${x.dataset.v}`;hide();input.dispatchEvent(new Event('input'));if(opt.done)opt.done()}});
+  input.addEventListener('focus',()=>{if(state().done)setTimeout(()=>{try{input.select()}catch(e){}},0);render()});input.addEventListener('input',render);
+  input.addEventListener('blur',()=>setTimeout(()=>{if(document.activeElement!==input&&!drop.matches(':hover')&&state().done)hide()},150));
+  return {render,hide}}
+const pickFrom=attachRefPicker($('#pFrom'),$('#pathDrop'),{done:()=>{if(!parseRef($('#pTo').value)||parseRef($('#pTo').value).k!=='verse'){$('#pTo').value='';$('#pTo').focus()}else findPath()}});
+const pickTo=attachRefPicker($('#pTo'),$('#pathDrop'),{done:()=>{if(parseRef($('#pFrom').value)&&parseRef($('#pFrom').value).k==='verse')findPath()}});
+document.addEventListener('pointerdown',e=>{const d=$('#pathDrop');if(!d.hidden&&!e.target.closest('#pathDrop,#pFrom,#pTo'))d.hidden=true;const n=$('#nedDrop');if(n&&!n.hidden&&!e.target.closest('#nedDrop,#nedRefIn'))n.hidden=true});
 
 /* ---------- about the name ---------- */
 const about=$('#about');
@@ -1768,12 +2278,17 @@ function applyLook(){if(look==='system')document.documentElement.removeAttribute
 applyLook();
 function syncSettings(){const st=$('#settings');if(!st)return;
   st.querySelectorAll('#lookSeg button').forEach(b=>b.setAttribute('aria-pressed',b.dataset.look===look));
-  st.querySelectorAll('#langSeg button').forEach(b=>b.setAttribute('aria-pressed',b.dataset.lang===LANG));
+  {const cur=$('#langMenu').querySelector(`[data-lang="${LANG}"]`);$('#langMenu').querySelectorAll('[role=option]').forEach(b=>b.setAttribute('aria-selected',b===cur));if(cur)$('.lddcur').innerHTML=cur.querySelector('.flagsvg').outerHTML+`<span>${cur.querySelector('b').textContent}</span>`}
   st.querySelectorAll('#thrSeg button').forEach(b=>b.setAttribute('aria-pressed',(b.dataset.v==='1')===showThreads));
   const o=$('#sFsOut');if(o)o.textContent=fontSize+' px'}
 $('#setBtn').onclick=()=>{const st=$('#settings');st.hidden=!st.hidden;$('#setBtn').setAttribute('aria-expanded',!st.hidden);$('#filters').hidden=true;syncSettings()};
 $('#lookSeg').onclick=e=>{const b=e.target.closest('button');if(!b)return;look=b.dataset.look;ls.set('look',look==='system'?'':look);applyLook();syncSettings()};
-$('#langSeg').onclick=e=>{const b=e.target.closest('button');if(!b||b.dataset.lang===LANG)return;setLang(b.dataset.lang).then(syncSettings)};
+const langMenu=$('#langMenu'),langBtn=$('#langBtn');
+const langOpen=o=>{langMenu.hidden=!o;langBtn.setAttribute('aria-expanded',o)};
+langBtn.onclick=e=>{e.stopPropagation();langOpen(langMenu.hidden)};
+langMenu.onclick=e=>{e.stopPropagation();const b=e.target.closest('[data-lang]');if(!b)return;langOpen(false);if(b.dataset.lang===LANG)return;setLang(b.dataset.lang).then(syncSettings)};
+document.addEventListener('pointerdown',e=>{if(!langMenu.hidden&&!e.target.closest('#langSeg'))langOpen(false)});
+langBtn.addEventListener('keydown',e=>{if(e.key==='Escape')langOpen(false)});
 $('#sFsDown').onclick=()=>{setFont(fontSize-1);syncSettings()};$('#sFsUp').onclick=()=>{setFont(fontSize+1);syncSettings()};
 $('#thrSeg').onclick=e=>{const b=e.target.closest('button');if(!b)return;showThreads=b.dataset.v==='1';ls.set('threads',showThreads?'1':'0');const tb=$('#thrBtn');if(tb)tb.setAttribute('aria-pressed',showThreads);applyThreads();syncSettings()};
 document.addEventListener('pointerdown',e=>{if(!e.target.closest('#settings,#setBtn')){$('#settings').hidden=true;$('#setBtn').setAttribute('aria-expanded','false')}});
@@ -1781,7 +2296,7 @@ const _unusedLang=()=>{chooser.hidden=false;const cur=chooser.querySelector(`[da
 
 /* ---------- boot ---------- */
 const saved=ls.get('lang');
-LANG=saved==='en'||saved==='de'?saved:'de';applyStatic();
+LANG=LANGS.includes(saved)?saved:'en';applyStatic();
 if(!saved){chooser.hidden=false;chooser.querySelector('.choice').focus()}
 const ro=new ResizeObserver(()=>{if(view==='map'&&GEO){sizeMap();clampView();drawMap()}if(view==='arcs'){sizeStage();schedule();drawNav()}if(view==='read'){sizeThreads();drawThreads()}});
 ro.observe(stage);ro.observe(tcol);ro.observe(mapStage);ro.observe(pane);

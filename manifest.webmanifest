@@ -1,8 +1,8 @@
 {
   "name": "Emmaus",
   "short_name": "Emmaus",
-  "description": "Die Bibel lesen und sehen, wie alles zusammenhängt.",
-  "lang": "de",
+  "description": "Read the Bible and see how it all connects.",
+  "lang": "en",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",
