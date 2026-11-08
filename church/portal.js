@@ -16,7 +16,7 @@ const T={
   passage:'Passage',passages:'Passages (separate with ;)',passPh:'e.g. John 15:18–16:4',heading:'Heading',hNone:'No heading',hIntro:'Introduction',hCore:'Key message',hGospel:'The gospel',hQuestions:'For discussion',hPrayer:'Prayer focus',hNext:'Next steps',hCustom:'Custom heading…',
   role:'Shown as',kSermon:'Sermon text',kKey:'Key verse',kPlain:'Passage',text:'Text',ptTitle:'Point title',takeaways:'Key sentences (one per line)',items:'Items (one per line)',after:'Text after the list',
   save:'Save draft',publish:'Publish',unpublish:'Unpublish',del:'Delete',delSure:'Click again to delete',saved:'Saved',pubOk:'Published. It’s live in the app.',
-  detect:'Find Bible references in text',detectSub:'Paste a handout, sermon notes or a transcript. We’ll find every Bible reference in it.',detectGo:'Find references',fileBtn:'Choose a PDF or Word file',upBtn:'Upload handout (PDF or Word)',upSub:'Tap to choose a file or drop it here. We find every Bible reference in it.',fileSub:'or drop it here. It is read on your computer, nothing is uploaded.',pastePh:'…or paste text here',reading:n=>`Reading ${n} …`,readOk:n=>`Read ${n}.`,readFail:'This file could not be read. Try copying the text instead.',detectAdd:'Add as “More passages”',detectMain:'Use first as sermon text',found:n=>`${n} references found`,
+  detect:'Find Bible references in text',detectSub:'Paste a handout, sermon notes or a transcript. We’ll find every Bible reference in it.',detectGo:'Only find references',fileBtn:'Choose a PDF or Word file',aiBtn:'Build the whole service from it',trBtn:'Translate',trTitle:'Translate into more languages',trSub:s=>`This service is written in ${s}. In which languages should members be able to read it?`,trHas:'already translated',trGo:'Translate',trWait:'Translating … this takes about half a minute.',trOk:'Translated. Members now see it in their language.',trNone:'Pick at least one language.',trEmpty:'There is no text to translate yet.',aiWait:'Reading the handout: title, points, questions and passages. This takes about half a minute …',aiOk:'Done. Please check everything before you publish.',aiNoKey:'The AI import is not switched on yet (API key missing).',aiFail:'The AI import did not work. Try again or fill it in by hand.',aiReplace:'Replace what is in the editor now?',aiShort:'Choose a file or paste the text first.',upBtn:'Upload handout (PDF or Word)',upSub:'Tap to choose a file or drop it here. We turn it into the service: title, points, questions and passages.',fileSub:'or drop it here. It is read on your computer, nothing is uploaded.',pastePh:'…or paste text here',reading:n=>`Reading ${n} …`,readOk:n=>`Read ${n}.`,readFail:'This file could not be read. Try copying the text instead.',detectAdd:'Add as “More passages”',detectMain:'Use first as sermon text',found:n=>`${n} references found`,
   preview:'Preview',transNote:'Translations into the other app languages are created automatically when you publish (coming soon in the beta).',unknown:'Unknown reference',up:'Move up',down:'Move down',remove:'Remove',cancel:'Cancel'},
  de:{tag:'für Gemeinden',beta:'Beta',signTitle:'Anmelden, um deine Gemeinde zu verwalten',signSub:'Wir schicken dir einen 6-stelligen Code. Kein Passwort.',email:'E-Mail-Adresse',sendCode:'Code senden',codeTitle:'Code eingeben',codeSub:e=>`Wir haben ihn an ${e} geschickt.`,verify:'Anmelden',back:'Zurück',badCode:'Der Code stimmt nicht.',wait:'Zu viele Versuche. Bitte warte eine Minute.',offline:'Keine Verbindung.',err:'Etwas ist schiefgelaufen. Bitte versuch es noch einmal.',
   signOut:'Abmelden',regTitle:'Gemeinde registrieren',regSub:'Deine Gemeinde erscheint in der App, sobald du den ersten Gottesdienst veröffentlichst.',chName:'Name der Gemeinde',chShort:'Kurzname (erscheint unten in der App)',chCity:'Stadt, Bundesstaat',chCode:'Gemeinde-Code (damit Mitglieder euch finden)',create:'Gemeinde anlegen',taken:'Diesen Code oder diese Gemeinde gibt es schon.',
@@ -26,7 +26,7 @@ const T={
   passage:'Bibelstelle',passages:'Bibelstellen (mit ; trennen)',passPh:'z. B. Joh 15,18–16,4',heading:'Überschrift',hNone:'Keine Überschrift',hIntro:'Einführung',hCore:'Kernbotschaft',hGospel:'Evangelium',hQuestions:'Zum Gespräch',hPrayer:'Gebetsfokus',hNext:'Nächste Schritte',hCustom:'Eigene Überschrift …',
   role:'Anzeigen als',kSermon:'Predigttext',kKey:'Leitvers',kPlain:'Bibelstelle',text:'Text',ptTitle:'Überschrift des Punkts',takeaways:'Kernsätze (einer pro Zeile)',items:'Einträge (einer pro Zeile)',after:'Text nach der Liste',
   save:'Entwurf speichern',publish:'Veröffentlichen',unpublish:'Zurückziehen',del:'Löschen',delSure:'Nochmal klicken zum Löschen',saved:'Gespeichert',pubOk:'Veröffentlicht. Jetzt live in der App.',
-  detect:'Bibelstellen im Text finden',detectSub:'Füge ein Handout, Predigtnotizen oder ein Transkript ein. Wir finden alle Bibelstellen darin.',detectGo:'Stellen finden',fileBtn:'PDF oder Word-Datei auswählen',upBtn:'Handout hochladen (PDF oder Word)',upSub:'Tippen und Datei auswählen oder hierher ziehen. Wir finden alle Bibelstellen darin.',fileSub:'oder hierher ziehen. Sie wird auf deinem Computer gelesen, nichts wird hochgeladen.',pastePh:'… oder Text hier einfügen',reading:n=>`${n} wird gelesen …`,readOk:n=>`${n} gelesen.`,readFail:'Diese Datei ließ sich nicht lesen. Kopier den Text stattdessen hinein.',detectAdd:'Als „Weitere Bibelstellen“ hinzufügen',detectMain:'Erste als Predigttext nehmen',found:n=>`${n} Bibelstellen gefunden`,
+  detect:'Bibelstellen im Text finden',detectSub:'Füge ein Handout, Predigtnotizen oder ein Transkript ein. Wir finden alle Bibelstellen darin.',detectGo:'Nur Bibelstellen finden',fileBtn:'PDF oder Word-Datei auswählen',aiBtn:'Ganzen Gottesdienst daraus erstellen',trBtn:'Übersetzen',trTitle:'In weitere Sprachen übersetzen',trSub:s=>`Dieser Gottesdienst ist auf ${s} geschrieben. In welchen Sprachen sollen ihn Mitglieder lesen können?`,trHas:'schon übersetzt',trGo:'Übersetzen',trWait:'Wird übersetzt … das dauert etwa eine halbe Minute.',trOk:'Übersetzt. Mitglieder sehen ihn jetzt in ihrer Sprache.',trNone:'Wähl mindestens eine Sprache.',trEmpty:'Es gibt noch keinen Text zum Übersetzen.',aiWait:'Das Handout wird gelesen: Titel, Punkte, Fragen und Bibelstellen. Das dauert etwa eine halbe Minute …',aiOk:'Fertig. Bitte alles prüfen, bevor du veröffentlichst.',aiNoKey:'Der KI-Import ist noch nicht eingeschaltet (API-Schlüssel fehlt).',aiFail:'Der KI-Import hat nicht geklappt. Versuch es noch mal oder füll es von Hand aus.',aiReplace:'Den jetzigen Inhalt im Editor ersetzen?',aiShort:'Wähl zuerst eine Datei oder füg den Text ein.',upBtn:'Handout hochladen (PDF oder Word)',upSub:'Tippen und Datei auswählen oder hierher ziehen. Daraus wird der Gottesdienst: Titel, Punkte, Fragen und Bibelstellen.',fileSub:'oder hierher ziehen. Sie wird auf deinem Computer gelesen, nichts wird hochgeladen.',pastePh:'… oder Text hier einfügen',reading:n=>`${n} wird gelesen …`,readOk:n=>`${n} gelesen.`,readFail:'Diese Datei ließ sich nicht lesen. Kopier den Text stattdessen hinein.',detectAdd:'Als „Weitere Bibelstellen“ hinzufügen',detectMain:'Erste als Predigttext nehmen',found:n=>`${n} Bibelstellen gefunden`,
   preview:'Vorschau',transNote:'Die Übersetzungen in die anderen App-Sprachen entstehen beim Veröffentlichen automatisch (kommt in der Beta bald).',unknown:'Unbekannte Bibelstelle',up:'Nach oben',down:'Nach unten',remove:'Entfernen',cancel:'Abbrechen'}};
 const t=(k,...a)=>{const v=(T[UI]||T.en)[k]??T.en[k]??k;return typeof v==='function'?v(...a):v};
 const LANGS={en:'English',de:'Deutsch',es:'Español',fr:'Français',pt:'Português',it:'Italiano'};
@@ -162,7 +162,7 @@ function blockHtml(bl,i){const S=cur.src,ta=(f,v,rows=3)=>`<textarea data-f="${i
 function renumber(){let n=0;cur.data.blocks.forEach(b=>{if(b.k==='point')b.n=++n})}
 function renderEditor(){const d=cur.data,S=cur.src;renumber();
   $('#editor').innerHTML=`<div class="edtop"><div class="status ${cur.status}">${cur.status==='published'?t('published'):t('draft')}</div>
-     <div class="acts"><button class="btn ghost" id="eDetect">${t('detect')}</button>${cur.id&&cur.status==='published'?`<a class="btn ghost" target="_blank" href="${esc(appLink(cur))}">${t('openApp')}</a>`:''}<button class="btn" id="eSave">${t('save')}</button><button class="btn gold" id="ePub">${cur.status==='published'?t('publish')+' ✓':t('publish')}</button></div></div>
+     <div class="acts"><button class="btn ghost" id="eDetect">${t('detect')}</button><button class="btn ghost" id="eTr">${t('trBtn')}</button>${cur.id&&cur.status==='published'?`<a class="btn ghost" target="_blank" href="${esc(appLink(cur))}">${t('openApp')}</a>`:''}<button class="btn" id="eSave">${t('save')}</button><button class="btn gold" id="ePub">${cur.status==='published'?t('publish')+' ✓':t('publish')}</button></div></div>
    <label class="drop slim" id="eDrop"><input type="file" class="vh" id="eFile" accept=".pdf,.docx,.txt,application/pdf,application/vnd.openxmlformats-officedocument.wordprocessingml.document,text/plain"><b>${t('upBtn')}</b><span>${t('upSub')}</span></label>
    <div class="grid2"><label>${t('date')}<input type="date" data-f="date" value="${esc(cur.date)}"></label><label>${t('lang')}<select data-f="src">${Object.entries(LANGS).map(([k,v])=>`<option value="${k}"${k===S?' selected':''}>${v}</option>`).join('')}</select></label></div>
    <label class="big">${t('title')}<input data-f="title" value="${esc(tx(d.title,S))}"></label>
@@ -193,7 +193,7 @@ function wireEditor(){
   if($('#eUnpub'))$('#eUnpub').onclick=()=>save('draft');
   if($('#eDel'))$('#eDel').onclick=async e=>{const b=e.currentTarget;if(!b.dataset.sure){b.dataset.sure=1;b.textContent=t('delSure');return}
     try{await api(`/rest/v1/services?id=eq.${encodeURIComponent(cur.id)}`,{method:'DELETE'});cur=null;dirty=false;await loadServices();showMain()}catch(x){toast(errMsg(x))}};
-  $('#eDetect').onclick=()=>openDetect();
+  $('#eDetect').onclick=()=>openDetect();$('#eTr').onclick=openTranslate;
   $('#eFile').onchange=e=>{const f=e.target.files[0];e.target.value='';if(f)openDetect(f)};
   const ez=$('#eDrop');ez.ondragover=e=>{e.preventDefault();ez.classList.add('over')};ez.ondragleave=()=>ez.classList.remove('over');
   ez.ondrop=e=>{e.preventDefault();e.stopPropagation();ez.classList.remove('over');const f=e.dataTransfer.files[0];if(f)openDetect(f)}}
@@ -220,17 +220,54 @@ async function fileText(f){const name=(f.name||'').toLowerCase();
   if(name.endsWith('.docx')){if(!window.mammoth)await loadScript('https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.6.0/mammoth.browser.min.js');
     return (await mammoth.extractRawText({arrayBuffer:await f.arrayBuffer()})).value.trim()}
   return (await f.text()).trim()}
+async function aiCall(body){const tk=await token();const r=await fetch(SB.url+'/functions/v1/import-handout',{method:'POST',headers:{'Content-Type':'application/json',apikey:SB.key,Authorization:'Bearer '+tk},body:JSON.stringify({church_id:church.id,...body})});
+  const j=await r.json().catch(()=>({}));if(!r.ok)throw j.error||r.status;return j}
+/* every text of the service in the language it was written in: {de:'…', en:'…'} objects */
+function langObjs(d,S){const out=[];const walk=o=>{if(!o||typeof o!=='object')return;if(Array.isArray(o))return o.forEach(walk);
+  const ks=Object.keys(o);if(ks.length&&ks.every(k=>LANGS[k])){if(typeof o[S]==='string'&&o[S].trim())out.push(o);return}for(const k in o)walk(o[k])};walk(d);return out}
+function openTranslate(){const m=$('#modal'),S=cur.src,objs=langObjs(cur.data,S),has=l=>objs.length&&objs.every(o=>o[l]);
+  m.hidden=false;m.innerHTML=`<div class="mbox"><h2>${t('trTitle')}</h2><p class="sub">${t('trSub',LANGS[S])}</p>
+  <div class="langs">${Object.entries(LANGS).filter(([k])=>k!==S).map(([k,v])=>`<label class="lc"><input type="checkbox" value="${k}"> <span>${v}</span>${has(k)?`<small>✓ ${t('trHas')}</small>`:''}</label>`).join('')}</div>
+  <p class="hint" id="trMsg" hidden></p><div class="mact"><button class="btn ghost" id="trCancel">${t('cancel')}</button><button class="btn gold" id="trGo">${t('trGo')}</button></div></div>`;
+  $('#trCancel').onclick=()=>m.hidden=true;
+  $('#trGo').onclick=async()=>{const msg=$('#trMsg'),b=$('#trGo'),langs=$$('.langs input:checked').map(i=>i.value);msg.hidden=false;
+    if(!objs.length){msg.textContent=t('trEmpty');return}if(!langs.length){msg.textContent=t('trNone');return}
+    b.disabled=true;b.classList.add('busy');msg.textContent=t('trWait');
+    try{const j=await aiCall({mode:'translate',src:S,langs,texts:objs.map(o=>o[S])});
+      for(const l of langs)(j.translations[l]||[]).forEach((x,i)=>{if(objs[i]&&x)objs[i][l]=x});dirty=true;m.hidden=true;renderEditor();toast(t('trOk'))}
+    catch(e){console.error('translate',e);msg.textContent=e==='no_key'?t('aiNoKey'):t('aiFail')}finally{b.disabled=false;b.classList.remove('busy')}}}
+/* the AI import answers in a neutral shape; this turns it into the editor's blocks */
+function fromAI(s){if(LANGS[s.lang])cur.src=s.lang;const S=cur.src,P=x=>x?parseRef(x):null,PS=a=>(a||[]).map(P).filter(Boolean),L=o=>typeof o==='string'&&o.trim()?{[S]:o.trim()}:null;
+  const H={intro:'svcIntro',core:'svcCore',gospel:'svcGospel',questions:'svcQuestions',prayer:'svcPrayer',next:'svcNext'};
+  const blocks=[];const st=P(s.sermon_text),kv=P(s.key_verse);
+  if(st)blocks.push({k:'verse',ref:st,key:2});if(kv&&(!st||kv.join()!==st.join()))blocks.push({k:'verse',ref:kv,key:1});
+  let n=0;for(const b of s.blocks||[]){const refs=PS(b.passages),h=H[b.heading]||null,title=b.heading==='custom'?L(b.custom_heading):null;
+    if(b.kind==='point')blocks.push({k:'point',n:++n,h:L(b.point_title),ref:P(b.passage),x:L(b.text),take:(b.takeaways||[]).map(L).filter(Boolean),refs});
+    else if(b.kind==='list')blocks.push({k:'list',h:title?null:h,title,items:(b.items||[]).map(L).filter(Boolean),refs});
+    else if(b.kind==='refs'){if(refs.length)blocks.push({k:'refs',refs})}
+    else blocks.push({k:'text',h:title?null:h,title,x:L(b.text),refs})}
+  cur.data={...cur.data,title:L(s.title),series:L(s.series),part:s.part||null,by:s.speaker||cur.data.by||null,blocks};
+  if(/^\d{4}-\d\d-\d\d$/.test(s.date||''))cur.date=s.date;dirty=true;renderEditor()}
 function openDetect(initFile){const m=$('#modal');m.hidden=false;m.innerHTML=`<div class="mbox"><h2>${t('detect')}</h2><p class="sub">${t('detectSub')}</p>
   <label class="drop" id="dDrop"><input type="file" class="vh" id="dFile" accept=".pdf,.docx,.txt,application/pdf,application/vnd.openxmlformats-officedocument.wordprocessingml.document,text/plain"><b>${t('fileBtn')}</b><span>${t('fileSub')}</span></label>
   <p class="hint" id="dFileMsg" hidden></p><textarea id="dText" rows="8" placeholder="${t('pastePh')}"></textarea>
-  <div class="dres" id="dRes"></div><div class="mact"><button class="btn ghost" id="dCancel">${t('cancel')}</button><button class="btn gold" id="dGo">${t('detectGo')}</button></div></div>`;
+  <div class="dres" id="dRes"></div><div class="mact"><button class="btn ghost" id="dCancel">${t('cancel')}</button><button class="btn" id="dGo">${t('detectGo')}</button><button class="btn gold" id="dAI">${t('aiBtn')}</button></div></div>`;
   $('#dCancel').onclick=()=>m.hidden=true;let found=[];
   const take=async f=>{if(!f)return;const msg=$('#dFileMsg');msg.hidden=false;msg.textContent=t('reading',f.name);
-    try{const txt=await fileText(f);$('#dText').value=txt;msg.textContent=t('readOk',f.name);$('#dGo').click()}catch(e){console.error(e);msg.textContent=t('readFail')}};
+    try{const txt=await fileText(f);$('#dText').value=txt;msg.textContent=t('readOk',f.name);$('#dGo').click();$('#dAI').focus()}catch(e){console.error(e);msg.textContent=t('readFail')}};
   $('#dFile').onchange=e=>take(e.target.files[0]);
   const dz=$('#dDrop');dz.ondragover=e=>{e.preventDefault();dz.classList.add('over')};dz.ondragleave=()=>dz.classList.remove('over');
   dz.ondrop=e=>{e.preventDefault();e.stopPropagation();dz.classList.remove('over');take(e.dataTransfer.files[0])};
   if(initFile)setTimeout(()=>take(initFile),0);
+  $('#dAI').onclick=async()=>{const txt=$('#dText').value.trim(),msg=$('#dFileMsg'),b=$('#dAI');
+    if(txt.length<40){msg.hidden=false;msg.textContent=t('aiShort');return}
+    const full=cur.data.title||cur.data.blocks.some(x=>x.x||x.h&&x.k==='point'||(x.items||[]).length);
+    if(full&&!confirm(t('aiReplace')))return;
+    b.disabled=$('#dGo').disabled=true;msg.hidden=false;msg.textContent=t('aiWait');b.classList.add('busy');
+    try{const j=await aiCall({mode:'import',text:txt});if(!j.service)throw 'empty';
+      fromAI(j.service);m.hidden=true;toast(t('aiOk'))}
+    catch(e){console.error('AI import',e);msg.textContent=e==='no_key'?t('aiNoKey'):t('aiFail')}
+    finally{b.disabled=$('#dGo').disabled=false;b.classList.remove('busy')}};
   $('#dGo').onclick=()=>{found=findRefs($('#dText').value);$('#dRes').innerHTML=`<p><b>${t('found',found.length)}</b></p><div class="refchips">${found.map(r=>`<span class="rc ok">${esc(refLabel(r,cur.src))}</span>`).join('')}</div>`+
     (found.length?`<div class="mact"><button class="btn ghost" id="dMain">${t('detectMain')}</button><button class="btn gold" id="dAdd">${t('detectAdd')}</button></div>`:'');
     if(!found.length)return;
