@@ -18,6 +18,8 @@
 @media (display-mode: standalone){:root{padding-top:calc(env(safe-area-inset-top,0px) + 12px)}
 body::before{content:"";position:fixed;z-index:200;left:0;right:0;top:0;height:calc(env(safe-area-inset-top,0px) + 12px);background:var(--bg);pointer-events:none}}</style>
 <title>Arcs</title>
+<script>/* iOS home-screen apps sometimes get a layout viewport shorter than the screen, which lifts everything pinned to the bottom. Measure that gap and give it back. */
+(function(){var fix=function(){var g=0;try{if(navigator.standalone||matchMedia('(display-mode: standalone)').matches){var p=innerHeight>=innerWidth,H=p?Math.max(screen.width,screen.height):Math.min(screen.width,screen.height);g=Math.round(H-innerHeight);if(g<0||g>140)g=0}}catch(e){}document.documentElement.style.setProperty('--vgap',g+'px')};fix();addEventListener('resize',fix);addEventListener('orientationchange',function(){setTimeout(fix,350)});addEventListener('pageshow',fix)})();</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gloock&family=Playfair+Display:wght@600&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&family=Figtree:wght@400;500;600;700&display=swap">
@@ -91,7 +93,7 @@ body::before{content:"";position:fixed;z-index:200;left:0;right:0;top:0;height:c
   color-scheme:dark;
 }
 [hidden]{display:none!important}
-html,body{height:100%}
+html,body{height:100%}html{height:calc(100% + var(--vgap,0px))}
 body{background:var(--bg);color:var(--fg);font-family:var(--f-ui);font-size:15px;line-height:1.4;overflow:hidden;font-variant-numeric:tabular-nums;-webkit-font-smoothing:antialiased}
 button,input,select,textarea{font:inherit;color:inherit}
 button{cursor:pointer;background:none;border:0;padding:0}
@@ -347,7 +349,7 @@ main{flex:1;min-height:0;display:flex;position:relative}
 .progress i{display:block;height:100%;background:var(--accent);width:0;transition:width .2s}
 
 /* language chooser: a title page */
-.chooser{position:fixed;inset:0;z-index:100;background:var(--bg);display:grid;place-items:center;padding-block:max(32px,env(safe-area-inset-top,0px)) max(32px,env(safe-area-inset-bottom,0px));padding-left:max(20px,env(safe-area-inset-left,0px));padding-right:max(20px,env(safe-area-inset-right,0px));overflow-y:auto}
+.chooser{position:fixed;inset:0 0 calc(0px - var(--vgap,0px));z-index:100;background:var(--bg);display:grid;place-items:center;padding-block:max(32px,env(safe-area-inset-top,0px)) max(32px,env(safe-area-inset-bottom,0px));padding-left:max(20px,env(safe-area-inset-left,0px));padding-right:max(20px,env(safe-area-inset-right,0px));overflow-y:auto}
 .chooser[hidden]{display:none}
 .chooserIn{width:100%;max-width:520px;display:grid;gap:28px}
 .chooserKicker{margin:0;font-family:"Playfair Display",Georgia,serif;font-weight:600;font-size:44px;line-height:1;letter-spacing:-.01em}
@@ -408,7 +410,7 @@ main{flex:1;min-height:0;display:flex;position:relative}
 /* phones: a small pill brings back the details of what is selected */
 .app .stagebar{transition:padding-bottom .25s ease}
 body.peeking .stagebar{padding-bottom:62px}
-.peek{display:none;position:fixed;z-index:19;right:max(14px,env(safe-area-inset-right,0px));bottom:calc(84px + env(safe-area-inset-bottom,0px));align-items:center;gap:8px;max-width:70%;
+.peek{display:none;position:fixed;z-index:19;right:max(14px,env(safe-area-inset-right,0px));bottom:calc(70px + max(10px,env(safe-area-inset-bottom,0px) - 10px) - var(--vgap,0px));align-items:center;gap:8px;max-width:70%;
   background:var(--fg);color:var(--bg);border-radius:999px;padding:9px 14px 9px 12px;font-size:14px;font-weight:600;box-shadow:var(--shadow)}
 .peek span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .peek svg{flex:none}
@@ -449,7 +451,7 @@ body.peeking .stagebar{padding-bottom:62px}
   .brand b{font-size:20px;white-space:nowrap}
   header{flex-wrap:wrap;column-gap:2px}
   /* tabs become a floating dock in thumb reach */
-  .tabs{position:fixed;z-index:18;left:50%;transform:translateX(-50%);bottom:calc(14px + env(safe-area-inset-bottom,0px));height:auto;gap:2px;
+  .tabs{position:fixed;z-index:18;left:50%;transform:translateX(-50%);bottom:calc(max(10px,env(safe-area-inset-bottom,0px) - 10px) - var(--vgap,0px));height:auto;gap:2px;
     background:var(--dock);border-radius:30px;padding:5px;box-shadow:var(--shadow)}
   .tabs button{height:44px;padding:0 15px;border-radius:22px;color:var(--ondock);opacity:.72;font-size:15px}
   .tabs button[aria-selected="true"]{background:var(--bg);color:var(--fg);opacity:1}
@@ -465,7 +467,7 @@ body.peeking .stagebar{padding-bottom:62px}
   header.searching .search{display:block}
   header{padding-block:0}
   .iconbtn{padding:10px 6px}
-  .panel{position:fixed;left:0;right:0;bottom:0;width:auto;max-height:64%;height:64%;border-left:0;border-top:1px solid var(--line);border-radius:14px 14px 0 0;z-index:20;box-shadow:0 -12px 32px -8px rgba(0,0,0,.28);transition:transform .26s cubic-bezier(.2,.8,.2,1)}
+  .panel{position:fixed;left:0;right:0;bottom:calc(0px - var(--vgap,0px));width:auto;max-height:64%;height:64%;border-left:0;border-top:1px solid var(--line);border-radius:14px 14px 0 0;z-index:20;box-shadow:0 -12px 32px -8px rgba(0,0,0,.28);transition:transform .26s cubic-bezier(.2,.8,.2,1)}
   .panel.collapsed{transform:translateY(calc(100% + 24px));box-shadow:none}
   .panel.low{height:44%;max-height:44%}
   .panel.collapsed .pbody{visibility:hidden}
@@ -477,10 +479,10 @@ body.peeking .stagebar{padding-bottom:62px}
   .phead{padding-top:4px;min-height:50px;cursor:pointer;padding-left:max(20px,env(safe-area-inset-left,0px));padding-right:max(12px,env(safe-area-inset-right,0px))}
   /* content runs underneath the floating dock; only the arcs toolbar must stay above it */
   .view{padding-bottom:0}
-  #v-arcs{padding-bottom:calc(72px + env(safe-area-inset-bottom,0px))}
-  .textpane,.pathview,.findview,.toc{padding-bottom:calc(120px + env(safe-area-inset-bottom,0px))}
-  .mapzoom{bottom:calc(154px + env(safe-area-inset-bottom,0px))}
-  .archbtn{bottom:calc(86px + env(safe-area-inset-bottom,0px))}
+  #v-arcs{padding-bottom:calc(66px + max(10px,env(safe-area-inset-bottom,0px) - 10px))}
+  .textpane,.pathview,.findview,.toc{padding-bottom:calc(100px + max(10px,env(safe-area-inset-bottom,0px) - 10px))}
+  .mapzoom{bottom:calc(134px + max(10px,env(safe-area-inset-bottom,0px) - 10px))}
+  .archbtn{bottom:calc(66px + max(10px,env(safe-area-inset-bottom,0px) - 10px))}
   .tabs{transition:transform .28s cubic-bezier(.2,.8,.2,1),opacity .28s}
   .tabs.away{transform:translate(-50%,calc(100% + 40px));opacity:0}
   #ovBtn{display:inline-flex;order:3}
@@ -654,7 +656,7 @@ header,.tabs,.threadcol,.chaphead,.plhint,.stagebar,.mapchips,.mapzoom,.archbtn,
 .vmine{display:block;width:100%;text-align:left;margin-top:10px;padding:9px 11px;border-radius:9px;background:var(--bg);color:var(--fg);font-size:15px;line-height:1.45;white-space:pre-wrap}
 .vmine i{color:var(--faint)}
 /* ---------- onboarding: one calm question per screen ---------- */
-.onb{position:fixed;inset:0;z-index:120;background:var(--bg);color:var(--fg);overflow:hidden;display:flex;flex-direction:column;padding:max(14px,env(safe-area-inset-top,0px)) max(22px,env(safe-area-inset-right,0px)) max(22px,env(safe-area-inset-bottom,0px)) max(22px,env(safe-area-inset-left,0px))}
+.onb{position:fixed;inset:0 0 calc(0px - var(--vgap,0px));z-index:120;background:var(--bg);color:var(--fg);overflow:hidden;display:flex;flex-direction:column;padding:max(14px,env(safe-area-inset-top,0px)) max(22px,env(safe-area-inset-right,0px)) max(22px,env(safe-area-inset-bottom,0px)) max(22px,env(safe-area-inset-left,0px))}
 .onb[hidden]{display:none}
 .onbarcs{position:absolute;left:0;right:0;bottom:0;width:100%;height:62%;pointer-events:none;opacity:.55;transition:opacity .6s;z-index:0;-webkit-mask-image:linear-gradient(to bottom,transparent 0,#000 38%);mask-image:linear-gradient(to bottom,transparent 0,#000 38%)}
 .ostep{z-index:1}
