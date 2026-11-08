@@ -1,6 +1,6 @@
 /* Emmaus offline support: the app shell loads from the cache first, the Bible files are fetched
    once in the background and then kept, fonts are cached the first time they are used. */
-const VERSION = 'emmaus-6';
+const VERSION = 'emmaus-9';
 const SHELL = ['./', 'index.html', 'manifest.webmanifest', 'icon-180.png', 'icon-192.png', 'icon-512.png',
   'meta.json', 'meta_de.json', 'meta_fr.json', 'refs_strong.txt', 'places.json', 'map.json'];
 // each Bible is kept the first time it is opened; only the weaker links are fetched ahead
@@ -28,6 +28,8 @@ self.addEventListener('fetch', e => {
     return;
   }
   if (url.origin !== location.origin) return;
+  // the church portal and the website are separate pages: always load them fresh from the network
+  if (/\/(church|site)\//.test(url.pathname)) return;
   e.respondWith((async () => {
     const c = await caches.open(VERSION);
     const hit = await c.match(e.request, { ignoreSearch: true });
