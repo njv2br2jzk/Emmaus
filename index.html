@@ -125,6 +125,13 @@ header{display:flex;align-items:center;gap:20px;flex-wrap:wrap;position:relative
 .search .err{position:absolute;top:calc(100% + 6px);left:0;font-size:13px;color:var(--accent);background:var(--surface);border:1px solid var(--line);padding:6px 10px;border-radius:6px;z-index:5;box-shadow:var(--shadow);white-space:nowrap}
 .iconbtn{display:inline-flex;align-items:center;gap:6px;color:var(--muted);font-size:14px;padding:6px 2px}
 .iconbtn:hover,.iconbtn[aria-expanded="true"]{color:var(--fg)}
+.anacard{position:fixed;z-index:60;left:12px;right:12px;margin:0 auto;max-width:440px;bottom:calc(84px + max(10px,env(safe-area-inset-bottom,0px) - 10px) - var(--vgap,0px));background:var(--panel,var(--bg));color:var(--fg);border:1px solid var(--line);border-radius:18px;padding:16px 16px 14px;box-shadow:var(--shadow);animation:peekIn .25s ease-out}
+.anacard b{font-size:16px}.anacard p{margin:6px 0 12px;color:var(--muted);font-size:14px;line-height:1.5}
+.anabtns{display:flex;justify-content:flex-end;gap:8px;align-items:center}.anabtns>button:not(.acctsign){height:42px;padding:0 14px;border-radius:12px;color:var(--muted);font-size:14.5px}
+.fbwrap{position:fixed;inset:0;z-index:130;background:rgba(0,0,0,.45);display:flex;align-items:flex-end;justify-content:center;padding:12px;padding-bottom:max(12px,env(safe-area-inset-bottom,0px))}
+.fbbox{width:100%;max-width:480px;background:var(--bg);color:var(--fg);border:1px solid var(--line);border-radius:20px;padding:18px;display:grid;gap:10px;box-shadow:var(--shadow)}
+.fbbox h3{margin:0;font-size:20px}.fbbox textarea,.fbbox input{width:100%;box-sizing:border-box;border:1px solid var(--line);border-radius:12px;background:transparent;color:var(--fg);padding:10px 12px;font:inherit;font-size:16px}
+.fbbox textarea{resize:vertical;min-height:120px}
 .appver{font-size:11px;color:var(--faint);text-align:center;padding-top:6px;letter-spacing:.02em}.settings{position:absolute;right:max(16px,env(safe-area-inset-right,0px));top:calc(100% + 6px);z-index:30;background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:6px 16px;width:300px;box-shadow:var(--shadow);display:grid}
 .settings .row{display:grid;gap:8px;padding:12px 0}
 .settings .row+.row{border-top:1px solid var(--line)}
@@ -770,11 +777,16 @@ header,.tabs,.threadcol,.chaphead,.plhint,.stagebar,.mapchips,.mapzoom,.archbtn,
       <div class="fsrow"><button id="sFsDown" data-ta="fontSmaller">A−</button><output id="sFsOut"></output><button id="sFsUp" data-ta="fontBigger">A+</button></div></div>
     <div class="row"><span class="lab" data-t="threadsReading"></span>
       <div class="seg" id="thrSeg"><button data-v="1" data-t="on"></button><button data-v="0" data-t="off"></button></div></div>
+    <div class="row"><span class="lab" data-t="anaLab"></span>
+      <div class="seg" id="anaSeg"><button data-v="1" data-t="on"></button><button data-v="0" data-t="off"></button></div><p class="hint" style="font-size:12.5px;margin-top:6px" data-t="anaHint"></p></div>
+    <div class="row"><button class="acctsign" id="fbOpen" data-t="fbBtn"></button></div>
     <div class="appver" id="appVer"></div>
   </div>
 <script>/* version and screen numbers in settings, so a screenshot tells which build runs and how iOS measures the screen */
 (function(){var el=document.getElementById('appVer'),pr=document.createElement('div');pr.style.cssText='position:fixed;left:0;bottom:0;width:0;height:env(safe-area-inset-bottom,0px);visibility:hidden;pointer-events:none';document.body.appendChild(pr);
-var up=function(){var g=getComputedStyle(document.documentElement).getPropertyValue('--vgap').trim()||'0px';el.textContent='Arcs v19 · '+innerHeight+'/'+(getComputedStyle(document.documentElement).getPropertyValue('--apph').trim()||'-')+'/'+Math.max(screen.height,screen.width)+' · sb '+Math.round(pr.getBoundingClientRect().height)+' · g '+g};up();addEventListener('resize',up);setTimeout(up,800)})();</script>
+var up=function(){var g=getComputedStyle(document.documentElement).getPropertyValue('--vgap').trim()||'0px';el.textContent='Arcs v20'};up();addEventListener('resize',up);setTimeout(up,800)})();</script>
+  <div class="anacard" id="anaCard" hidden><b data-t="anaAskT"></b><p data-t="anaAskX"></p><div class="anabtns"><button id="anaNo" data-t="anaNo"></button><button class="acctsign" id="anaYes" data-t="anaYes"></button></div></div>
+  <div class="fbwrap" id="fbWrap" hidden><div class="fbbox"><h3 data-t="fbTitle"></h3><p class="hint" data-t="fbSub"></p><textarea id="fbText" rows="6" maxlength="4000"></textarea><input id="fbMail" type="email" autocomplete="email" maxlength="200"><p class="hint" id="fbMsg" hidden></p><div class="anabtns"><button id="fbCancel" data-t="cancel2"></button><button class="acctsign" id="fbSend" data-t="fbSend"></button></div></div></div>
   <div class="filters" id="filters" hidden>
     <label><span data-t="minVotes"></span> <output id="mvOut">5</output>
       <input type="range" id="mv" min="0" max="6" step="1" value="2">
@@ -1200,6 +1212,10 @@ it:{svcMoreRefs:'Altri passi',svcText:'Testo della predica',svcMore:'Leggi tutto
  mapAttrib:'Luoghi: OpenBible.info (CC BY). Coste, laghi e fiumi: Natural Earth (pubblico dominio), tracciato attuale.',aboutAria:'Perché l’app si chiama Arcs?',aboutRead:'Leggi tutta la storia',aboutShort:'Ogni arco collega due passi. Sulla via di Emmaus, Gesù mostrò a due discepoli come tutta la Scrittura parli di lui. È ciò che questi archi rendono visibile.',nextChapter:'Continua a leggere',prevChapter:'Torna a',gMorning:'Buongiorno',gDay:'Buon pomeriggio',gEvening:'Buonasera',focus:'Schermo intero',focusExit:'Esci da schermo intero',connection:'Collegamento',connVotes:n=>`${n} voti per questo collegamento`,allFromHere:'Tutti i collegamenti di questo versetto',navAria:'Panoramica della Bibbia: trascina la finestra per spostarti, i bordi per ingrandire',sideCollapse:'Comprimi pannello',sideExpand:'Espandi pannello',settings:'Impostazioni',appearance:'Aspetto',lookSystem:'Come il dispositivo',lookLight:'Chiaro',lookDark:'Scuro',textSize:'Dimensione del testo',threadsReading:'Fili durante la lettura',on:'Sì',off:'No',fontSmaller:'Testo più piccolo',fontBigger:'Testo più grande',threads:'Fili',swipeHint:'Scorri per cambiare capitolo',copy:'Copia',copied:'Copiato',copyFail:'Non copiato – seleziona il testo',continueReading:'Continua a leggere',myNotes:'Le mie note',notesSynced:'Salvato su tutti i tuoi dispositivi.',searching:'Ricerca nella Bibbia …',hits:(n,b)=>`${n} risultati in ${b} libri`,noHits:'Nessun risultato. Controlla l’ortografia o prova una parola più corta.',allBooksChip:b=>`Solo ${b}. Mostra tutti i libri`,showMore:n=>`Mostra altri ${n}`,findTitle:q=>`Ricerca: «${q}»`,tooShort:'Scrivi almeno 2 lettere.',transl:'Riveduta',loadWeak:'Carica collegamenti più deboli (meno di 5 voti)',loadingWeak:'Caricamento dei collegamenti più deboli …',viaVotes:n=>`${n} voti per questo collegamento`}
 };
 let LANG=null;
+/* beta: anonymous usage data and feedback */
+Object.assign(STR.en,{anaLab:'Anonymous usage data',anaHint:'Helps us see which parts of Arcs are used. No name, no email, no location.',anaAskT:'Help make Arcs better?',anaAskX:'During the beta we’d like to see which features get used, anonymously. No name, no email, no location. You can change this anytime in settings.',anaYes:'Yes, share',anaNo:'No thanks',fbBtn:'Send feedback',fbTitle:'Feedback',fbSub:'What works, what bugs you, what’s missing? It goes straight to the team.',fbPh:'Your feedback …',fbContact:'Email for a reply (optional)',fbSend:'Send',fbThanks:'Thank you! Your feedback is on its way.',fbFail:'Couldn’t send. Please check your connection.',cancel2:'Cancel'});
+Object.assign(STR.de,{anaLab:'Anonyme Nutzungsdaten',anaHint:'Hilft uns zu sehen, welche Teile von Arcs genutzt werden. Kein Name, keine E-Mail, kein Standort.',anaAskT:'Hilfst du uns, Arcs besser zu machen?',anaAskX:'In der Beta möchten wir anonym sehen, welche Funktionen genutzt werden. Kein Name, keine E-Mail, kein Standort. Du kannst das jederzeit in den Einstellungen ändern.',anaYes:'Ja, gern',anaNo:'Nein danke',fbBtn:'Feedback senden',fbTitle:'Feedback',fbSub:'Was gefällt dir, was stört, was fehlt? Es geht direkt ans Team.',fbPh:'Dein Feedback …',fbContact:'E-Mail für eine Antwort (freiwillig)',fbSend:'Senden',fbThanks:'Danke! Dein Feedback ist unterwegs.',fbFail:'Senden hat nicht geklappt. Bitte prüf deine Verbindung.',cancel2:'Abbrechen'});
+Object.assign(STR.es,{anaLab:'Datos de uso anónimos',anaHint:'Nos ayuda a ver qué partes de Arcs se usan. Sin nombre, sin correo, sin ubicación.',anaAskT:'¿Nos ayudas a mejorar Arcs?',anaAskX:'Durante la beta queremos ver, de forma anónima, qué funciones se usan. Sin nombre, sin correo, sin ubicación. Puedes cambiarlo en ajustes cuando quieras.',anaYes:'Sí, compartir',anaNo:'No, gracias',fbBtn:'Enviar comentarios',fbTitle:'Comentarios',fbSub:'¿Qué funciona, qué te molesta, qué falta? Llega directo al equipo.',fbPh:'Tus comentarios …',fbContact:'Correo para responderte (opcional)',fbSend:'Enviar',fbThanks:'¡Gracias! Tus comentarios van en camino.',fbFail:'No se pudo enviar. Revisa tu conexión.',cancel2:'Cancelar'});
 const t=(k,...a)=>{const L=STR[LANG]||STR.en;const s=k in L?L[k]:STR.en[k];return typeof s==='function'?s(...a):s};
 const DEN=['1. Mose','2. Mose','3. Mose','4. Mose','5. Mose','Josua','Richter','Rut','1. Samuel','2. Samuel','1. Könige','2. Könige','1. Chronik','2. Chronik','Esra','Nehemia','Ester','Hiob','Psalm','Sprüche','Prediger','Hohelied','Jesaja','Jeremia','Klagelieder','Hesekiel','Daniel','Hosea','Joel','Amos','Obadja','Jona','Micha','Nahum','Habakuk','Zefanja','Haggai','Sacharja','Maleachi','Matthäus','Markus','Lukas','Johannes','Apostelgeschichte','Römer','1. Korinther','2. Korinther','Galater','Epheser','Philipper','Kolosser','1. Thessalonicher','2. Thessalonicher','1. Timotheus','2. Timotheus','Titus','Philemon','Hebräer','Jakobus','1. Petrus','2. Petrus','1. Johannes','2. Johannes','3. Johannes','Judas','Offenbarung'];
 const DEA=['1Mo','2Mo','3Mo','4Mo','5Mo','Jos','Ri','Rut','1Sam','2Sam','1Kön','2Kön','1Chr','2Chr','Esr','Neh','Est','Hiob','Ps','Spr','Pred','Hld','Jes','Jer','Klgl','Hes','Dan','Hos','Joel','Am','Obd','Jona','Mi','Nah','Hab','Zef','Hag','Sach','Mal','Mt','Mk','Lk','Joh','Apg','Röm','1Kor','2Kor','Gal','Eph','Phil','Kol','1Thess','2Thess','1Tim','2Tim','Tit','Phlm','Hebr','Jak','1Petr','2Petr','1Joh','2Joh','3Joh','Jud','Offb'];
@@ -3107,6 +3123,50 @@ load().then(async()=>{
   renderPanel();requestAnimationFrame(()=>requestAnimationFrame(renderArcs));
   setTimeout(()=>loadPlaces().catch(()=>{}),2500);
 }).catch(err=>{$('#loading').textContent=t('loadErr');console.error(err)});
+/* ---------- beta analytics: anonymous, opt-in. A random device id, what was used, nothing personal. ---------- */
+(()=>{const VER='v20',KEY='anon';let q=[],timer=0;
+  const uid=()=>(crypto.randomUUID?crypto.randomUUID():Date.now().toString(36)+Math.random().toString(36).slice(2)).replace(/-/g,'').slice(0,24);
+  let dev=ls.get('did');if(!dev){dev=uid();ls.set('did',dev)}const sessId=uid().slice(0,16);
+  const on=()=>ls.get(KEY)==='1';
+  const pwa=()=>{try{return !!(navigator.standalone||matchMedia('(display-mode: standalone)').matches)}catch(e){return false}};
+  function flush(useBeacon){if(!q.length||!CLOUD_OK)return;const rows=q.splice(0,50);
+    const body=JSON.stringify(rows),url=SB.url+'/rest/v1/events',h={apikey:SB.key,'Content-Type':'application/json',Prefer:'return=minimal'};
+    try{fetch(url,{method:'POST',headers:h,body,keepalive:useBeacon||body.length<60000}).catch(()=>{})}catch(e){}
+    if(q.length)setTimeout(flush,500)}
+  function track(ev,props){if(!on())return;let church=null;try{const c=myChurch();church=c?c.id:null}catch(e){}
+    q.push({device:dev,session:sessId,ev,props:props||null,lang:(typeof LANG==='string'?LANG:null),church,ver:VER,at:new Date().toISOString()});
+    clearTimeout(timer);timer=setTimeout(flush,q.length>=20?0:8000)}
+  window.arcsTrack=track;
+  addEventListener('pagehide',()=>flush(true));document.addEventListener('visibilitychange',()=>{if(document.hidden)flush(true);else track('resume')});
+  /* hooks: wrap the existing functions, so the app itself stays as it is */
+  const _setView=setView;setView=function(v){const r=_setView.apply(this,arguments);if(v&&v!=='path')track('view',{v});return r};
+  const _openChapter=openChapter;let lastCh='',lastChT=0;openChapter=function(b,c){const k=b+':'+c,n=Date.now();if(k!==lastCh||n-lastChT>60000){lastCh=k;lastChT=n;track('chapter',{b,c})}return _openChapter.apply(this,arguments)};
+  const _saveMark=saveMark;const seenMarks=new Set();saveMark=function(m){try{if(m&&!seenMarks.has(m.id)){seenMarks.add(m.id);track('note',{svc:!!m.svc})}}catch(e){}return _saveMark.apply(this,arguments)};
+  const _openPath=openPath;openPath=function(){track('path');return _openPath.apply(this,arguments)};
+  const _runFind=runFind;let lastQ='';runFind=function(qs){const v=String(qs||'').trim();if(v&&v!==lastQ){lastQ=v;track('search',{n:v.length})}return _runFind.apply(this,arguments)};
+  const _renderChurch=renderChurch;let lastSvc='';renderChurch=function(){if(svcOpen&&svcOpen!==lastSvc){lastSvc=svcOpen;track('service',{s:svcOpen})}if(!svcOpen)lastSvc='';return _renderChurch.apply(this,arguments)};
+  const _setLang=setLang;setLang=function(l){const ch=l!==LANG;const r=_setLang.apply(this,arguments);if(ch)track('lang',{l});return r};
+  /* settings switch, consent card, feedback */
+  const seg=$('#anaSeg');const paint=()=>seg.querySelectorAll('button').forEach(b=>b.setAttribute('aria-pressed',String((b.dataset.v==='1')===on())));
+  seg.onclick=e=>{const b=e.target.closest('button');if(!b)return;const was=on();ls.set(KEY,b.dataset.v==='1'?'1':'0');paint();if(!was&&on())track('optin',{from:'settings'})};paint();
+  const card=$('#anaCard');
+  const ask=()=>{if(ls.get(KEY)!==null&&ls.get(KEY)!=='')return;if(!onb.hidden||!booted){setTimeout(ask,5000);return}card.hidden=false};
+  $('#anaYes').onclick=()=>{ls.set(KEY,'1');card.hidden=true;paint();track('optin',{from:'card'});track('open',{pwa:pwa(),w:innerWidth,h:innerHeight})};
+  $('#anaNo').onclick=()=>{ls.set(KEY,'0');card.hidden=true;paint()};
+  setTimeout(ask,20000);
+  const fw=$('#fbWrap'),fmsg=$('#fbMsg');
+  $('#fbOpen').onclick=()=>{$('#settings').hidden=true;fw.hidden=false;fmsg.hidden=true;$('#fbText').placeholder=t('fbPh');$('#fbMail').placeholder=t('fbContact');setTimeout(()=>$('#fbText').focus(),50)};
+  $('#fbCancel').onclick=()=>{fw.hidden=true};fw.onclick=e=>{if(e.target===fw)fw.hidden=true};
+  $('#fbSend').onclick=async()=>{const body=$('#fbText').value.trim();if(!body){$('#fbText').focus();return}const b=$('#fbSend');b.disabled=true;
+    let screen=view;try{if(view==='read')screen+=' '+readB+':'+readC;if(view==='church'&&svcOpen)screen+=' '+svcOpen}catch(e){}
+    try{const r=await fetch(SB.url+'/rest/v1/feedback',{method:'POST',headers:{apikey:SB.key,'Content-Type':'application/json',Prefer:'return=minimal'},
+        body:JSON.stringify({device:dev,body,contact:$('#fbMail').value.trim()||null,lang:LANG,ver:VER,screen:(screen+' · '+innerWidth+'×'+innerHeight).slice(0,200)})});
+      if(!r.ok)throw 0;$('#fbText').value='';fmsg.hidden=false;fmsg.textContent=t('fbThanks');setTimeout(()=>{fw.hidden=true},1400)}
+    catch(e){fmsg.hidden=false;fmsg.textContent=t('fbFail')}finally{b.disabled=false}};
+  /* the start of a visit */
+  const start=()=>{if(!booted){setTimeout(start,800);return}track('open',{pwa:pwa(),w:innerWidth,h:innerHeight});track('view',{v:view})};start();
+})();
+
 })();
 </script>
 <script>
