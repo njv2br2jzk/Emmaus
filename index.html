@@ -19,7 +19,7 @@
 body::before{content:"";position:fixed;z-index:200;left:0;right:0;top:0;height:calc(env(safe-area-inset-top,0px) + 12px);background:var(--bg);pointer-events:none}}</style>
 <title>Arcs</title>
 <script>/* iOS home-screen apps sometimes get a layout viewport shorter than the screen, which lifts everything pinned to the bottom. Measure that gap and give it back. */
-(function(){var fix=function(){var g=0;try{if(navigator.standalone||matchMedia('(display-mode: standalone)').matches){var p=innerHeight>=innerWidth,H=p?Math.max(screen.width,screen.height):Math.min(screen.width,screen.height);g=Math.round(H-innerHeight);if(g<0||g>140)g=0}}catch(e){}document.documentElement.style.setProperty('--vgap',g+'px')};fix();addEventListener('resize',fix);addEventListener('orientationchange',function(){setTimeout(fix,350)});addEventListener('pageshow',fix)})();</script>
+(function(){var fix=function(){var g=0;try{if(navigator.standalone||matchMedia('(display-mode: standalone)').matches){var p=innerHeight>=innerWidth,H=p?Math.max(screen.width,screen.height):Math.min(screen.width,screen.height);g=Math.round(H-innerHeight);if(g<0||g>140)g=0}}catch(e){}document.documentElement.style.setProperty('--vgap',g+'px')};window.__vfix=fix;fix();[100,400,1000,2500].forEach(function(t){setTimeout(fix,t)});addEventListener('resize',fix);addEventListener('orientationchange',function(){setTimeout(fix,350)});addEventListener('pageshow',fix);document.addEventListener('visibilitychange',function(){setTimeout(fix,100)});try{visualViewport.addEventListener('resize',fix)}catch(e){}})();</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gloock&family=Playfair+Display:wght@600&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&family=Figtree:wght@400;500;600;700&display=swap">
@@ -769,7 +769,7 @@ header,.tabs,.threadcol,.chaphead,.plhint,.stagebar,.mapchips,.mapzoom,.archbtn,
   </div>
 <script>/* version and screen numbers in settings, so a screenshot tells which build runs and how iOS measures the screen */
 (function(){var el=document.getElementById('appVer'),pr=document.createElement('div');pr.style.cssText='position:fixed;left:0;bottom:0;width:0;height:env(safe-area-inset-bottom,0px);visibility:hidden;pointer-events:none';document.body.appendChild(pr);
-var up=function(){var g=getComputedStyle(document.documentElement).getPropertyValue('--vgap').trim()||'0px';el.textContent='Arcs v14 · '+innerHeight+'/'+Math.max(screen.height,screen.width)+' · sb '+Math.round(pr.getBoundingClientRect().height)+' · g '+g};up();addEventListener('resize',up);setTimeout(up,800)})();</script>
+var up=function(){try{window.__vfix&&__vfix()}catch(e){}var g=getComputedStyle(document.documentElement).getPropertyValue('--vgap').trim()||'0px';el.textContent='Arcs v15 · '+innerHeight+'/'+Math.max(screen.height,screen.width)+' · sb '+Math.round(pr.getBoundingClientRect().height)+' · g '+g};up();addEventListener('resize',up);setTimeout(up,800)})();</script>
   <div class="filters" id="filters" hidden>
     <label><span data-t="minVotes"></span> <output id="mvOut">5</output>
       <input type="range" id="mv" min="0" max="6" step="1" value="2">
@@ -3079,7 +3079,11 @@ if(ls.get('onb')!=='1')openOnb('hello');
 const ro=new ResizeObserver(()=>{if(view==='map'&&GEO){sizeMap();clampView();drawMap()}if(view==='arcs'){sizeStage();schedule();drawNav()}if(view==='read'){sizeThreads();drawThreads()}});
 ro.observe(stage);ro.observe(tcol);ro.observe(mapStage);ro.observe(pane);
 applySide();
-matchMedia('(prefers-color-scheme: dark)').addEventListener('change',()=>{readColors();renderArcs();drawThreads();drawMap()});
+/* iOS switches light/dark while the app sleeps and sometimes reports it before the styles have changed, which left the arcs drawn in the old colors: redraw once the styles have settled, and whenever the app comes back */
+let lastBg='';function themeCheck(force){const bg=getComputedStyle(document.documentElement).getPropertyValue('--bg').trim();if(!force&&bg===lastBg)return;lastBg=bg;readColors();renderArcs();drawThreads();drawMap()}
+const themeSoon=()=>{requestAnimationFrame(()=>requestAnimationFrame(()=>themeCheck(true)));setTimeout(()=>themeCheck(),400);setTimeout(()=>themeCheck(),1200)};
+matchMedia('(prefers-color-scheme: dark)').addEventListener('change',themeSoon);
+document.addEventListener('visibilitychange',()=>{if(!document.hidden)themeSoon()});addEventListener('pageshow',themeSoon);addEventListener('focus',themeSoon);
 new MutationObserver(()=>{readColors();renderArcs();drawThreads();drawMap();renderPanel()}).observe(document.documentElement,{attributes:true,attributeFilter:['data-theme','data-look']});
 load().then(async()=>{
   if(builtLang!==LANG)await buildLang();
