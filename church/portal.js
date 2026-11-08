@@ -16,7 +16,7 @@ const T={
   passage:'Passage',passages:'Passages (separate with ;)',passPh:'e.g. John 15:18–16:4',heading:'Heading',hNone:'No heading',hIntro:'Introduction',hCore:'Key message',hGospel:'The gospel',hQuestions:'For discussion',hPrayer:'Prayer focus',hNext:'Next steps',hCustom:'Custom heading…',
   role:'Shown as',kSermon:'Sermon text',kKey:'Key verse',kPlain:'Passage',text:'Text',ptTitle:'Point title',takeaways:'Key sentences (one per line)',items:'Items (one per line)',after:'Text after the list',
   save:'Save draft',publish:'Publish',unpublish:'Unpublish',del:'Delete',delSure:'Click again to delete',saved:'Saved',pubOk:'Published. It’s live in the app.',
-  detect:'Find Bible references in text',detectSub:'Paste a handout, sermon notes or a transcript. We’ll find every Bible reference in it.',detectGo:'Find references',fileBtn:'Choose a PDF or Word file',fileSub:'or drop it here. It is read on your computer, nothing is uploaded.',pastePh:'…or paste text here',reading:n=>`Reading ${n} …`,readOk:n=>`Read ${n}.`,readFail:'This file could not be read. Try copying the text instead.',detectAdd:'Add as “More passages”',detectMain:'Use first as sermon text',found:n=>`${n} references found`,
+  detect:'Find Bible references in text',detectSub:'Paste a handout, sermon notes or a transcript. We’ll find every Bible reference in it.',detectGo:'Find references',fileBtn:'Choose a PDF or Word file',upBtn:'Upload handout (PDF or Word)',upSub:'Tap to choose a file or drop it here. We find every Bible reference in it.',fileSub:'or drop it here. It is read on your computer, nothing is uploaded.',pastePh:'…or paste text here',reading:n=>`Reading ${n} …`,readOk:n=>`Read ${n}.`,readFail:'This file could not be read. Try copying the text instead.',detectAdd:'Add as “More passages”',detectMain:'Use first as sermon text',found:n=>`${n} references found`,
   preview:'Preview',transNote:'Translations into the other app languages are created automatically when you publish (coming soon in the beta).',unknown:'Unknown reference',up:'Move up',down:'Move down',remove:'Remove',cancel:'Cancel'},
  de:{tag:'für Gemeinden',beta:'Beta',signTitle:'Anmelden, um deine Gemeinde zu verwalten',signSub:'Wir schicken dir einen 6-stelligen Code. Kein Passwort.',email:'E-Mail-Adresse',sendCode:'Code senden',codeTitle:'Code eingeben',codeSub:e=>`Wir haben ihn an ${e} geschickt.`,verify:'Anmelden',back:'Zurück',badCode:'Der Code stimmt nicht.',wait:'Zu viele Versuche. Bitte warte eine Minute.',offline:'Keine Verbindung.',err:'Etwas ist schiefgelaufen. Bitte versuch es noch einmal.',
   signOut:'Abmelden',regTitle:'Gemeinde registrieren',regSub:'Deine Gemeinde erscheint in der App, sobald du den ersten Gottesdienst veröffentlichst.',chName:'Name der Gemeinde',chShort:'Kurzname (erscheint unten in der App)',chCity:'Stadt, Bundesstaat',chCode:'Gemeinde-Code (damit Mitglieder euch finden)',create:'Gemeinde anlegen',taken:'Diesen Code oder diese Gemeinde gibt es schon.',
@@ -26,7 +26,7 @@ const T={
   passage:'Bibelstelle',passages:'Bibelstellen (mit ; trennen)',passPh:'z. B. Joh 15,18–16,4',heading:'Überschrift',hNone:'Keine Überschrift',hIntro:'Einführung',hCore:'Kernbotschaft',hGospel:'Evangelium',hQuestions:'Zum Gespräch',hPrayer:'Gebetsfokus',hNext:'Nächste Schritte',hCustom:'Eigene Überschrift …',
   role:'Anzeigen als',kSermon:'Predigttext',kKey:'Leitvers',kPlain:'Bibelstelle',text:'Text',ptTitle:'Überschrift des Punkts',takeaways:'Kernsätze (einer pro Zeile)',items:'Einträge (einer pro Zeile)',after:'Text nach der Liste',
   save:'Entwurf speichern',publish:'Veröffentlichen',unpublish:'Zurückziehen',del:'Löschen',delSure:'Nochmal klicken zum Löschen',saved:'Gespeichert',pubOk:'Veröffentlicht. Jetzt live in der App.',
-  detect:'Bibelstellen im Text finden',detectSub:'Füge ein Handout, Predigtnotizen oder ein Transkript ein. Wir finden alle Bibelstellen darin.',detectGo:'Stellen finden',fileBtn:'PDF oder Word-Datei auswählen',fileSub:'oder hierher ziehen. Sie wird auf deinem Computer gelesen, nichts wird hochgeladen.',pastePh:'… oder Text hier einfügen',reading:n=>`${n} wird gelesen …`,readOk:n=>`${n} gelesen.`,readFail:'Diese Datei ließ sich nicht lesen. Kopier den Text stattdessen hinein.',detectAdd:'Als „Weitere Bibelstellen“ hinzufügen',detectMain:'Erste als Predigttext nehmen',found:n=>`${n} Bibelstellen gefunden`,
+  detect:'Bibelstellen im Text finden',detectSub:'Füge ein Handout, Predigtnotizen oder ein Transkript ein. Wir finden alle Bibelstellen darin.',detectGo:'Stellen finden',fileBtn:'PDF oder Word-Datei auswählen',upBtn:'Handout hochladen (PDF oder Word)',upSub:'Tippen und Datei auswählen oder hierher ziehen. Wir finden alle Bibelstellen darin.',fileSub:'oder hierher ziehen. Sie wird auf deinem Computer gelesen, nichts wird hochgeladen.',pastePh:'… oder Text hier einfügen',reading:n=>`${n} wird gelesen …`,readOk:n=>`${n} gelesen.`,readFail:'Diese Datei ließ sich nicht lesen. Kopier den Text stattdessen hinein.',detectAdd:'Als „Weitere Bibelstellen“ hinzufügen',detectMain:'Erste als Predigttext nehmen',found:n=>`${n} Bibelstellen gefunden`,
   preview:'Vorschau',transNote:'Die Übersetzungen in die anderen App-Sprachen entstehen beim Veröffentlichen automatisch (kommt in der Beta bald).',unknown:'Unbekannte Bibelstelle',up:'Nach oben',down:'Nach unten',remove:'Entfernen',cancel:'Abbrechen'}};
 const t=(k,...a)=>{const v=(T[UI]||T.en)[k]??T.en[k]??k;return typeof v==='function'?v(...a):v};
 const LANGS={en:'English',de:'Deutsch',es:'Español',fr:'Français',pt:'Português',it:'Italiano'};
@@ -163,6 +163,7 @@ function renumber(){let n=0;cur.data.blocks.forEach(b=>{if(b.k==='point')b.n=++n
 function renderEditor(){const d=cur.data,S=cur.src;renumber();
   $('#editor').innerHTML=`<div class="edtop"><div class="status ${cur.status}">${cur.status==='published'?t('published'):t('draft')}</div>
      <div class="acts"><button class="btn ghost" id="eDetect">${t('detect')}</button>${cur.id&&cur.status==='published'?`<a class="btn ghost" target="_blank" href="${esc(appLink(cur))}">${t('openApp')}</a>`:''}<button class="btn" id="eSave">${t('save')}</button><button class="btn gold" id="ePub">${cur.status==='published'?t('publish')+' ✓':t('publish')}</button></div></div>
+   <label class="drop slim" id="eDrop"><input type="file" class="vh" id="eFile" accept=".pdf,.docx,.txt,application/pdf,application/vnd.openxmlformats-officedocument.wordprocessingml.document,text/plain"><b>${t('upBtn')}</b><span>${t('upSub')}</span></label>
    <div class="grid2"><label>${t('date')}<input type="date" data-f="date" value="${esc(cur.date)}"></label><label>${t('lang')}<select data-f="src">${Object.entries(LANGS).map(([k,v])=>`<option value="${k}"${k===S?' selected':''}>${v}</option>`).join('')}</select></label></div>
    <label class="big">${t('title')}<input data-f="title" value="${esc(tx(d.title,S))}"></label>
    <div class="grid3"><label>${t('series')}<input data-f="series" value="${esc(tx(d.series,S))}"></label><label>${t('part')}<input type="number" min="1" data-f="part" value="${d.part||''}"></label><label>${t('by')}<input data-f="by" value="${esc(d.by||'')}"></label></div>
@@ -192,7 +193,10 @@ function wireEditor(){
   if($('#eUnpub'))$('#eUnpub').onclick=()=>save('draft');
   if($('#eDel'))$('#eDel').onclick=async e=>{const b=e.currentTarget;if(!b.dataset.sure){b.dataset.sure=1;b.textContent=t('delSure');return}
     try{await api(`/rest/v1/services?id=eq.${encodeURIComponent(cur.id)}`,{method:'DELETE'});cur=null;dirty=false;await loadServices();showMain()}catch(x){toast(errMsg(x))}};
-  $('#eDetect').onclick=openDetect}
+  $('#eDetect').onclick=()=>openDetect();
+  $('#eFile').onchange=e=>{const f=e.target.files[0];e.target.value='';if(f)openDetect(f)};
+  const ez=$('#eDrop');ez.ondragover=e=>{e.preventDefault();ez.classList.add('over')};ez.ondragleave=()=>ez.classList.remove('over');
+  ez.ondrop=e=>{e.preventDefault();e.stopPropagation();ez.classList.remove('over');const f=e.dataTransfer.files[0];if(f)openDetect(f)}}
 function paintRefs(el){const box=$(`[data-chips="${el.dataset.ref}"]`);const parts=el.dataset.multi==='1'?el.value.split(';').map(s=>s.trim()).filter(Boolean):[el.value.trim()].filter(Boolean);
   box.innerHTML=parts.map(p=>{const r=parseRef(p);return r?`<span class="rc ok" title="${esc(refText(r,cur.src).slice(0,400))}">${esc(refLabel(r,cur.src))}</span>`:`<span class="rc bad">${esc(p)} · ${t('unknown')}</span>`}).join('')}
 function paintAllRefs(){$$('#editor input.ref').forEach(paintRefs)}
@@ -216,16 +220,17 @@ async function fileText(f){const name=(f.name||'').toLowerCase();
   if(name.endsWith('.docx')){if(!window.mammoth)await loadScript('https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.6.0/mammoth.browser.min.js');
     return (await mammoth.extractRawText({arrayBuffer:await f.arrayBuffer()})).value.trim()}
   return (await f.text()).trim()}
-function openDetect(){const m=$('#modal');m.hidden=false;m.innerHTML=`<div class="mbox"><h2>${t('detect')}</h2><p class="sub">${t('detectSub')}</p>
-  <label class="drop" id="dDrop"><input type="file" id="dFile" accept=".pdf,.docx,.txt,application/pdf,application/vnd.openxmlformats-officedocument.wordprocessingml.document,text/plain" hidden><b>${t('fileBtn')}</b><span>${t('fileSub')}</span></label>
+function openDetect(initFile){const m=$('#modal');m.hidden=false;m.innerHTML=`<div class="mbox"><h2>${t('detect')}</h2><p class="sub">${t('detectSub')}</p>
+  <label class="drop" id="dDrop"><input type="file" class="vh" id="dFile" accept=".pdf,.docx,.txt,application/pdf,application/vnd.openxmlformats-officedocument.wordprocessingml.document,text/plain"><b>${t('fileBtn')}</b><span>${t('fileSub')}</span></label>
   <p class="hint" id="dFileMsg" hidden></p><textarea id="dText" rows="8" placeholder="${t('pastePh')}"></textarea>
   <div class="dres" id="dRes"></div><div class="mact"><button class="btn ghost" id="dCancel">${t('cancel')}</button><button class="btn gold" id="dGo">${t('detectGo')}</button></div></div>`;
   $('#dCancel').onclick=()=>m.hidden=true;let found=[];
   const take=async f=>{if(!f)return;const msg=$('#dFileMsg');msg.hidden=false;msg.textContent=t('reading',f.name);
-    try{const txt=await fileText(f);$('#dText').value=txt;msg.textContent=t('readOk',f.name);$('#dGo').click()}catch(e){msg.textContent=t('readFail')}};
+    try{const txt=await fileText(f);$('#dText').value=txt;msg.textContent=t('readOk',f.name);$('#dGo').click()}catch(e){console.error(e);msg.textContent=t('readFail')}};
   $('#dFile').onchange=e=>take(e.target.files[0]);
   const dz=$('#dDrop');dz.ondragover=e=>{e.preventDefault();dz.classList.add('over')};dz.ondragleave=()=>dz.classList.remove('over');
-  dz.ondrop=e=>{e.preventDefault();dz.classList.remove('over');take(e.dataTransfer.files[0])};
+  dz.ondrop=e=>{e.preventDefault();e.stopPropagation();dz.classList.remove('over');take(e.dataTransfer.files[0])};
+  if(initFile)setTimeout(()=>take(initFile),0);
   $('#dGo').onclick=()=>{found=findRefs($('#dText').value);$('#dRes').innerHTML=`<p><b>${t('found',found.length)}</b></p><div class="refchips">${found.map(r=>`<span class="rc ok">${esc(refLabel(r,cur.src))}</span>`).join('')}</div>`+
     (found.length?`<div class="mact"><button class="btn ghost" id="dMain">${t('detectMain')}</button><button class="btn gold" id="dAdd">${t('detectAdd')}</button></div>`:'');
     if(!found.length)return;
@@ -256,3 +261,6 @@ window.addEventListener('beforeunload',e=>{if(dirty){e.preventDefault();e.return
   try{META=await (await fetch('../meta.json')).json();buildNames()}catch(e){}
   if(sess){try{await loadChurches();await loadServices()}catch(e){}}
   render();loadBible(UI==='de'?'de':'en');loadBible('en')})();
+
+/* a file dropped next to a drop zone would otherwise replace the portal with the PDF */
+addEventListener('dragover',e=>e.preventDefault());addEventListener('drop',e=>{e.preventDefault();const f=e.dataTransfer&&e.dataTransfer.files[0];if(f&&cur&&$('#editor')&&!$('#main').hidden)openDetect(f)});
