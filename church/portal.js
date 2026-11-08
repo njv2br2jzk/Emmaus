@@ -233,7 +233,8 @@ function openTranslate(){const m=$('#modal'),S=cur.src,objs=langObjs(cur.data,S)
   $('#trGo').onclick=async()=>{const msg=$('#trMsg'),b=$('#trGo'),langs=$$('.langs input:checked').map(i=>i.value);msg.hidden=false;
     if(!objs.length){msg.textContent=t('trEmpty');return}if(!langs.length){msg.textContent=t('trNone');return}
     b.disabled=true;b.classList.add('busy');msg.textContent=t('trWait');
-    try{const j=await aiCall({mode:'translate',src:S,langs,texts:objs.map(o=>o[S])});
+    try{const gl=[];for(const v of services||[])if(v.id!==cur.id)for(const o of [v.data&&v.data.series,v.data&&v.data.title])if(o&&o[S]){const g={[S]:o[S]};let any=0;for(const l of langs)if(o[l]){g[l]=o[l];any=1}if(any&&!gl.some(x=>x[S]===o[S]))gl.push(g)}
+    const j=await aiCall({mode:'translate',src:S,langs,texts:objs.map(o=>o[S]),glossary:gl.slice(0,40)});
       for(const l of langs)(j.translations[l]||[]).forEach((x,i)=>{if(objs[i]&&x)objs[i][l]=x});dirty=true;m.hidden=true;renderEditor();toast(t('trOk'))}
     catch(e){console.error('translate',e);msg.textContent=e==='no_key'?t('aiNoKey'):t('aiFail')}finally{b.disabled=false;b.classList.remove('busy')}}}
 /* the AI import answers in a neutral shape; this turns it into the editor's blocks */
