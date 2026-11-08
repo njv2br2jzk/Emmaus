@@ -1,13 +1,13 @@
 /* Emmaus offline support: the app shell loads from the cache first, the Bible files are fetched
    once in the background and then kept, fonts are cached the first time they are used. */
-const VERSION = 'emmaus-13';
+const VERSION = 'emmaus-14';
 const SHELL = ['./', 'index.html', 'manifest.webmanifest', 'arcs-180.png', 'arcs-192.png', 'arcs-512.png',
   'meta.json', 'meta_de.json', 'meta_fr.json', 'refs_strong.txt', 'places.json', 'map.json'];
 // each Bible is kept the first time it is opened; only the weaker links are fetched ahead
 const LATER = ['refs_weak.txt'];
 
 self.addEventListener('install', e => {
-  e.waitUntil(caches.open(VERSION).then(c => c.addAll(SHELL)).then(() => self.skipWaiting()));
+  e.waitUntil(caches.open(VERSION).then(c => c.addAll(SHELL.map(u => new Request(u, { cache: 'reload' })))).then(() => self.skipWaiting()));
 });
 self.addEventListener('activate', e => {
   e.waitUntil((async () => {
@@ -35,7 +35,7 @@ self.addEventListener('fetch', e => {
     const hit = await c.match(e.request, { ignoreSearch: true });
     if (hit) {
       // refresh the page itself in the background so updates arrive on the next start
-      if (e.request.mode === 'navigate') fetch(e.request).then(r => { if (r.ok) c.put(e.request, r); }).catch(() => {});
+      if (e.request.mode === 'navigate') fetch(e.request.url, { cache: 'no-cache' }).then(r => { if (r.ok) c.put(e.request, r); }).catch(() => {});
       return hit;
     }
     try { const res = await fetch(e.request); if (res.ok) c.put(e.request, res.clone()); return res; }

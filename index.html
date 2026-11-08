@@ -121,7 +121,7 @@ header{display:flex;align-items:center;gap:20px;flex-wrap:wrap;position:relative
 .search .err{position:absolute;top:calc(100% + 6px);left:0;font-size:13px;color:var(--accent);background:var(--surface);border:1px solid var(--line);padding:6px 10px;border-radius:6px;z-index:5;box-shadow:var(--shadow);white-space:nowrap}
 .iconbtn{display:inline-flex;align-items:center;gap:6px;color:var(--muted);font-size:14px;padding:6px 2px}
 .iconbtn:hover,.iconbtn[aria-expanded="true"]{color:var(--fg)}
-.settings{position:absolute;right:max(16px,env(safe-area-inset-right,0px));top:calc(100% + 6px);z-index:30;background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:6px 16px;width:300px;box-shadow:var(--shadow);display:grid}
+.appver{font-size:11px;color:var(--faint);text-align:center;padding-top:6px;letter-spacing:.02em}.settings{position:absolute;right:max(16px,env(safe-area-inset-right,0px));top:calc(100% + 6px);z-index:30;background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:6px 16px;width:300px;box-shadow:var(--shadow);display:grid}
 .settings .row{display:grid;gap:8px;padding:12px 0}
 .settings .row+.row{border-top:1px solid var(--line)}
 .settings .lab{font-size:14px;color:var(--fg)}
@@ -765,7 +765,11 @@ header,.tabs,.threadcol,.chaphead,.plhint,.stagebar,.mapchips,.mapzoom,.archbtn,
       <div class="fsrow"><button id="sFsDown" data-ta="fontSmaller">A−</button><output id="sFsOut"></output><button id="sFsUp" data-ta="fontBigger">A+</button></div></div>
     <div class="row"><span class="lab" data-t="threadsReading"></span>
       <div class="seg" id="thrSeg"><button data-v="1" data-t="on"></button><button data-v="0" data-t="off"></button></div></div>
+    <div class="appver" id="appVer"></div>
   </div>
+<script>/* version and screen numbers in settings, so a screenshot tells which build runs and how iOS measures the screen */
+(function(){var el=document.getElementById('appVer'),pr=document.createElement('div');pr.style.cssText='position:fixed;left:0;bottom:0;width:0;height:env(safe-area-inset-bottom,0px);visibility:hidden;pointer-events:none';document.body.appendChild(pr);
+var up=function(){var g=getComputedStyle(document.documentElement).getPropertyValue('--vgap').trim()||'0px';el.textContent='Arcs v14 · '+innerHeight+'/'+Math.max(screen.height,screen.width)+' · sb '+Math.round(pr.getBoundingClientRect().height)+' · g '+g};up();addEventListener('resize',up);setTimeout(up,800)})();</script>
   <div class="filters" id="filters" hidden>
     <label><span data-t="minVotes"></span> <output id="mvOut">5</output>
       <input type="range" id="mv" min="0" max="6" step="1" value="2">
