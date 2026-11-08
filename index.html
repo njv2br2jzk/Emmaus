@@ -20,9 +20,9 @@ body::before{content:"";position:fixed;z-index:200;left:0;right:0;top:0;height:c
 <title>Arcs</title>
 <script>/* iOS home-screen apps sometimes size the page to the screen minus the status bar, which lifts everything pinned to the bottom.
    Give the page the full screen height (a fixed number, so it cannot feed back into the measurement), then measure what is still missing. */
-(function(){var de=document.documentElement,fix=function(){var g=0,h='';try{if(navigator.standalone||matchMedia('(display-mode: standalone)').matches){var p=innerHeight>=innerWidth,H=p?Math.max(screen.width,screen.height):Math.min(screen.width,screen.height);h=H+'px';g=Math.round(H-innerHeight);if(g<0||g>140)g=0}}catch(e){}
+(function(){var de=document.documentElement,t0=Date.now(),fix=function(){var g=0,h='';try{if(navigator.standalone||matchMedia('(display-mode: standalone)').matches){var p=innerHeight>=innerWidth,H=p?Math.max(screen.width,screen.height):Math.min(screen.width,screen.height);h=H+'px';g=Math.round(H-innerHeight);if(g<0||g>140||Date.now()-t0<500)g=0}}catch(e){}
   if(h)de.style.setProperty('--apph',h);else de.style.removeProperty('--apph');de.style.setProperty('--vgap',g+'px')};
-  window.__vfix=fix;fix();[150,600,1500].forEach(function(t){setTimeout(fix,t)});addEventListener('orientationchange',function(){setTimeout(fix,400)});addEventListener('pageshow',fix);
+  window.__vfix=fix;fix();[600,1500].forEach(function(t){setTimeout(fix,t)});addEventListener('orientationchange',function(){setTimeout(fix,400)});addEventListener('pageshow',fix);
   document.addEventListener('visibilitychange',function(){if(!document.hidden)setTimeout(fix,150)})})();</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -416,7 +416,7 @@ main{flex:1;min-height:0;display:flex;position:relative}
 body.peeking .stagebar{padding-bottom:62px}
 .peek{display:none;position:fixed;z-index:19;right:max(14px,env(safe-area-inset-right,0px));bottom:calc(70px + max(10px,env(safe-area-inset-bottom,0px) - 10px) - var(--vgap,0px));align-items:center;gap:8px;max-width:70%;
   background:var(--fg);color:var(--bg);border-radius:999px;padding:9px 14px 9px 12px;font-size:14px;font-weight:600;box-shadow:var(--shadow)}
-.peek span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.peek span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.peek.inrow{right:auto;bottom:auto;transform:translateY(-50%)}.peek:not([hidden]){animation:peekIn .22s ease-out}@keyframes peekIn{from{opacity:0}to{opacity:1}}
 .peek svg{flex:none}
 /* navigator: the whole Bible in one strip, with a window for what the arcs show */
 .navi{flex-basis:100%;order:-1;height:40px;position:relative;touch-action:none;cursor:pointer;user-select:none;-webkit-user-select:none;clip-path:inset(-2px -14px)}
@@ -456,9 +456,10 @@ body.peeking .stagebar{padding-bottom:62px}
   header{flex-wrap:wrap;column-gap:2px}
   /* tabs become a floating dock in thumb reach */
   .tabs{position:fixed;z-index:18;left:50%;transform:translateX(-50%);bottom:calc(max(10px,env(safe-area-inset-bottom,0px) - 10px) - var(--vgap,0px));height:auto;gap:2px;
-    background:var(--dock);border-radius:30px;padding:5px;box-shadow:var(--shadow)}
-  .tabs button{height:44px;padding:0 15px;border-radius:22px;color:var(--ondock);opacity:.72;font-size:15px}
-  .tabs button[aria-selected="true"]{background:var(--bg);color:var(--fg);opacity:1}
+    background:var(--dock);border-radius:30px;padding:5px;box-shadow:var(--shadow);isolation:isolate;will-change:transform;max-width:calc(100vw - 24px);box-sizing:border-box;display:flex}
+  #tab-church{max-width:7.2em;overflow:hidden;text-overflow:ellipsis}
+  .tabs button{height:44px;padding:0 clamp(9px,2.8vw,15px);border-radius:22px;flex:0 1 auto;min-width:0;white-space:nowrap;color:color-mix(in srgb,var(--ondock) 72%,var(--dock));font-size:15px;-webkit-transform:translateZ(0);transform:translateZ(0)}
+  .tabs button[aria-selected="true"]{background:var(--bg);color:var(--fg)}
   .tabs button[aria-selected="true"]::after{content:none}
   .app.focus .tabs{display:none}
   header{min-height:54px}
@@ -773,7 +774,7 @@ header,.tabs,.threadcol,.chaphead,.plhint,.stagebar,.mapchips,.mapzoom,.archbtn,
   </div>
 <script>/* version and screen numbers in settings, so a screenshot tells which build runs and how iOS measures the screen */
 (function(){var el=document.getElementById('appVer'),pr=document.createElement('div');pr.style.cssText='position:fixed;left:0;bottom:0;width:0;height:env(safe-area-inset-bottom,0px);visibility:hidden;pointer-events:none';document.body.appendChild(pr);
-var up=function(){var g=getComputedStyle(document.documentElement).getPropertyValue('--vgap').trim()||'0px';el.textContent='Arcs v17 · '+innerHeight+'/'+(getComputedStyle(document.documentElement).getPropertyValue('--apph').trim()||'-')+'/'+Math.max(screen.height,screen.width)+' · sb '+Math.round(pr.getBoundingClientRect().height)+' · g '+g};up();addEventListener('resize',up);setTimeout(up,800)})();</script>
+var up=function(){var g=getComputedStyle(document.documentElement).getPropertyValue('--vgap').trim()||'0px';el.textContent='Arcs v19 · '+innerHeight+'/'+(getComputedStyle(document.documentElement).getPropertyValue('--apph').trim()||'-')+'/'+Math.max(screen.height,screen.width)+' · sb '+Math.round(pr.getBoundingClientRect().height)+' · g '+g};up();addEventListener('resize',up);setTimeout(up,800)})();</script>
   <div class="filters" id="filters" hidden>
     <label><span data-t="minVotes"></span> <output id="mvOut">5</output>
       <input type="range" id="mv" min="0" max="6" step="1" value="2">
@@ -2284,8 +2285,15 @@ $('#phead').onclick=e=>{if(sheetDragged){sheetDragged=false;return}if(isSheet()&
   panel.addEventListener('touchend',end);panel.addEventListener('touchcancel',end);
 })();
 const peek=$('#peek');
-function updatePeek(){const show=isSheet()&&panel.classList.contains('collapsed')&&(conn>=0||!!sel)&&!(view==='read'&&sel&&sel.k!=='verse')&&$('#selBar').hidden;peek.hidden=!show;document.body.classList.toggle('peeking',show);if(!show)return;
-  $('#peekTxt').textContent=conn>=0?`${label(F[conn])} / ${label(T[conn])}`:sel.k==='verse'?label(sel.s):sel.k==='chapter'?`${bn(sel.b)} ${sel.c}`:bn(sel.b)}
+function updatePeek(){const show=isSheet()&&panel.classList.contains('collapsed')&&(conn>=0||!!sel)&&!(view==='read'&&sel&&sel.k!=='verse')&&$('#selBar').hidden;peek.hidden=!show;if(!show){document.body.classList.remove('peeking');peek.classList.remove('inrow');return}
+  $('#peekTxt').textContent=conn>=0?`${label(F[conn])} / ${label(T[conn])}`:sel.k==='verse'?label(sel.s):sel.k==='chapter'?`${bn(sel.b)} ${sel.c}`:bn(sel.b);placePeek()}
+/* On the arcs screen the pill sits in the free space left of the zoom buttons, so nothing above it has to move.
+   Only when that space is too narrow does the bar make room, as before. */
+function placePeek(){if(peek.hidden)return;const z=view==='arcs'&&$('.stagebar .zoom');const r=z&&z.getBoundingClientRect();const L=14;
+  const room=r&&r.width?r.left-L-10:0;
+  if(room>=96){peek.classList.add('inrow');document.body.classList.remove('peeking');peek.style.maxWidth=room+'px';peek.style.left=L+'px';peek.style.top=Math.round(r.top+r.height/2)+'px'}
+  else{peek.classList.remove('inrow');peek.style.maxWidth=peek.style.left=peek.style.top='';document.body.classList.add('peeking')}}
+addEventListener('resize',()=>{if(!peek.hidden)placePeek()});
 new MutationObserver(updatePeek).observe(panel,{attributes:true,attributeFilter:['class']});
 peek.onclick=()=>panel.classList.remove('collapsed');
 $('#ovBtn').onclick=()=>{if(conn>=0||sel){conn=-1;select(null)}panel.classList.remove('collapsed')};
