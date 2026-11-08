@@ -656,7 +656,8 @@ header,.tabs,.threadcol,.chaphead,.plhint,.stagebar,.mapchips,.mapzoom,.archbtn,
 /* ---------- onboarding: one calm question per screen ---------- */
 .onb{position:fixed;inset:0;z-index:120;background:var(--bg);color:var(--fg);overflow:hidden;display:flex;flex-direction:column;padding:max(14px,env(safe-area-inset-top,0px)) max(22px,env(safe-area-inset-right,0px)) max(22px,env(safe-area-inset-bottom,0px)) max(22px,env(safe-area-inset-left,0px))}
 .onb[hidden]{display:none}
-.onbarcs{position:absolute;left:0;right:0;bottom:0;width:100%;height:62%;pointer-events:none;opacity:.55;transition:opacity .6s}
+.onbarcs{position:absolute;left:0;right:0;bottom:0;width:100%;height:62%;pointer-events:none;opacity:.55;transition:opacity .6s;z-index:0;-webkit-mask-image:linear-gradient(to bottom,transparent 0,#000 38%);mask-image:linear-gradient(to bottom,transparent 0,#000 38%)}
+.ostep{z-index:1}
 .onb[data-step="hello"] .onbarcs{opacity:1}
 .onb:not([data-step="hello"]):not([data-step="done"]) .onbarcs{opacity:.12}
 .onbarcs path{fill:none;stroke-linecap:round;stroke-dasharray:var(--len);stroke-dashoffset:var(--len);animation:onbdraw 2.4s cubic-bezier(.3,.6,.2,1) forwards}
@@ -2523,11 +2524,15 @@ function renderAcct(){const box=$('#acctBody');if(!box)return;const u=AUTH.user(
 
 /* ---------- onboarding ---------- */
 const onb=$('#onb'),ONB=['hello','lang','intro','acct','email','code','name','church','look','done'];let onbAt='hello',onbHist=[],onbShort=false,onbEmail='';
-function onbArcs(){const svg=$('#onbArcs');if(svg.dataset.done)return;svg.dataset.done='1';const cols=['#E5546E','#EA8743','#EFC24F','#A6CF5E','#43C3AE','#52BDF0','#5A8BF0','#9A7BF0','#D58AE6'];
-  let s=7;const r=()=>{s=(s*9301+49297)%233280;return s/233280};let h='';
-  for(let k=0;k<46;k++){const a=10+r()*380,b=10+r()*380;if(Math.abs(a-b)<14)continue;const x1=Math.min(a,b),x2=Math.max(a,b),rx=(x2-x1)/2,ry=Math.min(rx*1.05,285);
-    const len=Math.PI*(rx+ry)/2+5;h+=`<path d="M${x1.toFixed(1)} 300 A${rx.toFixed(1)} ${ry.toFixed(1)} 0 0 1 ${x2.toFixed(1)} 300" stroke="${cols[Math.floor(x1/400*cols.length)]}" stroke-width="${(0.8+r()*1.2).toFixed(2)}" stroke-opacity="${(.35+r()*.45).toFixed(2)}" style="--len:${len.toFixed(0)};animation-delay:${(r()*1.6).toFixed(2)}s"/>`}
-  h+=`<path d="M60 300 A140 150 0 0 1 340 300" stroke="#E9B949" stroke-width="2.6" style="--len:470;animation-delay:.6s"/>`;svg.innerHTML=h}
+function onbArcs(force){const svg=$('#onbArcs');if(svg.dataset.done&&!force)return;svg.dataset.done='1';const cols=['#E5546E','#EA8743','#EFC24F','#A6CF5E','#43C3AE','#52BDF0','#5A8BF0','#9A7BF0','#D58AE6'];
+  /* on wide screens the drawing gets wider instead of being blown up, so arcs keep their size */
+  const bw=svg.clientWidth||innerWidth,bh=svg.clientHeight||innerHeight*.62,W=Math.round(Math.max(400,Math.min(1400,300*bw/Math.max(bh,1))));
+  svg.setAttribute('viewBox',`0 0 ${W} 300`);
+  let s=7;const r=()=>{s=(s*9301+49297)%233280;return s/233280};let h='';const n=Math.round(46*W/400);
+  for(let k=0;k<n;k++){const a=10+r()*(W-20),b=10+r()*(W-20);if(Math.abs(a-b)<14||Math.abs(a-b)>420)continue;const x1=Math.min(a,b),x2=Math.max(a,b),rx=(x2-x1)/2,ry=Math.min(rx*1.05,285);
+    const len=Math.PI*(rx+ry)/2+5;h+=`<path d="M${x1.toFixed(1)} 300 A${rx.toFixed(1)} ${ry.toFixed(1)} 0 0 1 ${x2.toFixed(1)} 300" stroke="${cols[Math.floor(x1/W*cols.length)]}" stroke-width="${(0.8+r()*1.2).toFixed(2)}" stroke-opacity="${(.35+r()*.45).toFixed(2)}" style="--len:${len.toFixed(0)};animation-delay:${(r()*1.6).toFixed(2)}s"/>`}
+  const c=W/2;h+=`<path d="M${c-140} 300 A140 150 0 0 1 ${c+140} 300" stroke="#E9B949" stroke-width="2.6" style="--len:470;animation-delay:.6s"/>`;svg.innerHTML=h}
+let onbResizeT=0;addEventListener('resize',()=>{clearTimeout(onbResizeT);onbResizeT=setTimeout(()=>{if(!onb.hidden)onbArcs(true)},250)});
 let helloT=0;
 function onbHello(){const w=['Hello','Hallo','Hola','Bonjour','Olá','Ciao'];let k=0;const el=$('#onbHello');clearInterval(helloT);el.textContent=w[0];
   helloT=setInterval(()=>{if(onbAt!=='hello'){clearInterval(helloT);return}el.classList.add('swap');setTimeout(()=>{k=(k+1)%w.length;el.textContent=w[k];el.classList.remove('swap')},450)},2200)}
