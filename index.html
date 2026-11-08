@@ -769,7 +769,7 @@ header,.tabs,.threadcol,.chaphead,.plhint,.stagebar,.mapchips,.mapzoom,.archbtn,
   </div>
 <script>/* version and screen numbers in settings, so a screenshot tells which build runs and how iOS measures the screen */
 (function(){var el=document.getElementById('appVer'),pr=document.createElement('div');pr.style.cssText='position:fixed;left:0;bottom:0;width:0;height:env(safe-area-inset-bottom,0px);visibility:hidden;pointer-events:none';document.body.appendChild(pr);
-var up=function(){try{window.__vfix&&__vfix()}catch(e){}var g=getComputedStyle(document.documentElement).getPropertyValue('--vgap').trim()||'0px';el.textContent='Arcs v15 · '+innerHeight+'/'+Math.max(screen.height,screen.width)+' · sb '+Math.round(pr.getBoundingClientRect().height)+' · g '+g};up();addEventListener('resize',up);setTimeout(up,800)})();</script>
+var up=function(){try{window.__vfix&&__vfix()}catch(e){}var g=getComputedStyle(document.documentElement).getPropertyValue('--vgap').trim()||'0px';el.textContent='Arcs v16 · '+innerHeight+'/'+Math.max(screen.height,screen.width)+' · sb '+Math.round(pr.getBoundingClientRect().height)+' · g '+g};up();addEventListener('resize',up);setTimeout(up,800)})();</script>
   <div class="filters" id="filters" hidden>
     <label><span data-t="minVotes"></span> <output id="mvOut">5</output>
       <input type="range" id="mv" min="0" max="6" step="1" value="2">
@@ -3080,10 +3080,11 @@ const ro=new ResizeObserver(()=>{if(view==='map'&&GEO){sizeMap();clampView();dra
 ro.observe(stage);ro.observe(tcol);ro.observe(mapStage);ro.observe(pane);
 applySide();
 /* iOS switches light/dark while the app sleeps and sometimes reports it before the styles have changed, which left the arcs drawn in the old colors: redraw once the styles have settled, and whenever the app comes back */
-let lastBg='';function themeCheck(force){const bg=getComputedStyle(document.documentElement).getPropertyValue('--bg').trim();if(!force&&bg===lastBg)return;lastBg=bg;readColors();renderArcs();drawThreads();drawMap()}
+let lastBg='';function themeCheck(force){const bg=getComputedStyle(document.documentElement).getPropertyValue('--bg').trim();if(!force&&bg===lastBg)return;lastBg=bg;fullCache=null;baseBitmap=null;readColors();renderArcs();drawThreads();drawMap()}
 const themeSoon=()=>{requestAnimationFrame(()=>requestAnimationFrame(()=>themeCheck(true)));setTimeout(()=>themeCheck(),400);setTimeout(()=>themeCheck(),1200)};
 matchMedia('(prefers-color-scheme: dark)').addEventListener('change',themeSoon);
-document.addEventListener('visibilitychange',()=>{if(!document.hidden)themeSoon()});addEventListener('pageshow',themeSoon);addEventListener('focus',themeSoon);
+/* iOS throws away canvas memory while the app is in the background, and a kept picture of the arcs then draws as nothing: drop it and draw fresh */
+document.addEventListener('visibilitychange',()=>{if(!document.hidden){fullCache=null;baseBitmap=null;themeSoon()}});addEventListener('pageshow',themeSoon);addEventListener('focus',themeSoon);
 new MutationObserver(()=>{readColors();renderArcs();drawThreads();drawMap();renderPanel()}).observe(document.documentElement,{attributes:true,attributeFilter:['data-theme','data-look']});
 load().then(async()=>{
   if(builtLang!==LANG)await buildLang();
