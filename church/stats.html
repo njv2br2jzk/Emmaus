@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Arcs Beta-Statistik</title>
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Figtree:wght@400;500;600&display=swap">
+<style>
+:root{--bg:#F5F0E6;--card:#FFFCF5;--fg:#141a2b;--muted:#5d6475;--faint:#8b90a0;--line:#e3dccd;--gold:#b8862a;--bar:#c9a24f}
+@media (prefers-color-scheme:dark){:root{--bg:#0D1220;--card:#151b2d;--fg:#efe9dc;--muted:#a3a8b8;--faint:#6f7588;--line:#252d44;--gold:#e6b84f;--bar:#c9a24f}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font-family:Figtree,system-ui,sans-serif;font-size:15px;line-height:1.45;-webkit-font-smoothing:antialiased}
+.wrap{max-width:1040px;margin:0 auto;padding:max(20px,env(safe-area-inset-top)) 16px 48px}
+header{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;margin-bottom:18px}
+h1{font-family:'Playfair Display',serif;font-weight:600;font-size:30px;margin:0}
+h1 i{color:var(--gold);font-style:normal}
+.sub{color:var(--muted)}
+.range{margin-left:auto;display:flex;gap:4px;background:var(--card);border:1px solid var(--line);border-radius:999px;padding:3px}
+.range button{border:0;background:none;color:var(--muted);font:inherit;font-size:13.5px;padding:6px 12px;border-radius:999px;cursor:pointer}
+.range button[aria-pressed="true"]{background:var(--fg);color:var(--bg)}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin-bottom:12px}
+.kpi{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:14px 16px}
+.kpi b{display:block;font-size:28px;font-weight:600;font-variant-numeric:tabular-nums;letter-spacing:-.01em}
+.kpi span{color:var(--muted);font-size:13px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:12px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:16px;min-width:0}
+.card h2{font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);font-weight:600;margin:0 0 12px}
+.card.wide{grid-column:1/-1}
+.chart{display:flex;align-items:flex-end;gap:3px;height:150px;border-bottom:1px solid var(--line);padding-top:8px}
+.chart div{flex:1;background:var(--bar);border-radius:4px 4px 0 0;min-height:2px;position:relative}
+.chart div:hover::after{content:attr(data-tip);position:absolute;bottom:100%;left:50%;transform:translate(-50%,-6px);background:var(--fg);color:var(--bg);font-size:12px;padding:4px 8px;border-radius:8px;white-space:nowrap;z-index:2}
+.axis{display:flex;justify-content:space-between;color:var(--faint);font-size:12px;margin-top:6px}
+.rows{display:grid;gap:8px}
+.r{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:10px;align-items:center;font-size:14px}
+.r .lab{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.r .num{color:var(--muted);font-variant-numeric:tabular-nums;font-size:13px}
+.r .meter{grid-column:1/-1;height:6px;background:var(--line);border-radius:3px;overflow:hidden;margin-top:-4px}
+.r .meter i{display:block;height:100%;background:var(--bar);border-radius:3px}
+.fb{border-top:1px solid var(--line);padding:12px 0}.fb:first-child{border-top:0;padding-top:0}
+.fb a{color:var(--gold)}.fb p{margin:0 0 6px;white-space:pre-wrap}.fb small{color:var(--faint)}
+.empty{color:var(--faint)}
+.gate{max-width:440px;margin:12vh auto;text-align:center}
+.gate a{display:inline-block;margin-top:14px;background:var(--fg);color:var(--bg);text-decoration:none;padding:10px 18px;border-radius:12px;font-weight:600}
+</style>
+</head>
+<body>
+<div class="wrap" id="app"><p class="sub">Lädt …</p></div>
+<script src="booknames.js"></script>
+<script>
+/* Arcs beta statistics: reads the anonymous usage data through arcs_stats(), which only answers the admin account. */
+const SB={url:'https://gbucruwumfaaazjnovdm.supabase.co',key:'sb_publishable_zgx4x5D2EBKdthG7VMjKZQ_34CwxS4z'};
+const $=s=>document.querySelector(s),esc=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const ls={get(k){try{return localStorage.getItem(k)}catch(e){return null}},set(k,v){try{v?localStorage.setItem(k,v):localStorage.removeItem(k)}catch(e){}}};
+let sess=null;try{sess=JSON.parse(ls.get('portalSession')||'null')}catch(e){}
+async function token(){if(!sess)return null;if(sess.exp-90>Date.now()/1000)return sess.at;
+  const r=await fetch(SB.url+'/auth/v1/token?grant_type=refresh_token',{method:'POST',headers:{apikey:SB.key,'Content-Type':'application/json'},body:JSON.stringify({refresh_token:sess.rt})});
+  if(!r.ok){sess=null;return null}const d=await r.json();sess={at:d.access_token,rt:d.refresh_token,exp:d.expires_at||Math.floor(Date.now()/1000)+(d.expires_in||3600),email:(d.user&&d.user.email)||sess.email};ls.set('portalSession',JSON.stringify(sess));return sess.at}
+const N=n=>Number(n||0).toLocaleString('de-DE');
+const VIEW={arcs:'Bögen',read:'Lesen',map:'Orte',notes:'Notizen',church:'Gemeinde',find:'Suche'};
+const EV={open:'App geöffnet',resume:'Zurück in die App',view:'Bereich gewechselt',chapter:'Kapitel geöffnet',service:'Gottesdienst geöffnet',note:'Notiz angelegt',path:'Pfad benutzt',search:'Gesucht',lang:'Sprache gewechselt',optin:'Zugestimmt'};
+const LANGN={de:'Deutsch',en:'Englisch',es:'Spanisch',fr:'Französisch',pt:'Portugiesisch',it:'Italienisch'};
+let days=30;
+function gate(msg){$('#app').innerHTML=`<div class="gate"><h1>Arcs<i>.</i> Beta-Statistik</h1><p class="sub">${msg}</p><a href="./">Im Portal anmelden</a></div>`}
+function rows(list,label,max){if(!list||!list.length)return '<p class="empty">Noch keine Daten.</p>';const m=max||Math.max(...list.map(x=>x.n||x.devices||0),1);
+  return '<div class="rows">'+list.map(x=>{const v=x.n??x.devices;return `<div class="r"><span class="lab">${esc(label(x))}</span><span class="num">${N(v)}${x.devices!=null&&x.n!=null?` · ${N(x.devices)} Geräte`:''}</span><span class="meter"><i style="width:${Math.max(2,v/m*100)}%"></i></span></div>`}).join('')+'</div>'}
+async function load(){const tk=await token();if(!tk)return gate('Melde dich zuerst im Portal mit deiner Admin-E-Mail an. Danach öffnet sich die Statistik hier.');
+  const r=await fetch(SB.url+'/rest/v1/rpc/arcs_stats',{method:'POST',headers:{apikey:SB.key,Authorization:'Bearer '+tk,'Content-Type':'application/json'},body:JSON.stringify({days})});
+  if(!r.ok)return gate('Dieses Konto darf die Statistik nicht sehen.');
+  if(!NM.loaded){try{const h={apikey:SB.key};const [cs,ss]=await Promise.all([fetch(SB.url+'/rest/v1/churches?select=id,name',{headers:h}).then(x=>x.json()),fetch(SB.url+'/rest/v1/services?select=id,date,title:data->title',{headers:h}).then(x=>x.json())]);
+    cs.forEach(c=>NM.c[c.id]=c.name);ss.forEach(v=>{const t=v.title||{};NM.s[v.id]=(t.de||t.en||Object.values(t)[0]||v.id)+' · '+new Date(v.date+'T12:00:00').toLocaleDateString('de-DE',{day:'numeric',month:'short'})});NM.loaded=true}catch(e){}}
+  render(await r.json())}
+const NM={c:{},s:{},loaded:false};
+function render(d){const T=d.totals||{},R=d.returning||{},I=d.installed||{};
+  // fill missing days so the chart shows quiet days too
+  const map=Object.fromEntries((d.daily||[]).map(x=>[x.d,x]));const daily=[];for(let i=days-1;i>=0;i--){const dt=new Date(Date.now()-i*864e5).toISOString().slice(0,10);daily.push(map[dt]||{d:dt,devices:0,events:0})}
+  const mx=Math.max(1,...daily.map(x=>x.devices));const fmt=s=>new Date(s+'T12:00:00').toLocaleDateString('de-DE',{day:'numeric',month:'short'});
+  const book=b=>(typeof DEN!=='undefined'&&DEN[b])||('Buch '+(b+1));
+  $('#app').innerHTML=`<header><h1>Arcs<i>.</i> Beta-Statistik</h1><span class="sub">anonym · nur Nutzer, die zugestimmt haben</span>
+    <div class="range">${[7,30,90].map(n=>`<button data-d="${n}" aria-pressed="${n===days}">${n} Tage</button>`).join('')}</div></header>
+  <div class="kpis">
+    <div class="kpi"><b>${N(T.devices1)}</b><span>Geräte heute (24 h)</span></div>
+    <div class="kpi"><b>${N(T.devices7)}</b><span>Geräte in 7 Tagen</span></div>
+    <div class="kpi"><b>${N(T.devices)}</b><span>Geräte in ${days} Tagen</span></div>
+    <div class="kpi"><b>${N(T.sessions)}</b><span>Besuche</span></div>
+    <div class="kpi"><b>${R.devices?Math.round(R.twoPlusDays/R.devices*100):0} %</b><span>kamen an 2+ Tagen wieder</span></div>
+    <div class="kpi"><b>${I.all?Math.round(I.pwa/I.all*100):0} %</b><span>als App installiert</span></div>
+  </div>
+  <div class="grid">
+    <div class="card wide"><h2>Aktive Geräte pro Tag</h2><div class="chart">${daily.map(x=>`<div style="height:${x.devices/mx*100}%" data-tip="${fmt(x.d)}: ${x.devices} Geräte, ${x.events} Aktionen"></div>`).join('')}</div>
+      <div class="axis"><span>${fmt(daily[0].d)}</span><span>${fmt(daily[daily.length-1].d)}</span></div></div>
+    <div class="card"><h2>Bereiche</h2>${rows(d.views,x=>VIEW[x.v]||x.v)}</div>
+    <div class="card"><h2>Aktionen</h2>${rows(d.byEvent,x=>EV[x.ev]||x.ev)}</div>
+    <div class="card"><h2>Meistgelesene Kapitel</h2>${rows(d.chapters,x=>book(x.b)+' '+x.c)}</div>
+    <div class="card"><h2>Gottesdienste</h2>${rows(d.services,x=>(NM.s[x.s]||x.s)+(x.church?' – '+(NM.c[x.church]||x.church):''))}</div>
+    <div class="card"><h2>Gemeinden (Geräte)</h2>${rows(d.churches,x=>NM.c[x.church]||x.church)}</div>
+    <div class="card"><h2>Sprachen (Geräte)</h2>${rows(d.langs,x=>LANGN[x.lang]||x.lang||'?')}</div>
+    <div class="card wide"><h2>Feedback (${(d.feedback||[]).length})</h2>${(d.feedback||[]).length?(d.feedback.map(f=>`<div class="fb"><p>${esc(f.body)}</p><small>${new Date(f.at).toLocaleString('de-DE',{dateStyle:'medium',timeStyle:'short'})} · ${esc(LANGN[f.lang]||f.lang||'')} · ${esc(f.ver||'')} · ${esc(f.screen||'')}${f.contact?` · <a href="mailto:${esc(f.contact)}">${esc(f.contact)}</a>`:''}</small></div>`).join('')):'<p class="empty">Noch kein Feedback.</p>'}</div>
+  </div>`;
+  document.querySelectorAll('.range button').forEach(b=>b.onclick=()=>{days=+b.dataset.d;load()})}
+load();
+</script>
+</body>
+</html>
