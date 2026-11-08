@@ -115,7 +115,7 @@ header{display:flex;align-items:center;gap:20px;flex-wrap:wrap;position:relative
 .brand span{font-size:13px;color:var(--faint)}
 .tabs{display:flex;gap:18px;align-self:stretch}
 .tabs button{color:var(--muted);font-weight:500;font-size:15px;position:relative;padding:0 1px}
-.tabs button:hover{color:var(--fg)}
+@media (hover:hover){.tabs button:hover{color:var(--fg)}}
 .tabs button[aria-selected="true"]{color:var(--fg)}
 .tabs button[aria-selected="true"]::after{content:"";position:absolute;left:0;right:0;bottom:-1px;height:2px;background:var(--accent)}
 .search{flex:1;min-width:180px;max-width:340px;position:relative;margin-left:auto}
@@ -467,6 +467,7 @@ body.peeking .stagebar{padding-bottom:62px}
   #tab-church{max-width:7.2em;overflow:hidden;text-overflow:ellipsis}
   .tabs button{height:44px;padding:0 clamp(9px,2.8vw,15px);border-radius:22px;flex:0 1 auto;min-width:0;white-space:nowrap;color:color-mix(in srgb,var(--ondock) 72%,var(--dock));font-size:15px;-webkit-transform:translateZ(0);transform:translateZ(0)}
   .tabs button[aria-selected="true"]{background:var(--bg);color:var(--fg)}
+  .tabs button:hover:not([aria-selected="true"]){color:var(--ondock)}
   .tabs button[aria-selected="true"]::after{content:none}
   .app.focus .tabs{display:none}
   header{min-height:54px}
@@ -475,6 +476,8 @@ body.peeking .stagebar{padding-bottom:62px}
   #filterBtn span{display:none}
   #setBtn{order:4}
   .settings{left:max(16px,env(safe-area-inset-left,0px));right:max(16px,env(safe-area-inset-right,0px));width:auto}
+  /* taller than the screen now: scroll inside, above the tab bar */
+  .settings{max-height:calc(var(--apph,100dvh) - 205px - max(10px,env(safe-area-inset-bottom,0px) - 10px));overflow-y:auto;-webkit-overflow-scrolling:touch;overscroll-behavior:contain}
   .search{display:none;order:5;max-width:none;flex-basis:100%;margin:0 0 8px}
   header.searching .search{display:block}
   header{padding-block:0}
@@ -784,7 +787,7 @@ header,.tabs,.threadcol,.chaphead,.plhint,.stagebar,.mapchips,.mapzoom,.archbtn,
   </div>
 <script>/* version and screen numbers in settings, so a screenshot tells which build runs and how iOS measures the screen */
 (function(){var el=document.getElementById('appVer'),pr=document.createElement('div');pr.style.cssText='position:fixed;left:0;bottom:0;width:0;height:env(safe-area-inset-bottom,0px);visibility:hidden;pointer-events:none';document.body.appendChild(pr);
-var up=function(){var g=getComputedStyle(document.documentElement).getPropertyValue('--vgap').trim()||'0px';el.textContent='Arcs v20'};up();addEventListener('resize',up);setTimeout(up,800)})();</script>
+var up=function(){var g=getComputedStyle(document.documentElement).getPropertyValue('--vgap').trim()||'0px';el.textContent='Arcs v21'};up();addEventListener('resize',up);setTimeout(up,800)})();</script>
   <div class="anacard" id="anaCard" hidden><b data-t="anaAskT"></b><p data-t="anaAskX"></p><div class="anabtns"><button id="anaNo" data-t="anaNo"></button><button class="acctsign" id="anaYes" data-t="anaYes"></button></div></div>
   <div class="fbwrap" id="fbWrap" hidden><div class="fbbox"><h3 data-t="fbTitle"></h3><p class="hint" data-t="fbSub"></p><textarea id="fbText" rows="6" maxlength="4000"></textarea><input id="fbMail" type="email" autocomplete="email" maxlength="200"><p class="hint" id="fbMsg" hidden></p><div class="anabtns"><button id="fbCancel" data-t="cancel2"></button><button class="acctsign" id="fbSend" data-t="fbSend"></button></div></div></div>
   <div class="filters" id="filters" hidden>
@@ -1419,6 +1422,7 @@ function arcPath(p,a,b){
   const cx=(x1+x2)/2,base=ph+4;p.moveTo(cx-rx,base);p.ellipse(cx,base,rx,ry,0,Math.PI,2*Math.PI);
 }
 let drawGen=0,fullCache=null;
+let offBase=null;
 function drawBase(){
   if(!active||!W)return;const gen=++drawGen;const ctx=cBase.getContext('2d');baseBitmap=null;
   const light=css('--blend')==='multiply';
@@ -1426,7 +1430,10 @@ function drawBase(){
   $('#arcStat').textContent=t('arcStat',fmt(TOT),fmt(active.length),fmt(N));
   ctx.setTransform(dprB,0,0,dprB,0,0);ctx.globalCompositeOperation='source-over';ctx.globalAlpha=1;
   if(full&&fullCache&&fullCache.key===key){ctx.setTransform(1,0,0,1,0,0);ctx.drawImage(fullCache.img,0,0);return}
-  ctx.fillStyle=css('--bg');ctx.fillRect(0,0,W,H);
+  /* draw into a hidden canvas and show it only when complete: the picture on screen never builds up in steps (no flicker) */
+  if(!offBase)offBase=document.createElement('canvas');if(offBase.width!==cBase.width||offBase.height!==cBase.height){offBase.width=cBase.width;offBase.height=cBase.height}
+  const octx=offBase.getContext('2d');octx.setTransform(dprB,0,0,dprB,0,0);octx.globalCompositeOperation='source-over';octx.globalAlpha=1;
+  octx.fillStyle=css('--bg');octx.fillRect(0,0,W,H);
   /* Phones composite canvases on the GPU in 8-bit colour: strokes fainter than about 3 % opacity
      round to nothing. So draw only the strongest links that fit the screen, each at a visible opacity. */
   const vis=r=>{const a=F[r]+.5,b=T[r]+S[r]/2+.5;return !((a<v0&&b<v0)||(a>v1&&b>v1))};
@@ -1440,12 +1447,13 @@ function drawBase(){
     for(;k<byVotes.length&&drawn<n&&c<CH;k++){const r=byVotes[k];if(!vis(r))continue;const cat=catOfBook[vBook[F[r]]];
       arcPath(Math.abs(T[r]-F[r])>span*0.42?longP[cat]:paths[cat],F[r]+.5,T[r]+S[r]/2+.5);rec[drawn]=r;drawn++;c++}
     drawnArcs=rec.subarray(0,drawn);
-    ctx.setTransform(dprB,0,0,dprB,0,0);ctx.globalCompositeOperation=light?'source-over':'lighter';ctx.globalAlpha=alpha;ctx.lineWidth=W<820?0.8:0.7;
-    paths.forEach((p,i)=>{ctx.strokeStyle=catColor[i];ctx.stroke(p)});
-    ctx.globalAlpha=Math.min(0.5,alpha*2.4);longP.forEach((p,i)=>{ctx.strokeStyle=catColor[i];ctx.stroke(p)});
-    ctx.globalCompositeOperation='source-over';ctx.globalAlpha=1;
-    if(drawn<n&&k<byVotes.length)requestAnimationFrame(step);
-    else if(full&&window.createImageBitmap)createImageBitmap(cBase).then(img=>{if(gen===drawGen)fullCache={key,img}}).catch(()=>{});
+    octx.setTransform(dprB,0,0,dprB,0,0);octx.globalCompositeOperation=light?'source-over':'lighter';octx.globalAlpha=alpha;octx.lineWidth=W<820?0.8:0.7;
+    paths.forEach((p,i)=>{octx.strokeStyle=catColor[i];octx.stroke(p)});
+    octx.globalAlpha=Math.min(0.5,alpha*2.4);longP.forEach((p,i)=>{octx.strokeStyle=catColor[i];octx.stroke(p)});
+    octx.globalCompositeOperation='source-over';octx.globalAlpha=1;
+    if(drawn<n&&k<byVotes.length){requestAnimationFrame(step);return}
+    ctx.setTransform(1,0,0,1,0,0);ctx.globalCompositeOperation='source-over';ctx.globalAlpha=1;ctx.drawImage(offBase,0,0);
+    if(full&&window.createImageBitmap)createImageBitmap(offBase).then(img=>{if(gen===drawGen)fullCache={key,img}}).catch(()=>{});
   };
   step();
 }
@@ -3124,7 +3132,7 @@ load().then(async()=>{
   setTimeout(()=>loadPlaces().catch(()=>{}),2500);
 }).catch(err=>{$('#loading').textContent=t('loadErr');console.error(err)});
 /* ---------- beta analytics: anonymous, opt-in. A random device id, what was used, nothing personal. ---------- */
-(()=>{const VER='v20',KEY='anon';let q=[],timer=0;
+(()=>{const VER='v21',KEY='anon';let q=[],timer=0;
   const uid=()=>(crypto.randomUUID?crypto.randomUUID():Date.now().toString(36)+Math.random().toString(36).slice(2)).replace(/-/g,'').slice(0,24);
   let dev=ls.get('did');if(!dev){dev=uid();ls.set('did',dev)}const sessId=uid().slice(0,16);
   const on=()=>ls.get(KEY)==='1';
