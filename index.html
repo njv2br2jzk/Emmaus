@@ -2977,7 +2977,7 @@ async function renderChurch(){const c=myChurch();const out=$('#churchList');if(!
   const list=(SERVICES[c.id]||[]).slice().sort((a,b)=>b.date.localeCompare(a.date));
   const fmt=d=>new Date(d+'T12:00:00').toLocaleDateString(LOC[LANG]||'en-US',{weekday:'long',day:'numeric',month:'long',year:'numeric'});
   if(!svcOpen){$('#churchHead').hidden=false;
-    out.innerHTML=list.length?`<div class="ngroup"><h4>${t('svcList')}</h4>`+list.map(s=>`<button class="ncard svcard" data-s="${s.id}"><div class="nref"><span>${s.series?esc(trx(s.series))+(s.part?' · '+t('svcPart',s.part):''):esc(c.short)}</span><time>${esc(fmt(s.date))}</time></div><div class="svtitle">${esc(trx(s.title))}</div><div class="svrefs">${svcRefs(s).map(r=>esc(refLabel(r))).join(' · ')}</div></button>`).join('')+'</div>':`<p class="hint nempty">${t('svcNone')}</p>`;
+    out.innerHTML=list.length?`<div class="ngroup"><h4>${t('svcList')}</h4>`+list.map(s=>`<button class="ncard svcard" data-s="${s.id}"><div class="nref"><span>${s.series?esc(trx(s.series))+(s.part?' · '+t('svcPart',s.part):''):esc(c.short)}</span><time>${esc(fmt(s.date))}</time></div><div class="svtitle">${esc(trx(s.title))}</div><div class="svrefs">${(R=>R.slice(0,4).map(r=>esc(refLabel(r))).join(' · ')+(R.length>4?' · '+'+'+(R.length-4):''))(svcRefs(s))}</div></button>`).join('')+'</div>':`<p class="hint nempty">${t('svcNone')}</p>`;
     out.querySelectorAll('[data-s]').forEach(b=>b.onclick=()=>{svcOpen=b.dataset.s;renderChurch();$('#churchView').scrollTop=0});return}
   const s=list.find(x=>x.id===svcOpen);if(!s){svcOpen=null;return renderChurch()}
   $('#churchHead').hidden=true;
@@ -3037,6 +3037,8 @@ async function setLang(l){
   if(!toc.hidden)renderBooks();
   if(view==='find'&&findState)runFind(findState.q);
   if(view==='map')drawMap();
+  if(view==='church')renderChurch(); /* service texts follow the language too */
+  try{paintChurchTab();renderChurchRow()}catch(e){}
   renderPanel();
 }
 chooser.querySelectorAll('[data-lang]').forEach(b=>b.onclick=()=>setLang(b.dataset.lang));
