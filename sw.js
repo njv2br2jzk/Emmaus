@@ -29,7 +29,7 @@ self.addEventListener('fetch', e => {
   }
   if (url.origin !== location.origin) return;
   // the church portal and the website are separate pages: always load them fresh from the network
-  if (/\/(church|site)\//.test(url.pathname)) return;
+  if (/\/(church|site)\//i.test(url.pathname)) return;
   e.respondWith((async () => {
     const c = await caches.open(VERSION);
     const hit = await c.match(e.request, { ignoreSearch: true });
