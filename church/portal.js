@@ -16,7 +16,7 @@ const T={
   passage:'Passage',passages:'Passages (separate with ;)',passPh:'e.g. John 15:18–16:4',heading:'Heading',hNone:'No heading',hIntro:'Introduction',hCore:'Key message',hGospel:'The gospel',hQuestions:'For discussion',hPrayer:'Prayer focus',hNext:'Next steps',hCustom:'Custom heading…',
   role:'Shown as',kSermon:'Sermon text',kKey:'Key verse',kPlain:'Passage',text:'Text',ptTitle:'Point title',takeaways:'Key sentences (one per line)',items:'Items (one per line)',after:'Text after the list',
   save:'Save draft',publish:'Publish',unpublish:'Unpublish',del:'Delete',delSure:'Click again to delete',saved:'Saved',pubOk:'Published. It’s live in the app.',
-  detect:'Find Bible references in text',detectSub:'Paste a handout, sermon notes or a transcript. We’ll find every Bible reference in it.',detectGo:'Find references',detectAdd:'Add as “More passages”',detectMain:'Use first as sermon text',found:n=>`${n} references found`,
+  detect:'Find Bible references in text',detectSub:'Paste a handout, sermon notes or a transcript. We’ll find every Bible reference in it.',detectGo:'Find references',fileBtn:'Choose a PDF or Word file',fileSub:'or drop it here. It is read on your computer, nothing is uploaded.',pastePh:'…or paste text here',reading:n=>`Reading ${n} …`,readOk:n=>`Read ${n}.`,readFail:'This file could not be read. Try copying the text instead.',detectAdd:'Add as “More passages”',detectMain:'Use first as sermon text',found:n=>`${n} references found`,
   preview:'Preview',transNote:'Translations into the other app languages are created automatically when you publish (coming soon in the beta).',unknown:'Unknown reference',up:'Move up',down:'Move down',remove:'Remove',cancel:'Cancel'},
  de:{tag:'für Gemeinden',beta:'Beta',signTitle:'Anmelden, um deine Gemeinde zu verwalten',signSub:'Wir schicken dir einen 6-stelligen Code. Kein Passwort.',email:'E-Mail-Adresse',sendCode:'Code senden',codeTitle:'Code eingeben',codeSub:e=>`Wir haben ihn an ${e} geschickt.`,verify:'Anmelden',back:'Zurück',badCode:'Der Code stimmt nicht.',wait:'Zu viele Versuche. Bitte warte eine Minute.',offline:'Keine Verbindung.',err:'Etwas ist schiefgelaufen. Bitte versuch es noch einmal.',
   signOut:'Abmelden',regTitle:'Gemeinde registrieren',regSub:'Deine Gemeinde erscheint in der App, sobald du den ersten Gottesdienst veröffentlichst.',chName:'Name der Gemeinde',chShort:'Kurzname (erscheint unten in der App)',chCity:'Stadt, Bundesstaat',chCode:'Gemeinde-Code (damit Mitglieder euch finden)',create:'Gemeinde anlegen',taken:'Diesen Code oder diese Gemeinde gibt es schon.',
@@ -26,7 +26,7 @@ const T={
   passage:'Bibelstelle',passages:'Bibelstellen (mit ; trennen)',passPh:'z. B. Joh 15,18–16,4',heading:'Überschrift',hNone:'Keine Überschrift',hIntro:'Einführung',hCore:'Kernbotschaft',hGospel:'Evangelium',hQuestions:'Zum Gespräch',hPrayer:'Gebetsfokus',hNext:'Nächste Schritte',hCustom:'Eigene Überschrift …',
   role:'Anzeigen als',kSermon:'Predigttext',kKey:'Leitvers',kPlain:'Bibelstelle',text:'Text',ptTitle:'Überschrift des Punkts',takeaways:'Kernsätze (einer pro Zeile)',items:'Einträge (einer pro Zeile)',after:'Text nach der Liste',
   save:'Entwurf speichern',publish:'Veröffentlichen',unpublish:'Zurückziehen',del:'Löschen',delSure:'Nochmal klicken zum Löschen',saved:'Gespeichert',pubOk:'Veröffentlicht. Jetzt live in der App.',
-  detect:'Bibelstellen im Text finden',detectSub:'Füge ein Handout, Predigtnotizen oder ein Transkript ein. Wir finden alle Bibelstellen darin.',detectGo:'Stellen finden',detectAdd:'Als „Weitere Bibelstellen“ hinzufügen',detectMain:'Erste als Predigttext nehmen',found:n=>`${n} Bibelstellen gefunden`,
+  detect:'Bibelstellen im Text finden',detectSub:'Füge ein Handout, Predigtnotizen oder ein Transkript ein. Wir finden alle Bibelstellen darin.',detectGo:'Stellen finden',fileBtn:'PDF oder Word-Datei auswählen',fileSub:'oder hierher ziehen. Sie wird auf deinem Computer gelesen, nichts wird hochgeladen.',pastePh:'… oder Text hier einfügen',reading:n=>`${n} wird gelesen …`,readOk:n=>`${n} gelesen.`,readFail:'Diese Datei ließ sich nicht lesen. Kopier den Text stattdessen hinein.',detectAdd:'Als „Weitere Bibelstellen“ hinzufügen',detectMain:'Erste als Predigttext nehmen',found:n=>`${n} Bibelstellen gefunden`,
   preview:'Vorschau',transNote:'Die Übersetzungen in die anderen App-Sprachen entstehen beim Veröffentlichen automatisch (kommt in der Beta bald).',unknown:'Unbekannte Bibelstelle',up:'Nach oben',down:'Nach unten',remove:'Entfernen',cancel:'Abbrechen'}};
 const t=(k,...a)=>{const v=(T[UI]||T.en)[k]??T.en[k]??k;return typeof v==='function'?v(...a):v};
 const LANGS={en:'English',de:'Deutsch',es:'Español',fr:'Français',pt:'Português',it:'Italiano'};
@@ -65,7 +65,7 @@ function findRefs(text){const names=NAMEIDX.map(([k])=>k.replace(/[.*+?^${}()|[\
   const re=new RegExp(`(?:^|[^\\p{L}\\d])((?:${names})\\.?\\s*\\d+\\s*[:,.]\\s*\\d+(?:\\s*[-–—]\\s*\\d+(?:\\s*[:,.]\\s*\\d+)?)?)`,'giu');
   const out=[],seen=new Set();let m;
   const src=text.normalize('NFD').replace(/[\u0300-\u036f]/g,'');
-  while((m=re.exec(src))){const r=parseRef(m[1]);if(r){const k=r.join();if(!seen.has(k)){seen.add(k);out.push(r)}}}
+  while((m=re.exec(src))){const mm=m[1].match(/^(.*\D)\s*\d+\s*([:,.])\s*\d/);if(mm&&mm[2]==='.'&&mm[1].replace(/[.\s\d]/g,'').length<=3)continue;/* "am 1.11." is a date, not Amos */const r=parseRef(m[1]);if(r){const k=r.join();if(!seen.has(k)){seen.add(k);out.push(r)}}}
   return out}
 
 /* ---------- Supabase ---------- */
@@ -204,9 +204,28 @@ async function save(status){if(!cur.data.title){$('[data-f="title"]').focus();re
     cur.id=id;cur.status=status;dirty=false;await loadServices();toast(status==='published'?t('pubOk'):t('saved'));showMain()}catch(e){toast(errMsg(e))}}
 
 /* ---------- reference finder ---------- */
-function openDetect(){const m=$('#modal');m.hidden=false;m.innerHTML=`<div class="mbox"><h2>${t('detect')}</h2><p class="sub">${t('detectSub')}</p><textarea id="dText" rows="10"></textarea>
+/* text out of a PDF, Word file or plain text, read right here in the browser: nothing is uploaded */
+const loadScript=src=>new Promise((ok,no)=>{const s=document.createElement('script');s.src=src;s.onload=ok;s.onerror=no;document.head.appendChild(s)});
+async function fileText(f){const name=(f.name||'').toLowerCase();
+  if(name.endsWith('.pdf')||f.type==='application/pdf'){
+    if(!window.pdfjsLib){await loadScript('https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js');pdfjsLib.GlobalWorkerOptions.workerSrc='https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js'}
+    const pdf=await pdfjsLib.getDocument({data:await f.arrayBuffer()}).promise;const out=[];
+    for(let i=1;i<=pdf.numPages;i++){const c=await (await pdf.getPage(i)).getTextContent();let line='',last=null;
+      for(const it of c.items){const y=it.transform[5];if(last!==null&&Math.abs(y-last)>2){out.push(line);line=''}line+=(line&&!line.endsWith(' ')&&!it.str.startsWith(' ')?' ':'')+it.str;last=y}out.push(line)}
+    return out.join('\n').replace(/\n{3,}/g,'\n\n').trim()}
+  if(name.endsWith('.docx')){if(!window.mammoth)await loadScript('https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.6.0/mammoth.browser.min.js');
+    return (await mammoth.extractRawText({arrayBuffer:await f.arrayBuffer()})).value.trim()}
+  return (await f.text()).trim()}
+function openDetect(){const m=$('#modal');m.hidden=false;m.innerHTML=`<div class="mbox"><h2>${t('detect')}</h2><p class="sub">${t('detectSub')}</p>
+  <label class="drop" id="dDrop"><input type="file" id="dFile" accept=".pdf,.docx,.txt,application/pdf,application/vnd.openxmlformats-officedocument.wordprocessingml.document,text/plain" hidden><b>${t('fileBtn')}</b><span>${t('fileSub')}</span></label>
+  <p class="hint" id="dFileMsg" hidden></p><textarea id="dText" rows="8" placeholder="${t('pastePh')}"></textarea>
   <div class="dres" id="dRes"></div><div class="mact"><button class="btn ghost" id="dCancel">${t('cancel')}</button><button class="btn gold" id="dGo">${t('detectGo')}</button></div></div>`;
   $('#dCancel').onclick=()=>m.hidden=true;let found=[];
+  const take=async f=>{if(!f)return;const msg=$('#dFileMsg');msg.hidden=false;msg.textContent=t('reading',f.name);
+    try{const txt=await fileText(f);$('#dText').value=txt;msg.textContent=t('readOk',f.name);$('#dGo').click()}catch(e){msg.textContent=t('readFail')}};
+  $('#dFile').onchange=e=>take(e.target.files[0]);
+  const dz=$('#dDrop');dz.ondragover=e=>{e.preventDefault();dz.classList.add('over')};dz.ondragleave=()=>dz.classList.remove('over');
+  dz.ondrop=e=>{e.preventDefault();dz.classList.remove('over');take(e.dataTransfer.files[0])};
   $('#dGo').onclick=()=>{found=findRefs($('#dText').value);$('#dRes').innerHTML=`<p><b>${t('found',found.length)}</b></p><div class="refchips">${found.map(r=>`<span class="rc ok">${esc(refLabel(r,cur.src))}</span>`).join('')}</div>`+
     (found.length?`<div class="mact"><button class="btn ghost" id="dMain">${t('detectMain')}</button><button class="btn gold" id="dAdd">${t('detectAdd')}</button></div>`:'');
     if(!found.length)return;
